@@ -1,5 +1,21 @@
 <% provide(:title, @user.name) %>
 <h1>
-	<%= gravatar_for @user %>
 	<%= @user.name %>
 </h1>
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_for(@user) do |f| %>
+	  <%= render 'shared/error_messages' %>
+	
+      <%= f.label :name %>
+      <%= f.text_field :name, :readonly => true %>
+
+      <%= f.label :email %>
+      <%= f.text_field :email, :readonly => true %>
+
+	  <%= f.label :role %>
+	  <%= f.text_field :role, :readonly => true %>
+	  
+    <% end %>
+  </div>
+</div>

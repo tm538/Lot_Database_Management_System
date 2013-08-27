@@ -1,11 +1,11 @@
-<% provide(:title, 'Create Account') %>
-<h1>New User</h1>
+<% provide(:title, "Edit user") %>
+<h1>Update your profile</h1>
 
 <div class="row">
   <div class="span6 offset3">
     <%= form_for(@user) do |f| %>
-	  <%= render 'shared/error_messages' %>
-	
+      <%= render 'shared/error_messages' %>
+
       <%= f.label :name %>
       <%= f.text_field :name %>
 
@@ -13,15 +13,15 @@
       <%= f.text_field :email %>
 
 	  <%= f.label :role %>
-	  <%= f.select :role, options_for_select([["Student", "Student"], ["Staff", "Staff"]]) %>
+	  <%= f.text_field :role, :readonly => true %>
 
       <%= f.label :password %>
       <%= f.password_field :password %>
 
-      <%= f.label :password_confirmation, "Confirmation" %>
+      <%= f.label :password_confirmation, "Confirm Password" %>
       <%= f.password_field :password_confirmation %>
 
-      <%= f.submit "Create account", class: "btn btn-large btn-primary" %>
+      <%= f.submit "Save changes", class: "btn btn-large btn-primary" %>
     <% end %>
   </div>
 </div>
