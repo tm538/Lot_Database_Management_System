@@ -1,0 +1,19 @@
+<% provide(:title, 'All Clients') %>
+<h1>All Clients</h1>
+
+<%= will_paginate %>
+
+<ul class="clients">
+  <% @clients.each do |client| %>
+    <li>
+      <%= link_to client.org, client %>
+      | <%= link_to "edit", edit_client_path(client) %>
+      <% if current_user.admin? %>
+    	| <%= link_to "delete", client, method: :delete,
+                                  data: { confirm: "You sure you wish to delete this client?" } %>
+  	   <% end %>
+    </li>
+  <% end %>
+</ul>
+
+<%= will_paginate %>

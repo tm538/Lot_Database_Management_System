@@ -1,8 +1,9 @@
 class UsersController < ApplicationController
-  before_action :signed_in_user, only: [:edit, :update, :show, :create]
+  before_action :signed_in_user, only: [:edit, :update, :show, :create, :destroy]
   before_action :staff_user, only: [:create, :new] 
   before_action :correct_user,   only: [:edit, :update]
   before_action :admin_user,     only: :destroy
+  before_action :correct_user_or_admin, only: []
     
     def show
       @user = User.find(params[:id])
@@ -34,10 +35,27 @@ class UsersController < ApplicationController
       if @user.update_attributes(user_params)
         flash[:success] = "Profile updated"
         sign_in @user
-        redirect_to @user
+        redirect_to dashboard_path
       else
         render 'edit'
       end
+    end
+
+    def update_password
+      @user = User.find(params[:id])
+      if @user.update_attributes(user_params)
+        flash[:success] = "Password updated"
+        if @user == current_user 
+          sign_in @user
+        end
+        redirect_to dashboard_path
+      else
+        render 'password'
+      end
+    end
+
+    def password
+      @user = User.find(params[:id])
     end
 
     def destroy
@@ -52,26 +70,5 @@ class UsersController < ApplicationController
       params.require(:user).permit(:name, :email, :password,
                                    :password_confirmation, :role)
     end
-  
-    # Before filters
 
-    def signed_in_user
-      unless signed_in?
-        store_location
-        redirect_to signin_url, notice: "Please sign in."
-      end
-    end
-
-    def correct_user
-      @user = User.find(params[:id])
-      redirect_to(root_url) unless current_user?(@user)
-    end
-      
-    def admin_user
-      redirect_to(root_url) unless current_user.admin?
-    end
-      
-    def staff_user
-      redirect_to(root_url) unless signed_in? && current_user.role == 'Staff'
-    end   
 end

@@ -1,0 +1,25 @@
+<% provide(:title, @client.org) %>
+<h1>
+	<%= @client.org %>
+</h1>
+
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_for(@client) do |f| %>
+	  <%= render 'shared/error_messages', object: f.object %>
+	
+      <%= f.label :org, "Organisation" %>
+      <%= f.text_field :org, :readonly => true %>
+
+      <%= f.label :email, "Contact Email" %>
+      <%= f.text_field :email, :readonly => true  %>
+
+	  <%= f.label :address %>
+	  <%= f.text_area :address, :readonly => true  %>
+
+	  <%= f.label :extra, "Extra Info" %>
+	  <%= f.text_area :extra, :readonly => true  %>
+	  
+    <% end %>
+  </div>
+</div>
