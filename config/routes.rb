@@ -11,6 +11,9 @@ SampleApp::Application.routes.draw do
   
   resources :clients
   resources :sessions, only: [:new, :create, :destroy]
+  resources :lots
+  resources :commonnames
+  resources :sampletypes
   
   root  'static_pages#home'
   

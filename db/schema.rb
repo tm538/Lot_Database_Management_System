@@ -11,13 +11,48 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130827140903) do
+ActiveRecord::Schema.define(version: 20130830175200) do
 
   create_table "clients", force: true do |t|
     t.string   "org"
     t.text     "address"
     t.string   "email"
     t.text     "extra"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "commonnames", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "lots", force: true do |t|
+    t.integer  "client_id"
+    t.boolean  "commercial"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "sampletype_id"
+    t.integer  "commonname_id"
+    t.string   "samp_id"
+    t.string   "region"
+    t.string   "site"
+    t.string   "genus"
+    t.string   "species"
+    t.string   "phylum"
+    t.string   "l_class"
+    t.integer  "data_entered_by"
+    t.text     "extra_info"
+    t.string   "sample_form"
+    t.integer  "analysis_by"
+    t.string   "to_return"
+  end
+
+  add_index "lots", ["id"], name: "index_lots_on_id"
+
+  create_table "sampletypes", force: true do |t|
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

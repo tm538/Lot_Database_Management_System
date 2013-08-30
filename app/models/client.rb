@@ -1,4 +1,5 @@
 class Client < ActiveRecord::Base
+
   before_save { self.email = email.downcase }
   
   #Validate fields

@@ -17,6 +17,7 @@ class ClientsController < ApplicationController
     @client = Client.new(client_params)
     if @client.save
       flash[:success] = "User " + @client.org.to_s + " sucessfully created"
+      redirect_to dashboard_path
     else
       render 'new'
     end
@@ -27,9 +28,10 @@ class ClientsController < ApplicationController
   end
 
   def update
+    @client = Client.find(params[:id])
     if @client.update_attributes(client_params)
       flash[:success] = "Client updated"
-      redirect_to @client
+      redirect_to dashboard_path
     else
       render 'edit'
     end

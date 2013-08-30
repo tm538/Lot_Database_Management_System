@@ -1,0 +1,82 @@
+<% provide(:title, 'Create Lot') %>
+<h1>Create Lot</h1>
+
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_for(@lot, :html => { :class => "radio control-label" }) do |f| %>
+	  <%= render 'shared/error_messages', object: f.object %>
+
+	  <!-- Client Info-->
+
+	  <%= f.label :client_id, "Client" %>
+	  <%= f.collection_select(:client_id, Client.all, :id, :org) %>
+	  
+	  
+	  <%= f.radio_button :commercial, true %>
+	  <%= f.label :commercial, 'Commercial', :value => true %>
+	  
+	  <%= f.radio_button :commercial, false %>
+	  <%= f.label :commercial, 'Non-commercial', :value => false %>
+	  
+	  
+	  <%= f.label :samp_id, "Client Sample ID" %>
+      <%= f.text_field :samp_id %>
+	  
+	  <!-- Sample details -->
+	  
+	  <%= f.label :commonname_id, "Common Name" %>
+	  <%= f.collection_select(:commonname_id, Commonname.all, :id, :name) %>
+	  
+	  <%= f.label :phylum %>
+      <%= f.text_field :phylum %>
+
+	  <%= f.label :l_class, "Class" %>
+      <%= f.text_field :l_class %>
+	  
+	  <%= f.label :genus %>
+      <%= f.text_field :genus %>
+	  
+	  <%= f.label :species %>
+      <%= f.text_field :species %>
+	  
+	  <%= f.label :sampletype_id, "Sample type" %>
+	  <%= f.collection_select(:sampletype_id, Sampletype.all, :id, :name) %>
+	    
+	  <!-- sample storage info -->
+	  
+	  <%= f.label :sample_form, "Sample Form" %>
+	  <%= f.text_field :sample_form %>	
+	  
+	  <%= f.label :to_return, "Return sample when finished?" %>
+	  <%= f.select :to_return, options_for_select([["Yes", "YES"], ["No (destroy)", "NO"], ["Archive", "ARCHIVE"]]) %>
+	  
+	  <!-- Geographic Infomation-->
+	  
+	  <%= f.label :region, "Geographic region" %>
+      <%= f.text_field :region %>
+	  
+	  <%= f.label :site, "Archeological site" %>
+      <%= f.text_field :site %>
+  
+  	  <!-- Analysis info -->
+  	  
+  	  <%= f.label :analysis_by, "Analysis by" %>
+	  <%= f.collection_select(:analysis_by, User.all, :id, :name) %>
+  
+  	  <!-- Extra Info -->
+	  
+	  <%= f.label :extra_info, "Additional infomation" %>
+      <%= f.text_area :extra_info %>
+  
+  	  <!-- Aduit Info -->
+  
+  	  <%= f.label :created_at, "Date Received" %>
+      <%= f.datetime_field :created_at,  :readonly => true %>
+      
+      <label for="lot_data_entered_by_dummy">Data logged by</label>
+	  <input id="lot_data_entered_by_dummy" readonly="readonly" type="text" value="<%= current_user.name.to_s %>">
+	  
+      <%= f.submit "Generate Lot Number", class: "btn btn-large btn-primary" %>
+    <% end %>
+  </div>
+</div>
