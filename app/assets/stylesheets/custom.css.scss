@@ -135,21 +135,25 @@ aside {
 .gravatar {
   float: left;
   margin-right: 10px;
+  
+ 
 }
 
 /* forms */
 
-input, textarea, select, .uneditable-input {
-  border: 1px solid #bbb;
+.data-entry-header {
+  font-weight: 300;
+  color: white;
+  background-color: #0081c2;
   width: 100%;
-  padding: 10px;
-  margin-bottom: 15px;
-  @include box_sizing;
-  margin-left:0px;
 }
 
-input {
-  height: auto !important;
+.data-entry-header h2 {
+  padding : 0.5em;
+  text-align: left;
+  color: white;
+  font-size: 1.3em;
+  margin-bottom: 0px;
 }
 
 /* miscellaneous */
@@ -173,6 +177,15 @@ input {
 .field_with_errors {
   @extend .control-group;
   @extend .error;
+}
+
+div.hidden { 
+  display: none; 
+}
+
+.controls.continline
+{
+   display: inline-block;
 }
 
 /* Users index */

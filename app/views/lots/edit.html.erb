@@ -1,0 +1,188 @@
+<% provide(:title, 'update lot') %>
+<h1>Update Lot Number</h1>
+
+<div class="row">
+  <div class="span6 offset3">
+
+	<%= form_for(@lot, :html => { :class => "form-horizontal" }) do |f| %>
+	<%= render 'shared/error_messages', object: f.object %>
+	   <div class="data-entry-header">
+		  	<h2>Client Info <a href="#client_info" data-toggle="collapse" class="pull-right  icon-resize-vertical icon-white"></a>
+		  	</h2>
+		  </div>
+		  <p>Infomation about the client for commercial samples (Staff only).</p>
+		  
+		  <div id="client_info" class="collapse in">
+			  <div class="control-group">
+			  	<%= f.label :client_id, "Client", :class => "control-label" %>	  	
+			  	<div class="controls">
+			  		<%= f.collection_select(:client_id, Client.all, :id, :org) %>
+			  	</div>
+			  </div>
+			  
+			  <div class="control-group">
+			  	<%= f.label :commercial, :class => "control-label" %>
+			  	<div class="controls">
+		  			<%= f.select :commercial, options_for_select([["Non-Commercial", false], ["Commercial", true]]) %>
+			  	</div>
+			  </div> 
+			  	  
+			  <div class="control-group">
+			  	<%= f.label :samp_id, "Client Sample ID", :class => "control-label" %>
+			  	<div class="controls">
+		      		<%= f.text_field :samp_id, :placeholder => "eg. Durham - ABC123" %>
+		      	</div>
+			  </div>
+		  </div>
+		  
+		  <div class="data-entry-header">
+		  	<h2>Sample Details <a href="#samp_det" data-toggle="collapse" class="pull-right  icon-resize-vertical icon-white"></a>
+		  	</h2>
+		  </div>
+		  <p>Details about the sample, unknown fields should be left blank to be completed when known.</p>
+		  
+		  <div id="samp_det" class="collapse">
+			  <div class="control-group">
+			  	<%= f.label :sampletype_id, "Sample type", :class => "control-label" %>
+			  	<div class="controls">
+			  		<%= f.collection_select(:sampletype_id, Sampletype.all, :id, :name, prompt: true) %>
+			    </div>
+			  </div>
+			  
+			  <div class="control-group">
+			  	<%= f.label :commonname_id, "Common Name", :class => "control-label" %>
+			  	<div class="controls">
+			  		<%= f.collection_select(:commonname_id, Commonname.all, :id, :name, prompt: true) %>
+			    </div>
+			  </div>
+			  
+			  <div class="control-group">
+			  	<%= f.label :phylum, :class => "control-label" %>
+			  	<div class="controls">
+		      		<%= f.text_field :phylum, :placeholder => "eg. Chordata" %>
+			    </div>
+			  </div>
+			  
+			  <div class="control-group">
+			  	<%= f.label :l_class, "Class", :class => "control-label" %>
+			  	<div class="controls">
+		      		<%= f.text_field :l_class, :placeholder => "eg. Mammalia" %>
+			    </div>
+			  </div>
+			  
+			  <div class="control-group">
+			  	<%= f.label :genus, :class => "control-label" %>
+			  	<div class="controls">
+		     		 <%= f.text_field :genus, :placeholder => "eg. Homo" %>
+			    </div>
+			  </div>
+			  
+			  <div class="control-group">
+			  	<%= f.label :species, :class => "control-label" %>
+			  	<div class="controls">
+		      		<%= f.text_field :species, :placeholder => "eg. Sapiens" %>
+			    </div>
+			  </div>
+		  </div>
+		  
+		  <div class="data-entry-header">  
+		  	<h2>Sample Storage Info <a href="#store_info" data-toggle="collapse" class="pull-right  icon-resize-vertical icon-white"></a>
+		  	</h2>
+		  </div>
+		  <p>Infomation here helps identify and manage samples.</p>
+		  
+		  <div id="store_info" class="collapse">
+			  <div class="control-group">
+			  	<%= f.label :sample_form, "Sample Form", :class => "control-label" %>
+			  	<div class="controls">
+			  		<%= f.text_field :sample_form, :placeholder => "eg. 'Foil pack' or 'test tube'" %>	
+			    </div>
+			  </div>
+			    	  
+			  <div class="control-group">
+			  	<%= f.label :to_return, "Return sample when finished?", :class => "control-label" %>
+			  	<div class="controls">
+			  		<%= f.select :to_return, options_for_select([["Yes", "YES"], ["No (destroy)", "NO"], ["Archive", "ARCHIVE"]]) %>
+			    </div>
+			  </div>
+		   </div>  
+		  
+		  <div class="data-entry-header">  	  
+		  	<h2>Geographic Info <a href="#geo_info" data-toggle="collapse" class="pull-right  icon-resize-vertical icon-white"></a>
+		  	</h2>
+		  </div>
+		  <p>Geographic Infomation about where the sample was taken from.</p>
+		  
+		  <div id="geo_info" class="collapse">
+			  <div class="control-group">
+			  	<%= f.label :region, "Geographic region", :class => "control-label" %>
+			  	<div class="controls">
+		      		<%= f.text_field :region, :placeholder => "eg. North Yorks" %>
+			    </div>
+			  </div>
+		  
+		    	  
+			  <div class="control-group">
+			  	<%= f.label :site, "Archeological site", :class => "control-label" %>
+			  	<div class="controls">
+		      		<%= f.text_field :site, :placeholder => "eg. York - Heslington East" %>
+			    </div>
+			  </div>
+		  </div>
+		  
+		  <div class="data-entry-header">    
+	  	  	<h2>Analysis <a href="#anal_info" data-toggle="collapse" class="pull-right  icon-resize-vertical icon-white"></a>
+		  	</h2>
+	  	  </div>
+	  	  <p> Infomation about analysis and who will be carrying it out.</p>
+	  	  
+	  	  <div id="anal_info" class="collapse">
+		  	  <div class="control-group">
+		  	  	<%= f.label :analysis_by, "Analysis to be carried out by", :class => "control-label" %>
+		  	  	<div class="controls">
+			  		<%= f.collection_select(:analysis_by, User.all, :id, :name, prompt: true) %>
+			    </div>
+			  </div>
+		  </div>
+		  
+		  <div class="data-entry-header">    
+	  	  	<h2>Extra Info <a href="#extra_info" data-toggle="collapse" class="pull-right  icon-resize-vertical icon-white"></a>
+		  	</h2>
+	  	  </div>
+	  	  <p>Any extra infomation not recorded elsewhere.</p>
+	  	  
+	  	  <div id="extra_info" class="collapse">
+			  <div class="control-group">
+			  	<%= f.label :extra_info, "Additional infomation", :class => "control-label" %>
+			  	<div class="controls">
+		      		<%= f.text_area :extra_info, :placeholder => "Any additional infomation regarding the sample..." %>
+			    </div>
+			  </div>
+		  </div>
+		  
+		  <div class="data-entry-header">    
+	  	  	<h2>Aduit Log <a href="#audit_info" data-toggle="collapse" class="pull-right  icon-resize-vertical icon-white"></a>
+		  	</h2>
+	  	  </div>
+	  	  <p> Infomation recorded for aduiting purposes.</p>
+	  	 
+	  	  <div id="audit_info" class="collapse">
+		  	  <div class="control-group">
+		  	  	<%= f.label :created_at, "Date Received", :class => "control-label" %>
+		  	  	<div class="controls">
+		      		<%= f.datetime_field :created_at,  :readonly => true %>
+		 	    </div>
+			  </div>
+		  
+		         
+		      <div class="control-group">
+		      	<label for="lot_data_entered_by_dummy" class="control-label">Data logged by</label>
+		      	<div class="controls">
+			  		<input id="lot_data_entered_by_dummy" readonly="readonly" type="text" value="<%= current_user.name.to_s %>">
+			    </div>
+			  </div>
+		  </div>
+	<% end %>
+
+  </div>
+</div>

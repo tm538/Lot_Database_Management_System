@@ -5,38 +5,83 @@
       <nav>
         <ul class="nav pull-right">
         <% if signed_in? %>
-          <li><%= link_to "Dashboard", dashboard_path %></li>
+          <li><%= link_to dashboard_path do %>         	
+          	<i class="icon-home icon-white"></i> Dashboard
+          	<% end %>
+          </li>
         <% end %>
-          <li><%= link_to "Help", help_path %></li>
+          <li>
+          	<%= link_to help_path do %>
+          	<i class="icon-question-sign icon-white"></i> Help
+          	<% end %>
+          </li>
           <%if staff_user? %>
 			<li id="fat-menu" class="dropdown">
 			  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-			    Config <b class="caret"></b>
+			    <i class="icon-cog icon-white"></i> Config <b class="caret"></b>
 			  </a>
 			  <ul class="dropdown-menu">
-			    <li><%= link_to "All Users", users_path %></li>
-			    <li><%= link_to "New User", new_user_path %></li>
-			    <li class="divider"></li>
-			    <li><%= link_to "All Clients", clients_path %></li>
-			    <li><%= link_to "New Client", new_client_path %></li>
-			    <li class="divider"></li>
-			    <li><%= link_to "All Common Names", commonnames_path %></li>
-			    <li><%= link_to "New Common Name", new_commonname_path %></li>
+			    <li>
+			    	<%= link_to users_path do %>
+			    	<i class="icon-list"></i> All Users
+			    	<% end %>
+			    </li>
+			    <li>
+			    	<%= link_to new_user_path do %>
+			    	<i class="icon-plus"></i> New User
+			    	<% end %>
+			    </li>
+			    <li class="divider"/>
+			    <li>
+			    	<%= link_to clients_path do %>
+			    	<i class="icon-list"></i> All Clients
+			    	<% end %>
+			    </li>
+			    <li>
+			    	<%= link_to new_client_path do %>
+			    	<i class="icon-plus"></i> New Client
+			    	<% end %>
+			    </li>
+			    <li class="divider"/>
+			    <li>
+			    	<%= link_to commonnames_path do %>
+			    	 <i class="icon-list"></i> All Common Names
+			    	<% end %>
+			    </li>
+			    <li>
+			    	<%= link_to new_commonname_path do %>
+			    		<i class="icon-plus"></i> New Common Name
+			    	<% end %>
+			    </li>
 			  </ul>
 			</li>
           <% end %>
           <% if signed_in? %>
             <li id="fat-menu" class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                Account <b class="caret"></b>
+               <i class="icon-user icon-white"></i> Account <b class="caret"></b>
               </a>
               <ul class="dropdown-menu">
-                <li><%= link_to "Profile", current_user %></li>
-                <li><%= link_to "Change Password", update_password_user_path(current_user) %></li>
-                <li><%= link_to "Account Settings", edit_user_path(current_user) %></li>
-                <li class="divider"></li>
                 <li>
-                  <%= link_to "Sign out", signout_path, method: "delete" %>
+                	<%= link_to current_user do %>
+                	<i class="icon-eye-open"></i> Profile
+                	<%end %>
+                </li>
+                <li>
+                	<%= link_to edit_user_path(current_user) do %>
+                	<i class="icon-wrench"></i> Account Settings
+                	<% end %>
+                </li>
+                <li>
+                	<%= link_to update_password_user_path(current_user) do %>
+                	<i class="icon-lock"></i> Change Password
+                	<% end %>
+                </li>
+                <li class="divider"/>
+                <li>
+                  <%= link_to  signout_path, method: "delete" do %>
+                 	<i class="icon-off"></i> Sign out
+                  <% end %>
                 </li>
               </ul>
             </li>
