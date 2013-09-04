@@ -1,8 +1,31 @@
-<% provide(:title, 'update lot') %>
-<h1>Update Lot Number</h1>
+<% provide(:title, 'Update lot') %>
+<h1>Lot Number: <%= @lot.id.to_s %></h1>
 
 <div class="row">
-  <div class="span6 offset3">
+  <div class="span4 offset0">
+  	<div class="data-entry-header">
+	  <h2>Changelog <a href="#history" data-toggle="collapse" class="pull-right  icon-resize-vertical icon-white"></a>
+	  </h2>
+	</div>
+	<p>Histoy of changes to this lot <%= @lot.id.to_s %>.</p>
+
+	<div id="history" class="collapse in">
+		Placeholder....
+	</div>
+		
+	<div class="data-entry-header">
+	  <h2>Actions <a href="#options" data-toggle="collapse" class="pull-right  icon-resize-vertical icon-white"></a>
+	  </h2>
+	</div>
+	<p>Options related to this lot.</p>
+
+	<div id="options" class="collapse in">
+		Placeholder....
+	</div>
+ </div>
+
+
+  <div class="span7 offset1">
 
 	<%= form_for(@lot, :html => { :class => "form-horizontal" }) do |f| %>
 	<%= render 'shared/error_messages', object: f.object %>
@@ -23,7 +46,7 @@
 			  <div class="control-group">
 			  	<%= f.label :commercial, :class => "control-label" %>
 			  	<div class="controls">
-		  			<%= f.select :commercial, options_for_select([["Non-Commercial", false], ["Commercial", true]]) %>
+		  			<%= f.select :commercial, options_for_select([["Non-Commercial", false], ["Commercial", true]], @lot.commercial) %>
 			  	</div>
 			  </div> 
 			  	  
@@ -143,6 +166,49 @@
 			  		<%= f.collection_select(:analysis_by, User.all, :id, :name, prompt: true) %>
 			    </div>
 			  </div>
+			  
+			  <p>Please select all methods that apply:</p>
+		    <div class="control-group">
+		  		<%= f.label :isotopes, :class => "control-label" %>
+		  		<div class="controls">
+		  			<%= f.check_box :isotopes %>
+		  		</div>
+			</div>
+		  
+			<div class="control-group">	  
+		  		<%= f.label :zooms, "ZooMS", :class => "control-label" %>
+		  		<div class="controls">
+		  			<%= f.check_box :zooms %>
+		  		</div>
+			</div>
+				  	
+		  	<div class="control-group">
+		  		<%= f.label :aar, "AAR", :class => "control-label" %>
+		  		<div class="controls">
+		  			<%= f.check_box :aar %>
+		  		</div>
+			</div>
+				  	
+		  	<div class="control-group">
+		  		<%= f.label :lipid, :class => "control-label" %>
+		  		<div class="controls">
+		  			<%= f.check_box :lipid %>
+		  		</div>
+			</div>
+				  	
+		  	<div class="control-group">
+		  		<%= f.label :dna, "DNA", :class => "control-label" %>
+		  		<div class="controls">
+		  			<%= f.check_box :dna %>
+		  		</div>
+			</div>
+				  
+		  	<div class="control-group">
+			  	<%= f.label :analysis_other, "Other Methods:", :class => "control-label" %>
+			  	<div class="controls">
+		      		<%= f.text_field :analysis_other, :placeholder => "" %>
+			    </div>
+			  </div>
 		  </div>
 		  
 		  <div class="data-entry-header">    
@@ -164,21 +230,20 @@
 	  	  	<h2>Aduit Log <a href="#audit_info" data-toggle="collapse" class="pull-right  icon-resize-vertical icon-white"></a>
 		  	</h2>
 	  	  </div>
-	  	  <p> Infomation recorded for aduiting purposes.</p>
+	  	  <p> Infomation recorded for aduiting purposes against any updates to this record.</p>
 	  	 
 	  	  <div id="audit_info" class="collapse">
 		  	  <div class="control-group">
-		  	  	<%= f.label :created_at, "Date Received", :class => "control-label" %>
+		  	  	<label class="control-label" for="lot_created_at_dummy">Last Updated</label>
 		  	  	<div class="controls">
-		      		<%= f.datetime_field :created_at,  :readonly => true %>
+		      		<input id="lot_created_at_dummy" name="lot[created_at]" readonly="readonly" type="datetime" value="<%= @lot.created_at.to_s %>">
 		 	    </div>
 			  </div>
-		  
 		         
 		      <div class="control-group">
-		      	<label for="lot_data_entered_by_dummy" class="control-label">Data logged by</label>
+		      	<label for="lot_data_entered_by_dummy" class="control-label">Last updated by</label>
 		      	<div class="controls">
-			  		<input id="lot_data_entered_by_dummy" readonly="readonly" type="text" value="<%= current_user.name.to_s %>">
+			  		<input id="lot_data_entered_by_dummy" readonly="readonly" type="text" value="<%= @user.name.to_s %>">
 			    </div>
 			  </div>
 		  </div>

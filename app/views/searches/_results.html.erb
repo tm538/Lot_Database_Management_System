@@ -1,0 +1,64 @@
+<div class="data-entry-header">
+	<h2>Search Results <a href="#results_info" data-toggle="collapse" class="pull-right  icon-resize-vertical icon-white"></a>
+	</h2>
+</div>
+<p>Where no results are found the most recently entered and updated samples are shown.</p>
+	
+<div id="results_info" class="collapse in">
+
+	
+	<table class="table">
+	  <tr>
+	    <th>Lot Number</th>
+	    <th>Client</th>
+	    <th>Client Sample ID</th>
+	    <th>Asigned to</th>
+	    <th>Last updated by</th>
+	    <th>Actions</th>
+	    <th>Placeholder</th>
+	    <th>placeholder</th>
+	  </tr>
+	
+	  <% @lots.each do |lot| %>
+	    <tr>
+	      <td>
+	      	<%= link_to lot.id.to_s, lot %>
+	      </td>
+	      <td>
+	      	Placeholder
+	      </td>
+	      <td>
+	      	<%= lot.samp_id.to_s %>
+	      </td>	
+	      <td>
+	      	Placeholder
+	      </td>
+	      <td>
+	      	Placeholder
+	      </td>	
+	      <td>
+	      	<%= link_to "edit", edit_lot_path(lot) %>
+	      </td>
+	      <td>
+	      	Placeholder
+	      </td>	
+	      <td>
+	      	Placeholder
+	      </td>	
+	    </tr>
+	  <% end %>
+	  
+	  <tr>
+	    <th>Lot Number</th>
+	    <th>Client</th>
+	    <th>Client Sample ID</th>
+	    <th>Asigned to</th>
+	    <th>Last updated by</th>
+	    <th>Actions</th>
+	    <th>Placeholder</th>
+	    <th>Placeholder</th>
+	  </tr>  
+	</table>
+	
+
+</div>

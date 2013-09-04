@@ -1,0 +1,67 @@
+<div class="data-entry-header">
+	<h2>Search Paramaters <a href="#search_info" data-toggle="collapse" class="pull-right  icon-resize-vertical icon-white"></a>
+	</h2>
+</div>
+<p>Search paramaters are AND'd togeather to narrow search results and are all optional.</p>
+
+<div id="search_info" class="collapse in">
+	<%= form_for(@search, :url => searches_path, :method => "post", :html => { :class => "form-horizontal", :id => "new_search" }) do |f| %>
+	  <p>
+		
+		<div class="control-group"> 
+	    	<%= f.label :from, "Lot Number Range", :class => "control-label" %>
+	    	<div class="controls">
+	    		<%= f.text_field :from, :placeholder => "From:" %>
+	   			<%= f.text_field :to, :placeholder => "To:" %>
+	    	</div>
+		</div>
+		
+		<div class="control-group">
+	  		<%= f.label :lot, "Single Lot Number", :class => "control-label" %>
+	  		<div class="controls">
+	    		<%= f.text_field :lot %>
+	    	</div>
+		</div>
+		
+		<div class="control-group">
+			<%= f.label :client, "Client", :class => "control-label" %>
+			<div class="controls">
+	    		<%= f.collection_select(:client, Client.all, :id, :org, {include_blank: 'All'}) %>
+	    	</div>
+		</div>
+		
+		<div class="control-group">
+			<%= f.label :com, "Commercial", :class => "control-label" %>
+			<div class="controls">	
+	    		<%= f.select :com, options_for_select([["All", ""], ["Commercial", true], ["Non-Commercial", false]], @search.com) %>
+	    	</div>
+		</div>
+	
+		<div class="control-group">
+			<%= f.label :site, "Site", :class => "control-label" %>
+			<div class="controls">	
+	    		<%= f.text_field :site %>
+	    	   	</div>
+			</div>
+			
+		<div class="control-group">
+			<%= f.label :phylum, "Biological classification", :class => "control-label" %>
+			<div class="controls">	
+	    		<%= f.text_field :phylum, :placeholder => "Phylum:" %>
+	    		<%= f.text_field :l_class, :placeholder => "Class:" %>
+	    		<br/><br/>
+	    		<%= f.text_field :genus, :placeholder => "Genus:" %>
+	    		<%= f.text_field :species, :placeholder => "Species:" %>
+	    	   	</div>
+			</div>	
+		
+		<div class="control-group">
+			<div class="controls">	
+				<%= button_tag( :class => "btn btn-primary") do %>
+  					<i class="icon-search icon-white"></i> Search 
+				<% end %>
+	    	</div>
+		</div>
+	  </p>
+	<% end %>
+</div>

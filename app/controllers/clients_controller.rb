@@ -37,6 +37,12 @@ class ClientsController < ApplicationController
     end
   end
   
+  def destroy
+      Client.find(params[:id]).destroy
+      flash[:success] = "Client Deleted."
+      redirect_to clients_url
+  end
+  
   def client_params
       params.require(:client).permit(:org, :address, :email, :extra)
     end

@@ -1,8 +1,8 @@
-<% provide(:title, 'NewLot') %>
-<h1>Generate New Lot Number</h1>
+<% provide(:title, 'New Lot') %>
+<h1>Generate a New Lot Number</h1>
 
 <div class="row">
-  <div class="span6 offset3">
+  <div class="span8 offset2">
     <%= form_for(@lot, :html => { :class => "form-horizontal" }) do |f| %>
 	  <%= render 'shared/error_messages', object: f.object %>
 
@@ -23,7 +23,7 @@
 		  <div class="control-group">
 		  	<%= f.label :commercial, :class => "control-label" %>
 		  	<div class="controls">
-	  			<%= f.select :commercial, options_for_select([["Non-Commercial", false], ["Commercial", true]]) %>
+	  			<%= f.select :commercial, options_for_select([["Non-Commercial", false], ["Commercial", true]], @lot.commercial) %>
 		  	</div>
 		  </div> 
 		  	  
@@ -55,6 +55,8 @@
 		  		<%= f.collection_select(:commonname_id, Commonname.all, :id, :name, prompt: true) %>
 		    </div>
 		  </div>
+		  
+		  <p>If unknown please leave biological classification fields blank.</p>
 		  
 		  <div class="control-group">
 		  	<%= f.label :phylum, :class => "control-label" %>
@@ -143,7 +145,50 @@
 		  		<%= f.collection_select(:analysis_by, User.all, :id, :name, prompt: true) %>
 		    </div>
 		  </div>
-	  </div>
+	  
+	  	<p>Please select all methods that apply:</p>
+	    <div class="control-group">
+	  		<%= f.label :isotopes, :class => "control-label" %>
+	  		<div class="controls">
+	  			<%= f.check_box :isotopes %>
+	  		</div>
+		</div>
+	  
+		<div class="control-group">	  
+	  		<%= f.label :zooms, "ZooMS", :class => "control-label" %>
+	  		<div class="controls">
+	  			<%= f.check_box :zooms %>
+	  		</div>
+		</div>
+			  	
+	  	<div class="control-group">
+	  		<%= f.label :aar, "AAR", :class => "control-label" %>
+	  		<div class="controls">
+	  			<%= f.check_box :aar %>
+	  		</div>
+		</div>
+			  	
+	  	<div class="control-group">
+	  		<%= f.label :lipid, :class => "control-label" %>
+	  		<div class="controls">
+	  			<%= f.check_box :lipid %>
+	  		</div>
+		</div>
+			  	
+	  	<div class="control-group">
+	  		<%= f.label :dna, "DNA", :class => "control-label" %>
+	  		<div class="controls">
+	  			<%= f.check_box :dna %>
+	  		</div>
+		</div>
+			  
+	  	<div class="control-group">
+		  	<%= f.label :analysis_other, "Other Methods:", :class => "control-label" %>
+		  	<div class="controls">
+	      		<%= f.text_field :analysis_other, :placeholder => "" %>
+		    </div>
+		  </div>
+	  </div>  
 	  
 	  <div class="data-entry-header">    
   	  	<h2>Extra Info <a href="#extra_info" data-toggle="collapse" class="pull-right  icon-resize-vertical icon-white"></a>
@@ -164,7 +209,7 @@
   	  	<h2>Aduit Log <a href="#audit_info" data-toggle="collapse" class="pull-right  icon-resize-vertical icon-white"></a>
 	  	</h2>
   	  </div>
-  	  <p> Infomation recorded for aduiting purposes.</p>
+  	  <p> Infomation recorded when creating a new Lot for aduiting purposes.</p>
   	 
   	  <div id="audit_info" class="collapse">
 	  	  <div class="control-group">

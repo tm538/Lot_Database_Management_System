@@ -1,21 +1,47 @@
 <% provide(:title, 'All Users') %>
 <h1>All Users</h1>
 
-<%= will_paginate %>
+<div class="row">
+  <div class="span10 offset1">
 
-<ul class="users">
-  <% @users.each do |user| %>
-    <li>
-      <%= link_to user.name, user %> - <%= user.role %>
-      <% if current_user.admin? && !current_user?(user) %>
-    	| <%= link_to "Delete User", user, method: :delete,
-                                  data: { confirm: "You sure you wish to delete this user?" } %>
-  	   <% end %>
-  	   <% if current_user.admin? %>
-    	| <%= link_to "Update Password", update_password_user_path(user) %>
-  	   <% end %>
-    </li>
-  <% end %>
-</ul>
-
-<%= will_paginate %>
+	<%= will_paginate %>
+	
+	<table class="table">
+	  <tr>
+	    <th>User</th>
+	    <th>Email</th>
+	    <th>Role</th>
+	    <th>Options</th>
+	  </tr>
+	
+	
+	  <% @users.each do |user| %>
+	    <tr>
+	      <td>
+	      	<%= link_to user.name, user %>
+	      </td>
+	      <td>
+	      	<%= user.email %>
+	      </td>
+	      <td>
+	      	<%= user.role %>
+	      </td>
+	      <td>
+	      <% if current_user.admin? && !current_user?(user) %>
+		    	<%= link_to user, method: :delete, data: { confirm: "You sure you wish to delete this user?" } do %>
+		    	<i class="icon-trash"></i>
+		    	<% end %>
+	  	  <% end %>
+	  	  <% if current_user.admin? %>
+	    		<%= link_to update_password_user_path(user) do %>
+	    		 	<i class="icon-lock" alt="Reset Password"></i>
+	    		<% end %>
+	  	  <% end %>
+	  	  </td>
+	    </tr>
+	    
+	<% end %>
+   </table>
+   <%= will_paginate %>
+  </div>
+</div>

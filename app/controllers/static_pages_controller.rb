@@ -14,4 +14,6 @@ class StaticPagesController < ApplicationController
   def dashboard
   end
   
+  def search
+  end
 end

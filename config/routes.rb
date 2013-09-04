@@ -1,6 +1,7 @@
 SampleApp::Application.routes.draw do
 
-  match 'users/:id/update_password', to: 'users#password', via: 'get' 
+  match 'users/:id/update_password', to: 'users#password', via: 'get'
+    
   resources :users
   resources :users do
     member do
@@ -12,8 +13,11 @@ SampleApp::Application.routes.draw do
   resources :clients
   resources :sessions, only: [:new, :create, :destroy]
   resources :lots
+  resources :lot
   resources :commonnames
   resources :sampletypes
+  resources :searches
+  resources :search
   
   root  'static_pages#home'
   
@@ -24,6 +28,8 @@ SampleApp::Application.routes.draw do
   match '/about',   to: 'static_pages#about',   via: 'get'
   match '/dashboard', to: 'static_pages#dashboard', via: 'get'
   match '/contact', to: 'static_pages#contact', via: 'get'
+
+ 
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

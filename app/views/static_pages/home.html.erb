@@ -1,14 +1,19 @@
 <div class="center hero-unit">
-  <h1>Welcome to the York LDMS!</h1>
+  <h1>Welcome to the York LDMS</h1>
 
   <h2>
     The York Lot Database Management System is a <a href="http://york.ac.uk/">University of York</a> and 
      <a href="http://www.york.ac.uk/archaeology/"> Deptartment of Archaeology</a> Service.
   </h2>
-
-  <% if !signed_in? %>
-  	<%= link_to "Click Here to Sign in", signin_path, class: "btn btn-large btn-primary" %>
-  <% else %>
-  	<%= link_to "Click Here to Sign out", signout_path, class: "btn btn-large btn-danger", method: "delete" %>
-  <% end %>
+  <div>
+  	Currently Managing <%= Lot.find(:all).count %> Samples!	
+  </div>
+  <br/>
+  <div>
+	  <% if !signed_in? %>
+	  	<%= link_to "Click Here to Sign in", signin_path, class: "btn btn-large btn-primary" %>
+	  <% else %>
+	  	<%= link_to "Click Here to Sign out", signout_path, class: "btn btn-large btn-danger", method: "delete" %>
+	  <% end %>
+  </div>
 </div>

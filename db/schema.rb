@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130830175200) do
+ActiveRecord::Schema.define(version: 20130904135907) do
 
   create_table "clients", force: true do |t|
     t.string   "org"
@@ -47,6 +47,13 @@ ActiveRecord::Schema.define(version: 20130830175200) do
     t.string   "sample_form"
     t.integer  "analysis_by"
     t.string   "to_return"
+    t.boolean  "isotopes"
+    t.boolean  "zooms"
+    t.boolean  "aar"
+    t.boolean  "lipid"
+    t.boolean  "dna"
+    t.string   "analysis_other"
+    t.integer  "lot_id"
   end
 
   add_index "lots", ["id"], name: "index_lots_on_id"
@@ -56,6 +63,24 @@ ActiveRecord::Schema.define(version: 20130830175200) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "searches", force: true do |t|
+    t.integer  "from"
+    t.integer  "to"
+    t.integer  "lot"
+    t.integer  "client"
+    t.boolean  "com"
+    t.string   "site"
+    t.string   "phylum"
+    t.string   "l_class"
+    t.string   "genus"
+    t.string   "species"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
+  end
+
+  add_index "searches", ["id"], name: "index_searches_on_id"
 
   create_table "users", force: true do |t|
     t.string   "name"
