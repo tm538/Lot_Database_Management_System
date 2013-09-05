@@ -1,12 +1,75 @@
 <% provide(:title, 'Search') %>
-<h1>Search</h1>
+<h1>All Lot Numbers</h1>
 
 <div class="row">
-  <div class="span10 offset1">
-  	
-		<%= render 'searches/new' %>
+  <div class="span12 offset0">
 		
-		<%= render 'searches/results' %>
+		<div class="data-entry-header">
+	<h2>Lot Numbers <a href="#results_info" data-toggle="collapse" class="pull-right  icon-resize-vertical icon-white"></a>
+	</h2>
+</div>
+<p>All lot numbers in batches of 30, most recent first.</p>
+	
+<div id="results_info" class="collapse in">
+
+	<%= will_paginate  %>
+	
+	<table class="table">
+	  <tr>
+	    <th>Lot Number</th>
+	    <th>Client</th>
+	    <th>Client Sample ID</th>
+	    <th>Asigned to</th>
+	    <th>Last updated by</th>
+	    <th>Actions</th>
+	    <th>Placeholder</th>
+	    <th>placeholder</th>
+	  </tr>
+	
+	  <% @lots.each do |lot| %>
+	    <tr>
+	      <td>
+	      	<%= link_to lot.id.to_s, edit_lot_path(lot) %>
+	      </td>
+	      <td>
+	      	Placeholder
+	      </td>
+	      <td>
+	      	<%= lot.samp_id.to_s %>
+	      </td>	
+	      <td>
+	      	Placeholder
+	      </td>
+	      <td>
+	      	Placeholder
+	      </td>	
+	      <td>
+	      	<%= link_to "edit", edit_lot_path(lot) %>
+	      </td>
+	      <td>
+	      	Placeholder
+	      </td>	
+	      <td>
+	      	Placeholder
+	      </td>	
+	    </tr>
+	  <% end %>
+	  
+	  <tr>
+	    <th>Lot Number</th>
+	    <th>Client</th>
+	    <th>Client Sample ID</th>
+	    <th>Asigned to</th>
+	    <th>Last updated by</th>
+	    <th>Actions</th>
+	    <th>Placeholder</th>
+	    <th>Placeholder</th>
+	  </tr>  
+	</table>
+	
+	<%= will_paginate  %>
+
+</div>
 		
 	</div>
 </div>

@@ -12,6 +12,7 @@ class StaticPagesController < ApplicationController
   end
   
   def dashboard
+    @search = Search.new
   end
   
   def search

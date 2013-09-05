@@ -5,15 +5,16 @@ class LotsController < ApplicationController
   end
   
   def index
-    @lots = Lot.paginate(page: params[:page], :per_page => 30)
-    @search = Search.new
+    @lots = Lot.paginate(page: params[:page], :per_page => 10)
   end
   
   def create
     @lot = Lot.new(lot_params)
     @lot.data_entered_by = current_user.id
+    @lot.user_id = current_user.id
+    @lot.returned = "NO"
     if @lot.save
-      flash[:success] = "lot number:" + @lot.id.to_s + ", sucessfully created."
+      flash[:success] = "Lot number:" + @lot.id.to_s + ", sucessfully created."
       redirect_to dashboard_path
     else
       render 'new'
@@ -23,6 +24,27 @@ class LotsController < ApplicationController
   def edit
       @lot = Lot.find(params[:id])
       @user = User.find(@lot.data_entered_by)
+      @client = Client.find(@lot.client_id)
+  end
+  
+  def update
+    @lot = Lot.find(params[:id])
+    
+    attributes = lot_params.clone
+    
+    if @lot.returned == "YES" && @lot.return_date.blank? 
+       attributes[:return_date] = Time.now
+    end
+    
+    if @lot.update_attributes(attributes)
+      flash[:success] = "Lot number:" + @lot.id.to_s + ", updated"
+      redirect_to dashboard_path
+    else
+      @lot = Lot.find(params[:id])
+      @user = User.find(@lot.data_entered_by)
+      flash[:error] = "Error Lot number:" + @lot.id.to_s + ", was not updated"
+      render 'edit'
+    end
   end
   
   private
@@ -51,7 +73,10 @@ class LotsController < ApplicationController
                                   :aar,
                                   :lipid,
                                   :dna,
-                                  :analysis_other
+                                  :analysis_other,
+                                  :returned,
+                                  :archive_box,
+                                  :return_date
                                   )
     end
   

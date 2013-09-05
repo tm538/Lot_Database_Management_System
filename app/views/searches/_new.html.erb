@@ -1,8 +1,8 @@
 <div class="data-entry-header">
-	<h2>Search Paramaters <a href="#search_info" data-toggle="collapse" class="pull-right  icon-resize-vertical icon-white"></a>
+	<h2><i class="icon-search icon-white"></i> Search Paramaters <a href="#search_info" data-toggle="collapse" class="pull-right  icon-resize-vertical icon-white"></a>
 	</h2>
 </div>
-<p>Search paramaters are AND'd togeather to narrow search results and are all optional.</p>
+<p>Search paramaters are AND'd togeather to narrow search results and are all optional. Please note text fields are case sensitive.</p>
 
 <div id="search_info" class="collapse in">
 	<%= form_for(@search, :url => searches_path, :method => "post", :html => { :class => "form-horizontal", :id => "new_search" }) do |f| %>

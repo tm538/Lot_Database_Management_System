@@ -1,0 +1,34 @@
+<div class="data-entry-header">
+  <h2>Changelog <a href="#history" data-toggle="collapse" class="pull-right  icon-resize-vertical icon-white"></a>
+  </h2>
+</div>
+<p>Histoy of changes to lot number <%= @lot.id.to_s %>.</p>
+
+<div id="history" class="collapse in">
+
+<table class="table">
+	<tr>
+		<th>Action</th>
+		<th>By</th>
+		<th>When</th>
+	</tr>		
+	<% PaperTrail::Version.where(item_id: @lot.id).order('id asc').limit(10).each do |v| %>
+	    <tr> 
+		    <td> <%= v.event.to_s.humanize %></td>
+		    <td> <%= link_to User.find(v.whodunnit.to_f).name.humanize, user_path(v.whodunnit) %></td>
+		    <td> <%= time_ago_in_words(v.created_at) %> ago</td>
+	    </tr>	    
+	<% end %>		
+</table>
+
+
+
+
+
+
+
+
+
+
+
+</div>

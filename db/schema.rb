@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130904135907) do
+ActiveRecord::Schema.define(version: 20130905135746) do
 
   create_table "clients", force: true do |t|
     t.string   "org"
@@ -53,7 +53,10 @@ ActiveRecord::Schema.define(version: 20130904135907) do
     t.boolean  "lipid"
     t.boolean  "dna"
     t.string   "analysis_other"
-    t.integer  "lot_id"
+    t.integer  "user_id"
+    t.string   "returned"
+    t.datetime "return_date"
+    t.string   "archive_box"
   end
 
   add_index "lots", ["id"], name: "index_lots_on_id"
@@ -95,5 +98,16 @@ ActiveRecord::Schema.define(version: 20130904135907) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["remember_token"], name: "index_users_on_remember_token"
+
+  create_table "versions", force: true do |t|
+    t.string   "item_type",  null: false
+    t.integer  "item_id",    null: false
+    t.string   "event",      null: false
+    t.string   "whodunnit"
+    t.text     "object"
+    t.datetime "created_at"
+  end
+
+  add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
 
 end

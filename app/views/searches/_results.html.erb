@@ -1,5 +1,5 @@
 <div class="data-entry-header">
-	<h2>Search Results <a href="#results_info" data-toggle="collapse" class="pull-right  icon-resize-vertical icon-white"></a>
+	<h2><i class="icon-th icon-white"></i> Search Results <a href="#results_info" data-toggle="collapse" class="pull-right  icon-resize-vertical icon-white"></a>
 	</h2>
 </div>
 <p>Where no results are found the most recently entered and updated samples are shown.</p>
@@ -22,7 +22,7 @@
 	  <% @lots.each do |lot| %>
 	    <tr>
 	      <td>
-	      	<%= link_to lot.id.to_s, lot %>
+	      	<%= link_to lot.id.to_s, edit_lot_path(lot) %>
 	      </td>
 	      <td>
 	      	Placeholder
@@ -37,7 +37,7 @@
 	      	Placeholder
 	      </td>	
 	      <td>
-	      	<%= link_to "edit", edit_lot_path(lot) %>
+	      	Placeholder
 	      </td>
 	      <td>
 	      	Placeholder

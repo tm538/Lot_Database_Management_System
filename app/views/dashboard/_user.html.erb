@@ -1,0 +1,12 @@
+<div class="data-entry-header">
+  <h2>Hello, <%= current_user.name %>! <a href="#user" data-toggle="collapse" class="pull-right  icon-resize-vertical icon-white"></a>
+  </h2>
+</div>
+<div id="user" class="collapse in">
+<p>Currently signed in as: <%= current_user.email %>
+	<br/>
+	<%= link_to  signout_path, method: "delete" do %>
+	Sign out
+	<% end %>
+</p>
+</div>

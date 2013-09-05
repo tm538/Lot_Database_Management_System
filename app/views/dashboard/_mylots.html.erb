@@ -1,0 +1,26 @@
+<div class="data-entry-header">
+	  <h2><i class="icon-star icon-white"></i> My Recent Lot Numbers <a href="#my_lots" data-toggle="collapse" class="pull-right  icon-resize-vertical icon-white"></a>
+	  </h2>
+</div>
+<p>The last 5 lot numbers you generated (not including those you updated).</p>
+
+<div id="my_lots" class="collapse in">
+	
+	<table class="table">
+	<tr>
+		<th>Lot #</th>
+		<th>Client</th>
+		<th>Work Type</th>
+		<th>Created</th>
+	</tr>		
+	<% Lot.where(data_entered_by: current_user.id).order('id desc').limit(5).each do |l| %>
+	    <tr> 
+		    <td> <%= link_to l.id, edit_lot_path(l.id) %> </td>
+		    <td> <%= link_to Client.find(l.client_id).org.to_s.humanize, client_path(l.client_id)%></td>
+		    <td> <%= l.commercial ? "Commerical" : "Non-Commerical" %></td>
+		    <td> <%= time_ago_in_words(l.created_at) %> ago</td>
+	    </tr>	    
+	<% end %>		
+	</table>
+	
+</div>

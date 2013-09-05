@@ -1,0 +1,26 @@
+<div class="data-entry-header">
+  <h2><i class="icon-exclamation-sign icon-white"></i> Actions <a href="#Actions" data-toggle="collapse" class="pull-right  icon-resize-vertical icon-white"></a>
+  </h2>
+</div>
+<p>Commonly used actions.</p>
+
+<div id="Actions" class="collapse in">
+	<p>
+		<%= link_to new_lot_path do %>
+	     	<i class="icon-plus"></i> Generate New Lot Number
+	     <% end %>
+	     <br/>
+	     <%= link_to lots_path do %>
+	     	<i class="icon-list"></i> Browse all Lots Numbers
+	     <% end %>
+	     </br/>
+	     <%= link_to clients_path do %>
+	     	<i class="icon-list"></i> Browse all Clients
+	     <% end %>
+	     </br/>
+	     <%= link_to users_path do %>
+	     	<i class="icon-list"></i> Browse all Users
+	     <% end %>
+	     </br/>
+     </p>
+</div>

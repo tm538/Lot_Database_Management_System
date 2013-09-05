@@ -1,0 +1,12 @@
+<div class="data-entry-header">
+	<h2><i class="icon-file icon-white"></i> Download Results <a href="#download" data-toggle="collapse" class="pull-right  icon-resize-vertical icon-white"></a>
+	</h2>
+</div>
+<p>Download full search results.</p>
+	
+<div id="download" class="collapse in">
+	<i class="icon-download-alt"></i> Download:
+	<%= link_to search_path(format: "csv") do %>
+		CSV
+	<% end %>
+</div>

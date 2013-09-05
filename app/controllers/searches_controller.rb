@@ -6,6 +6,10 @@ class SearchesController < ApplicationController
   def show
     @search = Search.find(params[:id])
     @lots = @search.find_lots
+     respond_to do |format|
+      format.html
+      format.csv { send_data @lots.to_csv }
+     end 
   end
   
   def create

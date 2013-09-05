@@ -1,40 +1,22 @@
 <% provide(:title, 'Dashboard') %>
 <h1>Dashboard</h1>
-<div class="row">
-  <div class="span12 offset0">
-  	<div class="data-entry-header">
-	  <h2>Hello, <%= current_user.name %>! <a href="#user" data-toggle="collapse" class="pull-right  icon-resize-vertical icon-white"></a>
-	  </h2>
-	</div>
-	<div id="user" class="collapse in">
-		Placeholder....
-	</div>
-  </div>	
-</div>
-
 
 <div class="row">
-  <div class="span4 offset0">
-  	<div class="data-entry-header">
-	  <h2>Actions <a href="#Actions" data-toggle="collapse" class="pull-right  icon-resize-vertical icon-white"></a>
-	  </h2>
-	</div>
-	<p></p>
-
-	<div id="Actions" class="collapse in">
-		Placeholder....
-	</div>
+  <div class="span5 offset0">  	
+	<%= render 'dashboard/user' %>  	
+	<%= render 'dashboard/actions' %> 	
+  	<%= render 'dashboard/recentsamples' %> 	
   </div>
 
-  <div class="span7 offset1">		
-	<div class="data-entry-header">
-	  <h2>My Recent Searches <a href="#data" data-toggle="collapse" class="pull-right  icon-resize-vertical icon-white"></a>
-	  </h2>
-	</div>
-	<p>Options related to this lot.</p>
-
-	<div id="data" class="collapse in">
-		Placeholder....
-	</div>
+  <div class="span7 offset0">	
+	<%= render 'dashboard/mylots' %>	
+	<%= render 'searches/new' %>	
  </div>
+</div>
+
+<div class="row">
+  <div class="span12 offset0">  	
+  	<%= render 'dashboard/recentsearch' %>
+	<%= render 'dashboard/stats' %>
+  </div>	
 </div>
