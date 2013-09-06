@@ -14,7 +14,7 @@
 	</tr>		
 	<% PaperTrail::Version.where(item_id: @lot.id).order('id asc').limit(10).each do |v| %>
 	    <tr> 
-		    <td> <%= v.event.to_s.humanize %></td>
+		    <td> <%= v.event.to_s.humanize %>d</td>
 		    <td> <%= link_to User.find(v.whodunnit.to_f).name.humanize, user_path(v.whodunnit) %></td>
 		    <td> <%= time_ago_in_words(v.created_at) %> ago</td>
 	    </tr>	    

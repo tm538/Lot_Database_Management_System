@@ -1,5 +1,11 @@
 class LotsController < ApplicationController
   
+  def show
+    @lot = Lot.find(params[:id])
+    @client = Client.find(@lot.client_id)
+    @versions = @lot.versions
+  end
+  
   def new
     @lot = Lot.new(:commercial => false, :client_id => 1, :created_at => Time.now)
   end
@@ -46,6 +52,7 @@ class LotsController < ApplicationController
       render 'edit'
     end
   end
+  
   
   private
 

@@ -1,0 +1,119 @@
+<% @versions.each do |v| %>
+	<% if !v.next.nil?
+		@history = v.next.reify 	   
+	 else 
+	 	@history = @lot
+	 end %>
+	<div class="data-entry-header">
+	  	<h2> <%= v.event.humanize %>d by <%= User.find(v.whodunnit.to_f).name.humanize %>,
+	  		<%= time_ago_in_words(v.created_at) %> ago
+	  		<a href="#history<%= v.id %>" data-toggle="collapse" class="pull-right  icon-resize-vertical icon-white"></a>
+	  	</h2>
+	  </div>
+	  <p><%= v.event.humanize %>d at <%= l v.created_at, format: :long %>.</p>
+	  
+	  <div id="history<%= v.id %>" class="collapse">
+		<table class="table table-condensed table-hover">
+			<tr>
+				<th>Field</th>
+				<th>Value</th>
+			</tr>
+			<tr>
+				<td>Client</td>
+				<td><%= Client.find(@history.client_id).org.humanize %></td>
+			</tr>
+			<tr>
+				<td>Commercial</td>
+				<td><%= @history.commercial.to_s.humanize %></td>
+			</tr>
+			<tr>
+				<td>Client Sample ID</td>
+				<td><%= @history.samp_id %></td>
+			</tr>
+			<tr>
+				<td>Sample type</td>
+				<td><%= Sampletype.find(@history.sampletype_id).name %></td>
+			</tr>
+			<tr>
+				<td>Common Name</td>
+				<td><%= Commonname.find(@history.commonname_id).name %></td>
+			</tr>
+			<tr>
+				<td>Phylum</td>
+				<td><%= @history.phylum %></td>
+			</tr>
+			<tr>
+				<td>Class</td>
+				<td><%= @history.l_class %></td>
+			</tr>
+			<tr>
+				<td>Genus</td>
+				<td><%= @history.genus %></td>
+			</tr>
+			<tr>
+				<td>Species</td>
+				<td><%= @history.species %></td>
+			</tr>
+			<tr>
+				<td>Sample Form</td>
+				<td><%= @history.sample_form %></td>
+			</tr>
+			<tr>
+				<td>Return Sample?</td>
+				<td><%= @history.to_return.to_s.humanize %></td>
+			</tr>
+			<tr>
+				<td>Sample Returned?</td>
+				<td><%= @history.returned.to_s.humanize %></td>
+			</tr>
+			<tr>
+				<td>Return Date</td>
+				<td><%= (!@history.return_date.nil? ? ( l @history.return_date, format: :long) : "") %></td>
+			</tr>
+			<tr>
+				<td>Archive Box</td>
+				<td><%= @history.archive_box %></td>
+			</tr>
+			<tr>
+				<td>Geographic region</td>
+				<td><%= @history.region %></td>
+			</tr>
+			<tr>
+				<td>Archeological site</td>
+				<td><%= @history.site %></td>
+			</tr>
+			<tr>
+				<td>Analysis by</td>
+				<td><%= User.find(@history.analysis_by).name %></td>
+			</tr>
+			<tr>
+				<td>Isotopes</td>
+				<td><%= @history.isotopes.to_s.humanize %></td>
+			</tr>
+			<tr>
+				<td>ZooMS</td>
+				<td><%= @history.zooms.to_s.humanize %></td>
+			</tr>
+			<tr>
+				<td>AAR</td>
+				<td><%= @history.aar.to_s.humanize %></td>
+			</tr>
+			<tr>
+				<td>Lipid</td>
+				<td><%= @history.lipid.to_s.humanize %></td>
+			</tr>
+			<tr>
+				<td>DNA</td>
+				<td><%= @history.dna.to_s.humanize %></td>
+			</tr>
+			<tr>
+				<td>Other Methods</td>
+				<td><%= @history.analysis_other.to_s.humanize %></td>
+			</tr>
+			<tr>
+				<td>Additional infomation</td>
+				<td><%= @history.extra_info.to_s.humanize %></td>
+			</tr>						
+		</table>
+	</div>
+<% end %>

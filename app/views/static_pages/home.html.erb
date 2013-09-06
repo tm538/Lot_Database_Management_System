@@ -6,14 +6,8 @@
      <a href="http://www.york.ac.uk/archaeology/"> Deptartment of Archaeology</a> Service.
   </h2>
   <div>
-  	Currently Managing <%= Lot.find(:all).count %> Samples!	
-  </div>
-  <br/>
-  <div>
 	  <% if !signed_in? %>
 	  	<%= link_to "Click Here to Sign in", signin_path, class: "btn btn-large btn-primary" %>
-	  <% else %>
-	  	<%= link_to "Click Here to Sign out", signout_path, class: "btn btn-large btn-danger", method: "delete" %>
 	  <% end %>
   </div>
 </div>

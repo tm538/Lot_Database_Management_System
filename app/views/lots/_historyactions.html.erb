@@ -6,10 +6,10 @@
 
 <div id="options" class="collapse in">
 	<%= link_to @client do %>
-		View client contact details
+		View current client contact details
 	<% end %>
 	<br/>
-	<%= link_to @lot do %>
-		View History
+	<%= link_to edit_lot_path(@lot) do %>
+		Edit this Lot Number's details
 	<% end %>
 </div>
