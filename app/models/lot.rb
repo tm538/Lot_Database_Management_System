@@ -1,5 +1,12 @@
 class Lot < ActiveRecord::Base
 
+  scope :commercial, where(:commercial => true)
+  scope :non_commercial, where(:commercial => false)
+
+  def self.total_on(month)
+    where("date(created_at) >= ? AND date(created_at) < ?", month.beginning_of_month, month.end_of_month).count
+  end
+
   def self.to_csv
     CSV.generate do |csv|
       csv << ["Lot_Number", "Client", "Client Contact Email" ,"Commercial", "Client_Sample_ID", "Sample_Type", "Common_Name",  "Phylum" , "Class" , "Genus" , "Species" , "Sample_Form" , "Analysis_by" , "Isotopes" , "ZooMS" , "AAR" , "Lipid" , "DNA" , "Other_Analysis" , "Return_Sample" , "Returned" , "Return_Date" , "Archive_Box" , "Extra_Info" , "Created_Date" , "Last_Updated" , "Created_by"] 

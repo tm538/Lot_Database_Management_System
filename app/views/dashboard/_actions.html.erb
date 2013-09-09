@@ -23,7 +23,7 @@
 	     <% end %>
 	     </br/>
 	     <%= link_to edit_lot_path(Lot.last(1)) do %>
-	     	<i class="icon-eye-open "></i> View Last Lot Number Generated
+	     	<i class="icon-eye-open "></i> View Last Lot Number Generated (#<%= Lot.last(1)[0].id %>)
 	     <% end %>
 	     </br/>
      </p>

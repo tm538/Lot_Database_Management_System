@@ -2,6 +2,51 @@
   <h2><i class="icon-signal icon-white"></i> Statistics <a href="#stats" data-toggle="collapse" class="pull-right  icon-resize-vertical icon-white"></a>
   </h2>
 </div>
+<p> Statistics for the Lot Database Management System</p>
 <div id="stats" class="collapse in">
-	Placeholder....
+	<script type="text/javascript" charset="utf-8">
+	
+	$(function() {
+		new Highcharts.Chart({
+			chart: {
+				renderTo: "com_chart"
+			},
+			title: {
+				text: "Monthly Samples Totals"
+			},
+			subtitle: {
+                text: 'Last 12 Months'
+            },
+			xAxis: {
+				type: "datetime"
+			},
+			yAxis: {
+				title: {
+					text: "Lot Numbers Generated"
+				}
+			},
+			series: [			
+			<% { "Commercial" => Lot.commercial, "Non-commercial" => Lot.non_commercial, "Total" => Lot }.each do |name, lots| %>			
+			{
+				pointInterval: <%= 1.month.to_i * 1000 %>,
+				pointStart: <%= 1.year.ago.to_i * 1000 %>,
+				data: <%= (1.year.ago.to_date.beginning_of_month..Date.today).reject{|month| month.day != 1}.map { |month| lots.total_on(month).to_f }.inspect %>,
+				name:  "<%= name %>"
+			},
+			<% end %>
+			],
+			credits: {
+    			enabled: false
+  		}
+		});
+	});
+	
+	</script>	
+	<div class="row">
+		<div class="span6 offset0">
+			<div id="com_chart" style="width:auto; height:300px;"/>
+		</div>
+		<div class="span6 offset0">
+		</div>
+	</div>
 </div>

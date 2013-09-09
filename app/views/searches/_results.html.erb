@@ -2,63 +2,73 @@
 	<h2><i class="icon-th icon-white"></i> Search Results <a href="#results_info" data-toggle="collapse" class="pull-right  icon-resize-vertical icon-white"></a>
 	</h2>
 </div>
-<p>Where no results are found the most recently entered and updated samples are shown.</p>
+<p>Search results are shown below click the column headers to sort by that column.</p>
 	
 <div id="results_info" class="collapse in">
 
+	<script  type="text/javascript" charset="UTF-8">
+	google.load('visualization', '1', {packages:['table']});
+      google.setOnLoadCallback(drawTable);
+      function drawTable() {
+       var data = new google.visualization.DataTable();
+        data.addColumn('number', 'Lot #');
+        data.addColumn('string', 'Client');
+        data.addColumn('boolean', 'Commercial');
+        data.addColumn('string', 'Site');
+        data.addColumn('string', 'Biological Classification');
+		data.addColumn('string', 'Actions');
+		data.addRows([
+			<% @lots.each do |lot| %>
+				[ 
+				<%= lot.id.to_s %>, 
+				'<%= link_to Client.find(lot.client_id).org.to_s.humanize, client_path(lot.client_id) %>',
+				<%= lot.commercial %>,
+				'<%= lot.site %>',
+				'<%= lot.phylum.to_s + " " + lot.l_class.to_s + " " + lot.genus.to_s + " " + lot.species.to_s %>',
+				'<%= link_to edit_lot_path(lot) do %><i class="icon-edit"></i><% end %>'
+				],
+			<% end %>			
+      	]);
+      	
+      	function rm_google_classes() {
+      	var className = 'google-visualization-table-table';
+		$('.'+className).removeClass(className);
+		
+		var className = 'google-visualization-table-th';
+		$('.'+className).removeClass(className);
+		
+		var className = 'google-visualization-table-tr-head';
+		$('.'+className).removeClass(className);
+		
+		var className = 'google-visualization-table-tr-odd';
+		$('.'+className).removeClass(className);
+		
+		var className = 'google-visualization-table-tr-even';
+		$('.'+className).removeClass(className); 
+		
+		var className = 'google-visualization-table-td';
+		$('.'+className).removeClass(className);  
+		
+		var className = 'google-visualization-table-td-number';
+		$('.'+className).removeClass(className);  
+		
+		var className = 'google-visualization-table-td-bool';
+		$('.'+className).removeClass(className);  
+		
+		$("#gtable-results table").addClass("table table-condensed"); 
+      	};
+      	
+	    var table = new google.visualization.Table(document.getElementById('gtable-results'));
+	      table.draw(data, {allowHtml: true});
+	      rm_google_classes();
+		
+	    google.visualization.events.addListener(table , 'sort',
+	    function(event) {
+	      rm_google_classes();
+	    });		
+       } 
+	</script>
 	
-	<table class="table">
-	  <tr>
-	    <th>Lot Number</th>
-	    <th>Client</th>
-	    <th>Client Sample ID</th>
-	    <th>Asigned to</th>
-	    <th>Last updated by</th>
-	    <th>Actions</th>
-	    <th>Placeholder</th>
-	    <th>placeholder</th>
-	  </tr>
+	<div id="gtable-results"></div>
 	
-	  <% @lots.each do |lot| %>
-	    <tr>
-	      <td>
-	      	<%= link_to lot.id.to_s, edit_lot_path(lot) %>
-	      </td>
-	      <td>
-	      	Placeholder
-	      </td>
-	      <td>
-	      	<%= lot.samp_id.to_s %>
-	      </td>	
-	      <td>
-	      	Placeholder
-	      </td>
-	      <td>
-	      	Placeholder
-	      </td>	
-	      <td>
-	      	Placeholder
-	      </td>
-	      <td>
-	      	Placeholder
-	      </td>	
-	      <td>
-	      	Placeholder
-	      </td>	
-	    </tr>
-	  <% end %>
-	  
-	  <tr>
-	    <th>Lot Number</th>
-	    <th>Client</th>
-	    <th>Client Sample ID</th>
-	    <th>Asigned to</th>
-	    <th>Last updated by</th>
-	    <th>Actions</th>
-	    <th>Placeholder</th>
-	    <th>Placeholder</th>
-	  </tr>  
-	</table>
-	
-
 </div>
