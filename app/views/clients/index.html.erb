@@ -6,6 +6,7 @@
 	<table class="table">
 	  <tr>
 	    <th>Organisation</th>
+	    <th>Contact Name</th>
 	    <th>Contact Email</th>
 	    <th>Address</th>
 	    <th>Extra Info</th>
@@ -17,13 +18,16 @@
 	      	<%= link_to client.org, client %>
 	      </td>
 	      <td>
+	      	<%= client.contact_name.to_s %>
+	      </td>
+	      <td>
 	      	<a href="mailto:<%= client.email %>"><%= client.email %></a>
 	      </td>
 	      <td>
-	      	<%= client.address.to_s%>
+	      	<%= client.address.to_s %>
 	      </td>
 	      <td>
-	      	<%= client.extra.to_s%>
+	      	<%= client.extra.to_s %>
 	      </td>
 	      <td>
 	      	<%= link_to edit_client_path(client) do %>

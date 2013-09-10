@@ -15,4 +15,6 @@ class Client < ActiveRecord::Base
                     
   validates :address, presence: true
   
+  validates :contact_name, presence: true
+  
 end

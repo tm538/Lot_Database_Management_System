@@ -39,12 +39,60 @@
     			enabled: false
   		}
 		});
+		/*
+		new Highcharts.Chart({
+			chart: {
+                type: 'area',
+                renderTo: "client_chart"
+            },
+            title: {
+                text: 'Commercial Client Share'
+            },
+            subtitle: {
+                text: '6 Months Rolling'
+            },
+            xAxis: {
+            	type: "datetime"
+            },
+            yAxis: {
+				title: {
+					text: "Lot Numbers Generated"
+				}
+            },
+            plotOptions: {
+                area: {
+                    stacking: 'normal',
+                    lineColor: '#666666',
+                    lineWidth: 1,
+                    marker: {
+                        lineWidth: 1,
+                        lineColor: '#666666'
+                    }
+                }
+            },
+            series: [
+            	< Client.find(2..5).each do |c| >
+            	{
+            	name: '< c.org >',
+            	pointInterval: <= 1.month.to_i * 1000 >,
+            	pointStart: < 6.months.ago.to_i * 1000 >,
+                data: <= (6.months.ago.to_date.beginning_of_month..Date.today).reject{|month| month.day != 1}.map { |month| Lot.total_client_on(month, 1).to_f }.inspect %>
+            	}
+            	< end >
+            ],
+            credits: {
+    			enabled: false
+  			}
+       });*/
 	});
+	
+	
 	
 	</script>	
 	<div class="row">
 		<div class="span6 offset0">
-			<div id="com_chart" style="width:auto; height:300px;"/>
+			<div id="com_chart" style="width:auto; height:300px;"></div>
+			<div id="client_chart" style="width:auto; height:300px;"></div>
 		</div>
 		<div class="span6 offset0">
 		</div>

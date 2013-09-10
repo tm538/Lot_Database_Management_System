@@ -1,0 +1,2 @@
+name,email,password,password_confirmation,admin,role
+john smith,ph607@york.ac.uk,Password,Password,TRUE,Staff

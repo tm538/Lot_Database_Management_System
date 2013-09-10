@@ -38,7 +38,7 @@ class LotsController < ApplicationController
     
     attributes = lot_params.clone
     
-    if @lot.returned == "YES" && @lot.return_date.blank? 
+    if @lot.returned == "YES" && @lot.return_date.nil? 
        attributes[:return_date] = Time.now
     end
     
@@ -53,6 +53,11 @@ class LotsController < ApplicationController
     end
   end
   
+  def import 
+    Lot.import(params[:file])
+    flash[:success] = "Lot numbers, imported."
+    redirect_to dashboard_path
+  end
   
   private
 

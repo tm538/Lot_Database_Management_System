@@ -2,7 +2,6 @@ SampleApp::Application.routes.draw do
 
   match 'users/:id/update_password', to: 'users#password', via: 'get'
     
-  resources :users
   resources :users do
     member do
       get 'password'
@@ -12,7 +11,9 @@ SampleApp::Application.routes.draw do
   
   resources :clients
   resources :sessions, only: [:new, :create, :destroy]
-  resources :lots
+  resources :lots do
+    collection { post :import }
+  end
   resources :lot
   resources :commonnames
   resources :sampletypes
