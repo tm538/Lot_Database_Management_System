@@ -10,7 +10,7 @@ gem 'will_paginate', '3.0.4'
 gem 'bootstrap-will_paginate', '0.0.9'
 gem 'paper_trail', '3.0.0.beta1'
 gem "highcharts-rails", "~> 3.0.0"
-
+gem 'rails3-jquery-autocomplete', git: 'https://github.com/francisd/rails3-jquery-autocomplete'
 
 
 group :development, :test do

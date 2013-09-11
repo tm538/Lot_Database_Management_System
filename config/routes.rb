@@ -10,14 +10,25 @@ SampleApp::Application.routes.draw do
   end
   
   resources :clients
+  
   resources :sessions, only: [:new, :create, :destroy]
+  
   resources :lots do
+    get :autocomplete_phylum_name, :on => :collection
+    get :autocomplete_l_class_name, :on => :collection
+    get :autocomplete_genus_name, :on => :collection
+    get :autocomplete_species_name, :on => :collection
     collection { post :import }
   end
+    
   resources :lot
+  
   resources :commonnames
+  
   resources :sampletypes
+  
   resources :searches
+  
   resources :search
   
   root  'static_pages#home'

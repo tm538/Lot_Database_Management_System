@@ -1,4 +1,8 @@
 class LotsController < ApplicationController
+autocomplete :phylum, :name
+autocomplete :l_class, :name
+autocomplete :genus, :name
+autocomplete :species, :name
   
   def show
     @lot = Lot.find(params[:id])
@@ -62,7 +66,8 @@ class LotsController < ApplicationController
   private
 
     def lot_params
-      params.require(:lot).permit(:client_id, 
+      params.require(:lot).permit(:id,
+                                  :client_id, 
                                   :commercial, 
                                   :commonname_id, 
                                   :analysis_by, 

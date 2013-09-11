@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130910120757) do
+ActiveRecord::Schema.define(version: 20130911143044) do
 
   create_table "clients", force: true do |t|
     t.string   "org"
@@ -24,6 +24,18 @@ ActiveRecord::Schema.define(version: 20130910120757) do
   end
 
   create_table "commonnames", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "genus", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "l_classes", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -62,6 +74,12 @@ ActiveRecord::Schema.define(version: 20130910120757) do
 
   add_index "lots", ["id"], name: "index_lots_on_id"
 
+  create_table "phylums", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "sampletypes", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
@@ -86,6 +104,12 @@ ActiveRecord::Schema.define(version: 20130910120757) do
 
   add_index "searches", ["id"], name: "index_searches_on_id"
 
+  create_table "species", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "users", force: true do |t|
     t.string   "name"
     t.string   "email"
@@ -101,10 +125,10 @@ ActiveRecord::Schema.define(version: 20130910120757) do
   add_index "users", ["remember_token"], name: "index_users_on_remember_token"
 
   create_table "versions", force: true do |t|
-    t.string   "item_type",  null: false
-    t.integer  "item_id",    null: false
-    t.string   "event",      null: false
-    t.string   "whodunnit"
+    t.string   "item_type",                null: false
+    t.integer  "item_id",                  null: false
+    t.string   "event",                    null: false
+    t.string   "whodunnit",  default: "1"
     t.text     "object"
     t.datetime "created_at"
   end

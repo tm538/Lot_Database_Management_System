@@ -60,29 +60,29 @@
 		  
 		  <div class="control-group">
 		  	<%= f.label :phylum, :class => "control-label" %>
-		  	<div class="controls">
-	      		<%= f.text_field :phylum, :placeholder => "eg. Chordata" %>
+		  	<div class="controls">	      		
+	      		<%= f.autocomplete_field :phylum, autocomplete_phylum_name_lots_path, :placeholder => "Type for suggestions" %>
 		    </div>
 		  </div>
 		  
 		  <div class="control-group">
 		  	<%= f.label :l_class, "Class", :class => "control-label" %>
 		  	<div class="controls">
-	      		<%= f.text_field :l_class, :placeholder => "eg. Mammalia" %>
+	      		<%= f.autocomplete_field :l_class, autocomplete_l_class_name_lots_path, :placeholder => "Type for suggestions" %>
 		    </div>
 		  </div>
 		  
 		  <div class="control-group">
 		  	<%= f.label :genus, :class => "control-label" %>
 		  	<div class="controls">
-	     		 <%= f.text_field :genus, :placeholder => "eg. Homo" %>
+	     		 <%= f.autocomplete_field :genus, autocomplete_genus_name_lots_path, :placeholder => "Type for suggestions" %>
 		    </div>
 		  </div>
 		  
 		  <div class="control-group">
 		  	<%= f.label :species, :class => "control-label" %>
 		  	<div class="controls">
-	      		<%= f.text_field :species, :placeholder => "eg. Sapiens" %>
+	      		<%= f.autocomplete_field :species, autocomplete_species_name_lots_path, :placeholder => "Type for suggestions" %>
 		    </div>
 		  </div>
 	  </div>
