@@ -7,6 +7,6 @@
 <div id="download" class="collapse in">
 	<i class="icon-download-alt"></i> Download:
 	<%= link_to search_path(format: "csv") do %>
-		CSV
+		CSV <%= render :partial => "layouts/hint", :locals => {:hint => "Results downloads can be best viewed and edited with a spreadsheet package such as Excel."} %>
 	<% end %>
 </div>

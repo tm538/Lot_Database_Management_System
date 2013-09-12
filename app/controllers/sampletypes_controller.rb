@@ -1,5 +1,5 @@
 class SampletypesController < ApplicationController
-  before_action :staff_user, only: [:create, :new, :update, :show, :index] 
+  before_action :staff_user, only: [:create, :new, :update, :show, :index, :destory] 
     
   def show
       @sampletype = Sampletype.find(params[:id])
@@ -39,5 +39,11 @@ class SampletypesController < ApplicationController
   
   def sampletype_params
       params.require(:sampletype).permit(:name)
-    end
+  end
+  
+  def destroy
+      Sampletype.find(params[:id]).destroy
+      flash[:success] = "Sampletype Deleted."
+      redirect_to sampletypes_url
+  end
 end

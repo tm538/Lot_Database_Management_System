@@ -156,6 +156,20 @@ aside {
   margin-bottom: 0px;
 }
 
+.required {
+  label {
+    font-weight: bold;
+  }
+  label:after {
+    content: " *";
+  }
+  input {}
+}
+
+.hint {
+  display: inline;
+  margin-left: 10px;
+}
 
 /* miscellaneous */
 

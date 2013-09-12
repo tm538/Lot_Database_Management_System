@@ -42,7 +42,7 @@ autocomplete :species, :name
     
     attributes = lot_params.clone
     
-    if @lot.returned == "YES" && @lot.return_date.nil? 
+    if attributes[:returned] == "YES" && attributes[:return_date].blank? 
        attributes[:return_date] = Time.now
     end
     

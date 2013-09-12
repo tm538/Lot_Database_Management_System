@@ -1,5 +1,5 @@
 class CommonnamesController < ApplicationController
-  before_action :staff_user, only: [:create, :new, :update, :show, :index] 
+  before_action :staff_user, only: [:create, :new, :update, :show, :index, :destroy] 
     
   def show
       @commonname = Commonname.find(params[:id])
@@ -35,6 +35,12 @@ class CommonnamesController < ApplicationController
     else
       render 'edit'
     end
+  end
+  
+  def destroy
+      Commonname.find(params[:id]).destroy
+      flash[:success] = "Commonname Deleted."
+      redirect_to commonnames_url
   end
   
   def commonname_params

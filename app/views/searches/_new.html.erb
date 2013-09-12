@@ -2,7 +2,7 @@
 	<h2><i class="icon-search icon-white"></i> Search Paramaters <a href="#search_info" data-toggle="collapse" class="pull-right  icon-resize-vertical icon-white"></a>
 	</h2>
 </div>
-<p>Search paramaters are AND'd togeather to narrow search results and are all optional. Please note text fields are case sensitive.</p>
+<p>Search paramaters are AND'd together to narrow search results and are all optional. Please note text fields are case sensitive.</p>
 
 <div id="search_info" class="collapse in">
 	<%= form_for(@search, :url => searches_path, :method => "post", :html => { :class => "form-horizontal", :id => "new_search" }) do |f| %>
@@ -13,6 +13,7 @@
 	    	<div class="controls">
 	    		<%= f.text_field :from, :placeholder => "From:" %>
 	   			<%= f.text_field :to, :placeholder => "To:" %>
+	   			<%= render :partial => "layouts/hint", :locals => {:hint => "Search for a range of lot numbers."} %>	   			
 	    	</div>
 		</div>
 		
@@ -20,6 +21,7 @@
 	  		<%= f.label :lot, "Single Lot Number", :class => "control-label" %>
 	  		<div class="controls">
 	    		<%= f.text_field :lot %>
+	    		<%= render :partial => "layouts/hint", :locals => {:hint => "Search for a single lot number only."} %>
 	    	</div>
 		</div>
 		
@@ -27,6 +29,7 @@
 			<%= f.label :client, "Client", :class => "control-label" %>
 			<div class="controls">
 	    		<%= f.collection_select(:client, Client.all, :id, :org, {include_blank: 'All'}) %>
+	    		<%= render :partial => "layouts/hint", :locals => {:hint => "Search for lot numbers for a single client only."} %>
 	    	</div>
 		</div>
 		
@@ -34,6 +37,7 @@
 			<%= f.label :com, "Commercial", :class => "control-label" %>
 			<div class="controls">	
 	    		<%= f.select :com, options_for_select([["All", ""], ["Commercial", true], ["Non-Commercial", false]], @search.com) %>
+	    		<%= render :partial => "layouts/hint", :locals => {:hint => "Restrict search results to commercial or non-commercial samples."} %>
 	    	</div>
 		</div>
 	
@@ -41,6 +45,7 @@
 			<%= f.label :site, "Site", :class => "control-label" %>
 			<div class="controls">	
 	    		<%= f.text_field :site %>
+	    		<%= render :partial => "layouts/hint", :locals => {:hint => "Search for samples from a particular site."} %>
 	    	   	</div>
 			</div>
 			
@@ -49,6 +54,7 @@
 			<div class="controls">	
 	    		<%= f.text_field :phylum, :placeholder => "Phylum:" %>
 	    		<%= f.text_field :l_class, :placeholder => "Class:" %>
+	    		<%= render :partial => "layouts/hint", :locals => {:hint => "Search by biological classification, it is not necessary to specify all paramaters."} %>
 	    		<br/><br/>
 	    		<%= f.text_field :genus, :placeholder => "Genus:" %>
 	    		<%= f.text_field :species, :placeholder => "Species:" %>

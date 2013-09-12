@@ -27,15 +27,18 @@
 	      	<%= user.role %>
 	      </td>
 	      <td>
-	      <% if current_user.admin? && !current_user?(user) %>
+	      <% if current_user.admin? %>
+	    		<%= link_to edit_user_path(user) do %>
+	    		 	<i class="icon-edit"></i>
+	    		<% end %>	  	  	  	  
+	    		<%= link_to update_password_user_path(user) do %>
+	    		 	<i class="icon-lock"></i>
+	    		<% end %>
+	  	  <% end %>
+	  	  <% if current_user.admin? && !current_user?(user) %>
 		    	<%= link_to user, method: :delete, data: { confirm: "You sure you wish to delete this user?" } do %>
 		    	<i class="icon-trash"></i>
 		    	<% end %>
-	  	  <% end %>
-	  	  <% if current_user.admin? %>
-	    		<%= link_to update_password_user_path(user) do %>
-	    		 	<i class="icon-lock" alt="Reset Password"></i>
-	    		<% end %>
 	  	  <% end %>
 	  	  </td>
 	    </tr>

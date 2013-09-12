@@ -17,5 +17,16 @@
 //= require highcharts
 //= require highcharts/highcharts-more 
 //= require bootstrap
+//= require bootstrap-tooltip
+//= require bootstrap-popover
 //= require turbolinks
 //= require_tree .
+
+var ready = function () {
+  $('[rel=tooltip]').tooltip({ placement : 'right',
+  							   container: 'body' });
+  $('[rel=tooltip]').on('click', function(e) {e.preventDefault(); return true;});
+};
+
+$(document).ready(ready);
+$(document).on('page:load', ready);

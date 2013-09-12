@@ -1,19 +1,30 @@
 <% provide(:title, 'All Sample Types ') %>
-<h1>All Common Names</h1>
-
-<%= will_paginate %>
-
-<ul class="Sample Types">
-  <% @sampletypes.each do |sampletype| %>
-    <li>
-      <%= link_to sampletype.name, sampletype %>
-      | <%= link_to "edit", edit_sampletype_path(sampletype) %>
-      <% if current_user.admin? %>
-    	| <%= link_to "delete", sampletype, method: :delete,
-                                  data: { confirm: "You sure you wish to delete this Sample Type?" } %>
-  	   <% end %>
-    </li>
-  <% end %>
-</ul>
-
-<%= will_paginate %>
+<h1>All Sample Types</h1>
+<div class="row">
+	<div class="span4 offset4">
+		<%= will_paginate %>
+		
+		<table class="table">
+			<tr>
+				<th>Name</th>
+				<th>Actions</th>
+			</tr>
+		  <% @sampletypes.each do |sampletype| %>
+			<tr>
+		      <td><%= link_to sampletype.name, sampletype %></td>
+		      <td>
+		      	<%= link_to  edit_sampletype_path(sampletype) do %>
+		      		<i class="icon-edit"></i>
+		      	<% end %>
+			    <% if current_user.admin? %>
+			    	<%= link_to sampletype, method: :delete, data: { confirm: "You sure you wish to delete this sample type?" }  do%>
+			  	   	  <i class="icon-trash"></i>
+			  	   	<% end %>
+				<% end %>
+			  </td>
+			 </tr> 
+		  <% end %>
+		</table>
+		<%= will_paginate %>
+	</div>	
+</div>

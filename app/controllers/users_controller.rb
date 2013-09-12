@@ -1,9 +1,8 @@
 class UsersController < ApplicationController
   before_action :signed_in_user, only: [:edit, :update, :show, :create, :destroy]
   before_action :staff_user, only: [:create, :new] 
-  before_action :correct_user,   only: [:edit, :update]
   before_action :admin_user,     only: :destroy
-  before_action :correct_user_or_admin, only: []
+  before_action :correct_user_or_admin, only: [:edit, :update_password, :password, :update]
     
     def show
       @user = User.find(params[:id])
@@ -34,7 +33,9 @@ class UsersController < ApplicationController
     def update
       if @user.update_attributes(user_params)
         flash[:success] = "Profile updated"
-        sign_in @user
+        if @user == current_user 
+          sign_in @user
+        end 
         redirect_to dashboard_path
       else
         render 'edit'

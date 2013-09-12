@@ -3,13 +3,22 @@
 
 <div class="row">
   <div class="span6 offset3">
-    <%= form_for(@commonname) do |f| %>
+    <%= form_for(@commonname, :html => { :class => "form-horizontal"}) do |f| %>
 	  <%= render 'shared/error_messages', object: f.object %>
 
-	  <%= f.label :name %>
-	  <%= f.text_field :name %>
-
-      <%= f.submit "Update Common Name", class: "btn btn-large btn-warning" %>
+	  <div class="control-group required">
+	  	<%= f.label :name, :class => "control-label" %>
+  		<div class="controls">
+  			<%= f.text_field :name %>
+  			<%= render :partial => "layouts/hint", :locals => {:hint => "This field will be displayed as an 'Common Name' option when creating or updating samples."} %>
+  		</div>
+	  </div>
+	  
+      <div class="control-group">
+		<div class="controls">	
+      		<%= f.submit "Update Common Name", class: "btn btn-warning" %>
+      	</div>
+      </div>
       
     <% end %>
   </div>

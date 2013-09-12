@@ -3,25 +3,51 @@
 
 <div class="row">
   <div class="span6 offset3">
-    <%= form_for(@user) do |f| %>
+    <%= form_for(@user, :html => { :class => "form-horizontal" }) do |f| %>
 	  <%= render 'shared/error_messages', object: f.object %>
 	
-      <%= f.label :name %>
-      <%= f.text_field :name %>
+	  <div class="control-group required">
+      	<%= f.label :name, :class => "control-label" %>
+	      <div class="controls">	
+	      	<%= f.text_field :name %>
+		  </div>
+	  </div>
+		
+	  <div class="control-group required">
+      	<%= f.label :email, :class => "control-label" %>
+	      <div class="controls">	
+	      	<%= f.text_field :email %>
+		  </div>
+	  </div>
+		
+	  <div class="control-group required">
+	  	<%= f.label :role, :class => "control-label" %>
+	 	<div class="controls">	
+	  		<%= f.select :role, options_for_select([["Student", "Student"], ["Staff", "Staff"]], @user.role) %>
+	    </div>
+	  </div>
+		
+      <div class="control-group required">
+      	<%= f.label :password, :class => "control-label" %>
+      	<div class="controls">	
+      		<%= f.password_field :password %>
+	    </div>
+	  </div>
+		
+      <div class="control-group required">
+      	<%= f.label :password_confirmation, "Confirmation", :class => "control-label" %>
+      	<div class="controls">	
+      		<%= f.password_field :password_confirmation %>
+	    </div>
+	  </div>
 
-      <%= f.label :email %>
-      <%= f.text_field :email %>
-
-	  <%= f.label :role %>
-	  <%= f.select :role, options_for_select([["Student", "Student"], ["Staff", "Staff"]], @user.role) %>
-
-      <%= f.label :password %>
-      <%= f.password_field :password %>
-
-      <%= f.label :password_confirmation, "Confirmation" %>
-      <%= f.password_field :password_confirmation %>
-
-      <%= f.submit "Create account", class: "btn btn-large btn-primary" %>
+  	<div class="control-group">
+		<div class="controls">	
+			<%= button_tag( :class => "btn btn-primary") do %>
+				Create account <i class="icon-plus icon-white"></i> 
+			<% end %>
+    	</div>
+	</div>
     <% end %>
   </div>
 </div>
