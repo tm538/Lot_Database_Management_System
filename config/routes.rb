@@ -18,7 +18,11 @@ SampleApp::Application.routes.draw do
     get :autocomplete_l_class_name, :on => :collection
     get :autocomplete_genus_name, :on => :collection
     get :autocomplete_species_name, :on => :collection
-    collection { post :import }
+    collection do
+      get :edit_multiple
+      put :update_multiple
+      post :import
+    end
   end
     
   resources :lot

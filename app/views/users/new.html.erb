@@ -10,6 +10,7 @@
       	<%= f.label :name, :class => "control-label" %>
 	      <div class="controls">	
 	      	<%= f.text_field :name %>
+	      	<%= render :partial => "layouts/hint", :locals => {:hint => "Displayname shown next to entries you have created or updated."} %>
 		  </div>
 	  </div>
 		
@@ -17,6 +18,7 @@
       	<%= f.label :email, :class => "control-label" %>
 	      <div class="controls">	
 	      	<%= f.text_field :email %>
+	      	<%= render :partial => "layouts/hint", :locals => {:hint => "Email address used to login into the system."} %>
 		  </div>
 	  </div>
 		
@@ -24,6 +26,7 @@
 	  	<%= f.label :role, :class => "control-label" %>
 	 	<div class="controls">	
 	  		<%= f.select :role, options_for_select([["Student", "Student"], ["Staff", "Staff"]], @user.role) %>
+	  		<%= render :partial => "layouts/hint", :locals => {:hint => "Staff users can change system settings, student users can only generate lot numbers."} %>
 	    </div>
 	  </div>
 		
@@ -31,6 +34,7 @@
       	<%= f.label :password, :class => "control-label" %>
       	<div class="controls">	
       		<%= f.password_field :password %>
+      		<%= render :partial => "layouts/hint", :locals => {:hint => "Passwords should be at least 6 characters long."} %>
 	    </div>
 	  </div>
 		
@@ -38,6 +42,7 @@
       	<%= f.label :password_confirmation, "Confirmation", :class => "control-label" %>
       	<div class="controls">	
       		<%= f.password_field :password_confirmation %>
+      		<%= render :partial => "layouts/hint", :locals => {:hint => "Passwords confirmation should match the password entered above."} %>
 	    </div>
 	  </div>
 

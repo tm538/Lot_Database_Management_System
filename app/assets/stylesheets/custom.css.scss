@@ -171,6 +171,16 @@ aside {
   margin-left: 10px;
 }
 
+.keys {
+  ul {
+    float: right;
+    list-style: none;
+    li {
+      float: right;
+      margin-left: 10px;
+    } 
+  }
+}
 /* miscellaneous */
 
 .debug_dump {

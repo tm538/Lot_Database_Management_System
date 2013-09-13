@@ -10,6 +10,7 @@
 	      google.setOnLoadCallback(drawTable);
 	      function drawTable() {
 	       var data = new google.visualization.DataTable();
+	        data.addColumn('string', 'Selected');
 	        data.addColumn('number', 'Lot #');
 	        data.addColumn('string', 'Client');
 	        data.addColumn('boolean', 'Commercial');
@@ -18,13 +19,14 @@
 			data.addColumn('string', 'Actions');
 			data.addRows([
 				<% @lots.each do |lot| %>
-					[ 
+					[
+					'<%= check_box_tag "lot_ids[]", lot.id %>', 
 					<%= lot.id.to_s %>, 
 					'<%= link_to Client.find(lot.client_id).org.to_s.humanize, client_path(lot.client_id) %>',
 					<%= lot.commercial %>,
 					'<%= lot.site %>',
 					'<%= lot.phylum.to_s + " " + lot.l_class.to_s + " " + lot.genus.to_s + " " + lot.species.to_s %>',
-					'<%= link_to edit_lot_path(lot) do %><i class="icon-edit"></i><% end %>'
+					'<%= link_to edit_lot_path(lot) do %><i class="icon-edit"></i><% end %> <%= link_to lot_path(lot) do %><i class="icon-time"></i><% end %>'
 					],
 				<% end %>			
 	      	]);
@@ -67,5 +69,25 @@
 		    });		
 	       };       
 	</script>
-	<div id="gtable-results"></div>
+	<%= form_tag edit_multiple_lots_path, method: :get do %>
+		<div id="gtable-results"></div>
+		<div class="keys">
+			<ul>
+				<li>
+					<i class="icon-time"></i> History
+				</li>
+				<li>
+					<i class="icon-edit"></i> Edit
+				</li>
+				<li>
+					<b>Keys:</b>
+				</li>
+			</ul>
+		</div>
+		<%= content_tag( :button, :type => :submit, :class => "btn btn-warning") do %>
+   			Edit Selected 
+   			<i class="icon-edit icon-white"></i>
+		<% end %>
+		<%= render :partial => "layouts/hint", :locals => {:hint => "Make updates to multiple samples simultaneously, by selecting them above."} %>
+	<% end %>
 </div>

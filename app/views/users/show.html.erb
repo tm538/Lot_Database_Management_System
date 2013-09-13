@@ -3,30 +3,83 @@
 	<%= @user.name %>
 </h1>
 <div class="row">
-  <div class="span6 offset3">
-    <%= form_for(@user, :html => { :class => "form-horizontal" }) do |f| %>
+  <div class="span6 offset0">
+  	
+  	<div class="data-entry-header">
+		<h2><i class="icon-th icon-white"></i> User Profile <a href="#profile" data-toggle="collapse" class="pull-right icon-resize-vertical icon-white"></a>
+		</h2>
+	</div>
+	<p>User profile details.</p>
+	<div id="profile" class="collapse in">
+	    <%= form_for(@user, :html => { :class => "form-horizontal" }) do |f| %>
+		
+		  <div class="control-group required">
+	      	<%= f.label :name, :class => "control-label"%>
+	      	<div class="controls">
+	      		<%= f.text_field :name, :readonly => true %>
+	      		<%= render :partial => "layouts/hint", :locals => {:hint => "Displayname shown next to entries you have created or updated."} %>
+			</div>
+		  </div>
+		  
+		  <div class="control-group required">
+	      	<%= f.label :email, :class => "control-label" %>
+	      	<div class="controls">
+	      		<%= f.text_field :email, :readonly => true %>
+	      		<%= render :partial => "layouts/hint", :locals => {:hint => "Email address used to login into the system."} %>
+			</div>
+		  </div>      		
 	
-	  <div class="control-group">
-      	<%= f.label :name, :class => "control-label"%>
-      	<div class="controls">
-      		<%= f.text_field :name, :readonly => true %>
-		</div>
-	  </div>
-	  
-	  <div class="control-group">
-      	<%= f.label :email, :class => "control-label" %>
-      	<div class="controls">
-      		<%= f.text_field :email, :readonly => true %>
-		</div>
-	  </div>      		
-
-	  <div class="control-group">
-	  	<%= f.label :role, :class => "control-label" %>
-	 	<div class="controls">
-	  		<%= f.text_field :role, :readonly => true %>
-		</div>
-	  </div>
-
-    <% end %>
+		  <div class="control-group required">
+		  	<%= f.label :role, :class => "control-label" %>
+		 	<div class="controls">
+		  		<%= f.text_field :role, :readonly => true %>
+		  		<%= render :partial => "layouts/hint", :locals => {:hint => "Staff users can change system settings, student users can only generate lot numbers."} %>
+			</div>
+		  </div>
+		  
+		  <div class="control-group">
+		  	<%= f.label :created_at, "Account Created", :class => "control-label" %>
+		 	<div class="controls">
+		  		<%= f.text_field :created_at, :readonly => true %>
+		  		<%= render :partial => "layouts/hint", :locals => {:hint => "Timestamp when the account was created."} %>
+			</div>
+		  </div>
+		  
+		  <div class="control-group">
+		  	<%= f.label :updated_at, "Account Last Updated", :class => "control-label" %>
+		 	<div class="controls">
+		  		<%= f.text_field :updated_at, :readonly => true %>
+		  		<%= render :partial => "layouts/hint", :locals => {:hint => "Timestamp when the account was last updated."} %>
+			</div>
+		  </div>
+	
+	    <% end %>
+    </div>
+  </div>
+    
+  <div class="span6 offset0">
+  	<div class="data-entry-header">
+		<h2><i class="icon-time icon-white"></i> Lot Number History <a href="#history" data-toggle="collapse" class="pull-right icon-resize-vertical icon-white"></a>
+		</h2>
+	</div>
+	<p>History of all changes by <%= @user.name.humanize %>.</p>
+	<div id="history" class="collapse in">
+		<%= will_paginate  @versions %>
+		<table class="table table-condensed">
+			<tr>
+				<th>Lot #</th>
+				<th>Action</th>
+				<th>When</th>
+			</tr>			
+			<% @versions.each do |v| %>
+			<tr>
+				 <td><%= link_to v.item_id, lot_path(v.item_id) %> </td>
+				 <td> <%= v.event.to_s.humanize %>d </td>
+				 <td><%= l v.created_at, format: :long %></td>
+			</tr>
+			<% end %>			
+		</table>
+		<%= will_paginate @versions %>
+	</div>
   </div>
 </div>
