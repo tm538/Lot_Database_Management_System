@@ -6,70 +6,75 @@
 	
 <div id="results_info" class="collapse in">
 	<script  type="text/javascript" charset="UTF-8">
-		google.load('visualization', '1', {packages:['table']});
-	      google.setOnLoadCallback(drawTable);
-	      function drawTable() {
-	       var data = new google.visualization.DataTable();
-	        data.addColumn('string', 'Selected');
-	        data.addColumn('number', 'Lot #');
-	        data.addColumn('string', 'Client');
-	        data.addColumn('boolean', 'Commercial');
-	        data.addColumn('string', 'Site');
-	        data.addColumn('string', 'Biological Classification');
-			data.addColumn('string', 'Actions');
-			data.addRows([
-				<% @lots.each do |lot| %>
-					[
-					'<%= check_box_tag "lot_ids[]", lot.id %>', 
-					<%= lot.id.to_s %>, 
-					'<%= link_to Client.find(lot.client_id).org.to_s.humanize, client_path(lot.client_id) %>',
-					<%= lot.commercial %>,
-					'<%= lot.site %>',
-					'<%= lot.phylum.to_s + " " + lot.l_class.to_s + " " + lot.genus.to_s + " " + lot.species.to_s %>',
-					'<%= link_to edit_lot_path(lot) do %><i class="icon-edit"></i><% end %> <%= link_to lot_path(lot) do %><i class="icon-time"></i><% end %>'
-					],
-				<% end %>			
-	      	]);
-	      	
-	      	function rm_google_classes() {
-	      	var className = 'google-visualization-table-table';
-			$('.'+className).removeClass(className);
-			
-			var className = 'google-visualization-table-th';
-			$('.'+className).removeClass(className);
-			
-			var className = 'google-visualization-table-tr-head';
-			$('.'+className).removeClass(className);
-			
-			var className = 'google-visualization-table-tr-odd';
-			$('.'+className).removeClass(className);
-			
-			var className = 'google-visualization-table-tr-even';
-			$('.'+className).removeClass(className); 
-			
-			var className = 'google-visualization-table-td';
-			$('.'+className).removeClass(className);  
-			
-			var className = 'google-visualization-table-td-number';
-			$('.'+className).removeClass(className);  
-			
-			var className = 'google-visualization-table-td-bool';
-			$('.'+className).removeClass(className);  
-			
-			$("#gtable-results table").addClass("table table-condensed"); 
-	      	};
-	      	
-		    var table = new google.visualization.Table(document.getElementById('gtable-results'));
-		      table.draw(data, {allowHtml: true});
-		      rm_google_classes();
-			
-		    google.visualization.events.addListener(table , 'sort',
-		    function(event) {
-		      rm_google_classes();
-		    });		
-	       };       
+     function drawTable() {
+       	var data = new google.visualization.DataTable();
+        data.addColumn('string', '');
+        data.addColumn('number', 'Lot #');
+        data.addColumn('string', 'Client');
+        data.addColumn('boolean', 'Commercial');
+        data.addColumn('string', 'Site');
+        data.addColumn('string', 'Biological Classification');
+		data.addColumn('string', 'Actions');
+		data.addRows([
+			<% @lots.each do |lot| %>
+				[
+				'<%= check_box_tag "lot_ids[]", lot.id %>', 
+				<%= lot.id.to_s %>, 
+				'<%= link_to Client.find(lot.client_id).org.to_s.humanize, client_path(lot.client_id) %>',
+				<%= lot.commercial %>,
+				'<%= lot.site %>',
+				'<%= lot.phylum.to_s + " " + lot.l_class.to_s + " " + lot.genus.to_s + " " + lot.species.to_s %>',
+				'<%= link_to edit_lot_path(lot) do %><i class="icon-edit"></i><% end %> <%= link_to lot_path(lot) do %><i class="icon-time"></i><% end %>'
+				],
+			<% end %>			
+      	]);
+      	
+      	function rm_google_classes() {
+      	var className = 'google-visualization-table-table';
+		$('.'+className).removeClass(className);
+		
+		var className = 'google-visualization-table-th';
+		$('.'+className).removeClass(className);
+		
+		var className = 'google-visualization-table-tr-head';
+		$('.'+className).removeClass(className);
+		
+		var className = 'google-visualization-table-tr-odd';
+		$('.'+className).removeClass(className);
+		
+		var className = 'google-visualization-table-tr-even';
+		$('.'+className).removeClass(className); 
+		
+		var className = 'google-visualization-table-td';
+		$('.'+className).removeClass(className);  
+		
+		var className = 'google-visualization-table-td-number';
+		$('.'+className).removeClass(className);  
+		
+		var className = 'google-visualization-table-td-bool';
+		$('.'+className).removeClass(className);  
+		
+		$("#gtable-results table").addClass("table table-condensed"); 
+      	}
+      	
+	    var table = new google.visualization.Table(document.getElementById('gtable-results'));
+	    table.draw(data, {allowHtml: true});
+	    rm_google_classes();
+		
+	    google.visualization.events.addListener(table , 'sort',
+	    function(event) {
+	      rm_google_classes();
+	    });		
+	}
+      
+	function init () {
+    	$(document).on('page:load', drawTable);
+    	drawTable();
+	} 
+	
+	google.load('visualization', '1', {packages:['table'], callback: init});
 	</script>
-	<%= form_tag edit_multiple_lots_path, method: :get do %>
+	<%= form_tag edit_multiple_lots_path, method: :post do %>
 		<div id="gtable-results"></div>
 		<div class="keys">
 			<ul>
@@ -80,7 +85,7 @@
 					<i class="icon-edit"></i> Edit
 				</li>
 				<li>
-					<b>Keys:</b>
+					<b>Key:</b>
 				</li>
 			</ul>
 		</div>

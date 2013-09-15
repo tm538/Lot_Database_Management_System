@@ -8,7 +8,7 @@ class Lot < ActiveRecord::Base
   end
   
   def self.total_client_on(month, id)
-    where("date(created_at) >= ? AND date(created_at) < ? AND client_id == ?", month.beginning_of_month, month.end_of_month, id).count
+    where("date(created_at) >= ? AND date(created_at) < ? AND client_id == ? AND commercial == ?", month.beginning_of_month, month.end_of_month, id, true).count
   end
 
   def self.to_csv
@@ -45,7 +45,7 @@ class Lot < ActiveRecord::Base
   end
 
   default_scope -> { order('id DESC') }
-  validates :client_id, presence: true 
+  validates :client_id, presence: true
   validates :commercial, :inclusion => {:in => [true, false]}
   validates :commonname_id, presence: true
   validates :analysis_by, presence: true

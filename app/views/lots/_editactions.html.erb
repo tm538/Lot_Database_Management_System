@@ -4,12 +4,19 @@
 </div>
 <p>Commonly used actions.</p>
 
-<div id="options" class="collapse in">
-	<%= link_to @client do %>
-		View client contact details
-	<% end %>
-	<br/>
-	<%= link_to @lot do %>
-		View History
-	<% end %>
+<div id="options" class="collapse in display-none">
+	<ul>
+		<li>
+			<%= link_to @client do %>
+				View client contact details
+				<%= render :partial => "layouts/hint", :locals => {:hint => "View the full contact details for the client currently assigned to this sample."} %>
+			<% end %>
+		</li>
+		<li>
+			<%= link_to @lot do %>
+				View History
+				<%= render :partial => "layouts/hint", :locals => {:hint => "View details of all changes made to this lot numbers details."} %>
+			<% end %>
+		</li>
+	</ul>
 </div>

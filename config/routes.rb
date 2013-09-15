@@ -19,7 +19,7 @@ SampleApp::Application.routes.draw do
     get :autocomplete_genus_name, :on => :collection
     get :autocomplete_species_name, :on => :collection
     collection do
-      get :edit_multiple
+      post :edit_multiple
       put :update_multiple
       post :import
     end
@@ -44,7 +44,7 @@ SampleApp::Application.routes.draw do
   match '/about',   to: 'static_pages#about',   via: 'get'
   match '/dashboard', to: 'static_pages#dashboard', via: 'get'
   match '/contact', to: 'static_pages#contact', via: 'get'
-
+  match '/statistics', to: 'static_pages#statistics', via: 'get'
  
   
   # The priority is based upon order of creation: first created -> highest priority.

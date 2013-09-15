@@ -8,7 +8,7 @@ class SearchesController < ApplicationController
     @lots = @search.find_lots
      respond_to do |format|
       format.html
-      format.csv { send_data @lots.to_csv, filename: "LDMS_Search_" + @search.id.to_s + "_Results.csv"}
+      format.csv { send_data @lots.to_csv, filename: "LDMS-Search-" + @search.id.to_s + "-Results.csv"}
      end 
   end
   
@@ -30,6 +30,7 @@ class SearchesController < ApplicationController
                                      :to,
                                      :lot,
                                      :client,
+                                     :samp_id,
                                      :com,
                                      :site,
                                      :phylum,

@@ -22,51 +22,44 @@
 	    <th>Asigned to</th>
 	    <th>Last updated by</th>
 	    <th>Actions</th>
-	    <th>Placeholder</th>
-	    <th>placeholder</th>
 	  </tr>
 	
 	  <% @lots.each do |lot| %>
 	    <tr>
 	      <td>
-	      	<%= link_to lot.id.to_s, edit_lot_path(lot) %>
+	      	<%= lot.id.to_s %>
 	      </td>
 	      <td>
-	      	Placeholder
+	      	<%= link_to Client.find(lot.client_id).org.to_s.humanize, client_path(lot.client_id) %>
 	      </td>
 	      <td>
 	      	<%= lot.samp_id.to_s %>
 	      </td>	
 	      <td>
-	      	Placeholder
+	      	<%= link_to User.find(lot.analysis_by.to_f).name.humanize, user_path(lot.analysis_by) %>
 	      </td>
 	      <td>
-	      	Placeholder
+	      	<%= link_to User.find(lot.data_entered_by.to_f).name.humanize, user_path(lot.data_entered_by) %>
 	      </td>	
 	      <td>
-	      	<%= link_to "edit", edit_lot_path(lot) %>
-	      </td>
-	      <td>
-	      	Placeholder
-	      </td>	
-	      <td>
-	      	Placeholder
+	      	<%= link_to edit_lot_path(lot) do %><i class="icon-edit"></i><% end %> <%= link_to lot_path(lot) do %><i class="icon-time"></i><% end %>
 	      </td>	
 	    </tr>
 	  <% end %>
-	  
-	  <tr>
-	    <th>Lot Number</th>
-	    <th>Client</th>
-	    <th>Client Sample ID</th>
-	    <th>Asigned to</th>
-	    <th>Last updated by</th>
-	    <th>Actions</th>
-	    <th>Placeholder</th>
-	    <th>Placeholder</th>
-	  </tr>  
 	</table>
-	
+	<div class="keys">
+			<ul>
+				<li>
+					<i class="icon-time"></i> History
+				</li>
+				<li>
+					<i class="icon-edit"></i> Edit
+				</li>
+				<li>
+					<b>Key:</b>
+				</li>
+			</ul>
+		</div>
 	<%= will_paginate  %>
 
 </div>

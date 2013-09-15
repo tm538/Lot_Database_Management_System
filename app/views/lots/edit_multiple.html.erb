@@ -1,0 +1,287 @@
+<h1>Edit Selected Lots</h1>
+<h2>Updates will be applied to all selected Lots.</h2>
+
+<div class="data-entry-header">
+	<h2><i class="icon-list icon-white"></i> Update Fields <a href="#fields" data-toggle="collapse" class="pull-right  icon-resize-vertical icon-white"></a>
+	</h2>
+</div>
+<p>Fields updated here will be applied to all selected lots upon form submission. Please note, not all fields are avaliable to for multiple edit.</p>
+
+<div id="fields" class="collapse in">
+  <%= form_tag update_multiple_lots_path, :class => "form-horizontal", method: :put do %>
+    <%= fields_for :lot do |f| %>
+	
+	<div class="row">
+	  <div class="span7 offset0">
+		  <div class="data-entry-header">
+		  	<h2>Client Info <a href="#client_info" data-toggle="collapse" class="pull-right icon-resize-vertical icon-white"></a>
+		  	</h2>
+		  </div>
+		  <p>Infomation about the client.</p>
+		  
+		  <div id="client_info" class="collapse">
+			  <div class="control-group">
+			  	<%= f.label :client_id, "Client", :class => "control-label" %>	  	
+			  	<div class="controls">
+			  		<%= f.collection_select(:client_id, Client.all, :id, :org, include_blank: true ) %> 
+					<%= render :partial => "layouts/hint", :locals => {:hint => "Which Organisation sent the sample, for student samples the client is 'University of York'."} %>
+			  	</div>
+			  </div>
+			  
+			  <div class="control-group">
+			  	<%= f.label :commercial, :class => "control-label" %>
+			  	<div class="controls">
+		  			<%= f.select :commercial, options_for_select([["Non-Commercial", false], ["Commercial", true]]), include_blank: true %>
+					<%= render :partial => "layouts/hint", :locals => {:hint => "Is this a commercial peice of work?"} %>
+			  	</div>
+			  </div> 
+			  
+		  </div>
+		  
+		  <div class="data-entry-header">
+	  	<h2>Sample Details <a href="#samp_det" data-toggle="collapse" class="pull-right  icon-resize-vertical icon-white"></a>
+	  	</h2>
+	  </div>
+	  <p>Details about the sample, unknown fields should be left blank to be completed when known.</p>
+	  
+	  <div id="samp_det" class="collapse">
+		  <div class="control-group">
+		  	<%= f.label :sampletype_id, "Sample type", :class => "control-label" %>
+		  	<div class="controls">
+		  		<%= f.collection_select(:sampletype_id, Sampletype.all, :id, :name, include_blank: true) %>
+		  		<%= render :partial => "layouts/hint", :locals => {:hint => "A high level discription of the sample."} %>
+		    </div>
+		  </div>
+		  
+		  <div class="control-group">
+		  	<%= f.label :commonname_id, "Common Name", :class => "control-label" %>
+		  	<div class="controls">
+		  		<%= f.collection_select(:commonname_id, Commonname.all, :id, :name, include_blank: true) %>
+		  		<%= render :partial => "layouts/hint", :locals => {:hint => "The commonly used name for this sample."} %>
+		    </div>
+		  </div>
+		  
+		  <p>Type a couple of letters for suggestions, if unknown please leave biological classification fields blank.</p>
+		  
+		  <div class="control-group">
+		  	<%= f.label :phylum, :class => "control-label" %>
+		  	<div class="controls">	      		
+	      		<%= f.autocomplete_field :phylum, autocomplete_phylum_name_lots_path, :placeholder => "Type for suggestions" %>
+	      		<%= render :partial => "layouts/hint", :locals => {:hint => "Start Typing the first few letters for suggested values."} %>
+		    </div>
+		  </div>
+		  
+		  <div class="control-group">
+		  	<%= f.label :l_class, "Class", :class => "control-label" %>
+		  	<div class="controls">
+	      		<%= f.autocomplete_field :l_class, autocomplete_l_class_name_lots_path, :placeholder => "Type for suggestions" %>
+		    	<%= render :partial => "layouts/hint", :locals => {:hint => "Start Typing the first few letters for suggested values."} %>
+		    </div>
+		  </div>
+		  
+		  <div class="control-group">
+		  	<%= f.label :genus, :class => "control-label" %>
+		  	<div class="controls">
+	     		 <%= f.autocomplete_field :genus, autocomplete_genus_name_lots_path, :placeholder => "Type for suggestions" %>
+		    	 <%= render :partial => "layouts/hint", :locals => {:hint => "Start Typing the first few letters for suggested values."} %>
+		    </div>
+		  </div>
+		  
+		  <div class="control-group">
+		  	<%= f.label :species, :class => "control-label" %>
+		  	<div class="controls">
+	      		<%= f.autocomplete_field :species, autocomplete_species_name_lots_path, :placeholder => "Type for suggestions" %>
+		    	<%= render :partial => "layouts/hint", :locals => {:hint => "Start Typing the first few letters for suggested values."} %>
+		    </div>
+		  </div>
+	  </div>
+	  
+	  <div class="data-entry-header">  
+	  	<h2>Sample Storage Info <a href="#store_info" data-toggle="collapse" class="pull-right  icon-resize-vertical icon-white"></a>
+	  	</h2>
+	  </div>
+	  <p>Infomation here helps identify and manage samples.</p>
+	  
+	  <div id="store_info" class="collapse">
+		  <div class="control-group">
+		  	<%= f.label :sample_form, "Sample Form", :class => "control-label" %>
+		  	<div class="controls">
+		  		<%= f.text_field :sample_form, :placeholder => "eg. 'Foil pack' or 'test tube'" %>
+		  		<%= render :partial => "layouts/hint", :locals => {:hint => "Discription of how the sample is packed, to aid in identifying the sample."} %>	
+		    </div>
+		  </div>
+		    	  
+		  <div class="control-group">
+		  	<%= f.label :to_return, "Return sample when finished?", :class => "control-label" %>
+		  	<div class="controls">
+		  		<%= f.select :to_return, options_for_select([["Yes", "YES"], ["No (destroy)", "NO"], ["Archive", "ARCHIVE"]]), include_blank: true %>
+		  		<%= render :partial => "layouts/hint", :locals => {:hint => "What should happen to the sample once analysis is complete."} %>
+		    </div>
+		  </div>
+		  
+		  <div class="control-group">
+			<%= f.label :returned, "Sample Returned?", :class => "control-label" %>
+			<div class="controls">
+				<%= f.select :returned, options_for_select([["Yes", "YES"], ["No", "NO"]]), include_blank: true %>
+				<%= render :partial => "layouts/hint", :locals => {:hint => "Has this sample been returned?"} %>
+			</div>
+		  </div>
+		  
+		  <div class="control-group">
+	  		<%= f.label :archive_box, "Archive Box", :class => "control-label" %>
+	  		<div class="controls">
+	  			<%= f.text_field :archive_box, :placeholder => "eg. Archive Room 1 Box 2" %>
+	  			<%= render :partial => "layouts/hint", :locals => {:hint => "Where is this item archived?"} %>
+	    	</div>
+		  </div>
+		  
+	  	  <div class="control-group">
+	  	  	<%= f.label :return_date, "Date Returned", :class => "control-label" %>
+	  	  		<div class="controls">
+	      		<%= f.date_field :return_date %>
+	      		<%= render :partial => "layouts/hint", :locals => {:hint => "When was this sample returned leave blank to autofil upon return."} %>
+	 	    </div>
+		  </div>	
+   </div>  
+	  
+	<div class="data-entry-header">  	  
+	  	<h2>Geographic Info <a href="#geo_info" data-toggle="collapse" class="pull-right  icon-resize-vertical icon-white"></a>
+	  	</h2>
+	  </div>
+	  <p>Geographic Infomation about where the sample was taken from.</p>
+	  
+	  <div id="geo_info" class="collapse">
+		  <div class="control-group">
+		  	<%= f.label :region, "Geographic region", :class => "control-label" %>
+		  	<div class="controls">
+	      		<%= f.text_field :region, :placeholder => "eg. North Yorks" %>
+	      		<%= render :partial => "layouts/hint", :locals => {:hint => "The area the sample came from."} %>
+		    </div>
+		  </div>
+	  
+		  <div class="control-group">
+		  	<%= f.label :site, "Archeological site", :class => "control-label" %>
+		  	<div class="controls">
+	      		<%= f.text_field :site, :placeholder => "eg. York - Heslington East" %>
+	      		<%= render :partial => "layouts/hint", :locals => {:hint => "The specific site the sample came from."} %>
+		    </div>
+		  </div>
+	  </div>	  
+		  
+	  <div class="data-entry-header">    
+  	  	<h2>Analysis <a href="#anal_info" data-toggle="collapse" class="pull-right  icon-resize-vertical icon-white"></a>
+	  	</h2>
+  	  </div>
+  	  <p> Infomation about analysis and who will be carrying it out.</p>
+  	  
+  	  <div id="anal_info" class="collapse">
+	  	  <div class="control-group">
+	  	  	<%= f.label :analysis_by, "Analysis to be carried out by", :class => "control-label" %>
+	  	  	<div class="controls">
+		  		<%= f.collection_select(:analysis_by, User.all, :id, :name, include_blank: true) %>
+		  		<%= render :partial => "layouts/hint", :locals => {:hint => "The student or member of staff who will be carrying out the analysis work."} %>
+		    </div>
+		  </div>
+	  
+	  	<p>Please select all methods that apply:</p>
+	    <div class="control-group">
+	  		<%= f.label :isotopes, :class => "control-label" %>
+	  		<div class="controls">
+	  			<%= f.select :isotopes, options_for_select([["Yes", true], ["No", false]]), include_blank: true  %>
+	  			<%= render :partial => "layouts/hint", :locals => {:hint => "Will Isotope analysis be conducted on this sample."} %>
+	  		</div>
+		</div>
+	  
+		<div class="control-group">	  
+	  		<%= f.label :zooms, "ZooMS", :class => "control-label" %>
+	  		<div class="controls">
+	  			<%= f.select :zooms, options_for_select([["Yes", true], ["No", false]]), include_blank: true  %>
+	  			<%= render :partial => "layouts/hint", :locals => {:hint => "Will ZooMS analysis be conducted on this sample."} %>
+	  		</div>
+		</div>
+			  	
+	  	<div class="control-group">
+	  		<%= f.label :aar, "AAR", :class => "control-label" %>
+	  		<div class="controls">
+	  			<%= f.select :aar, options_for_select([["Yes", true], ["No", false]]), include_blank: true  %>
+	  			<%= render :partial => "layouts/hint", :locals => {:hint => "Will AAR analysis be conducted on this sample."} %>
+	  		</div>
+		</div>
+			  	
+	  	<div class="control-group">
+	  		<%= f.label :lipid, :class => "control-label" %>
+	  		<div class="controls">
+	  			<%= f.select :lipid, options_for_select([["Yes", true], ["No", false]]), include_blank: true  %>
+	  			<%= render :partial => "layouts/hint", :locals => {:hint => "Will Lipid analysis be conducted on this sample."} %>
+	  		</div>
+		</div>
+			  	
+	  	<div class="control-group">
+	  		<%= f.label :dna, "DNA", :class => "control-label" %>
+	  		<div class="controls">
+	  			<%= f.select :dna, options_for_select([["Yes", true], ["No", false]]), include_blank: true  %>
+	  			<%= render :partial => "layouts/hint", :locals => {:hint => "Will DNA analysis be conducted on this sample."} %>
+	  		</div>
+		</div>
+			  
+	  	<div class="control-group">
+		  	<%= f.label :analysis_other, "Other Methods:", :class => "control-label" %>
+		  	<div class="controls">
+	      		<%= f.text_field :analysis_other, :placeholder => "" %>
+	      		<%= render :partial => "layouts/hint", :locals => {:hint => "Any other analysis to be conducted on this sample."} %>
+		    </div>
+		  </div>
+	  </div>  
+	
+	  <div class="data-entry-header">    
+  	  	<h2>Extra Info <a href="#extra_info" data-toggle="collapse" class="pull-right  icon-resize-vertical icon-white"></a>
+	  	</h2>
+  	  </div>
+  	  <p>Any extra infomation not recorded elsewhere.</p>
+  	  
+  	  <div id="extra_info" class="collapse">
+		  <div class="control-group">
+		  	<%= f.label :extra_info, "Additional infomation", :class => "control-label" %>
+		  	<div class="controls">
+	      		<%= f.text_area :extra_info, :placeholder => "" %>
+	      		<%= render :partial => "layouts/hint", :locals => {:hint => "Any additional infomation on this sample not recorded elsewhere."} %>
+		    </div>
+		  </div>
+	  </div>
+	  
+	  	<%= content_tag( :button, :type => :submit, :class => "btn btn-warning") do %>
+			Update Selected 
+			<i class="icon-edit icon-white"></i>
+		<% end %>
+		<%= render :partial => "layouts/hint", :locals => {:hint => "All selected lots will be updated upon submission."} %>	
+	  </div>
+	  
+	  <div class="span4 offset1">
+	  	<div class="data-entry-header">
+			<h2><i class="icon-ok-sign icon-white"></i> Selected Lots <a href="#selected_lots" data-toggle="collapse" class="pull-right  icon-resize-vertical icon-white"></a>
+			</h2>
+		</div>
+		<p>All lots selected for update.</p>
+			
+		<div id="selected_lots" class="collapse in">
+		  <table class="table table-condensed">
+		  	<tr>
+		  		<th>Lot #</th>
+		  		<th>Placeholder</th>
+		  	</tr>
+			<% @lots.each do |lot| %>
+				<tr>
+			  		<td><%= lot.id.to_s %>
+			  			<%= hidden_field_tag "lot_ids[]", lot.id %>
+			  		</td>
+			  		<td></td>
+			  	</tr>
+			<% end %>
+		  </table>
+		</div>
+	  	
+	  </div>
+	</div>
+  <% end %>  
+<% end %>
+</div>

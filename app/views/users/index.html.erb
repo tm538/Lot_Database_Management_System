@@ -11,9 +11,9 @@
 	    <th>User</th>
 	    <th>Email</th>
 	    <th>Role</th>
+	    <th>Status</th>
 	    <th>Options</th>
 	  </tr>
-	
 	
 	  <% @users.each do |user| %>
 	    <tr>
@@ -27,6 +27,16 @@
 	      	<%= user.role %>
 	      </td>
 	      <td>
+	      	<% if user.disabled %>
+	      		Disabled
+	      	<% else %>
+	      		Active
+	      	<% end %>
+	      </td>
+	      <td>
+	      <%= mail_to(user.email, subject: "Lot Database Management System") do %>
+	  	  	<i class="icon-envelope"></i>
+	  	  <% end %>
 	      <% if current_user.admin? %>
 	    		<%= link_to edit_user_path(user) do %>
 	    		 	<i class="icon-edit"></i>
@@ -57,7 +67,10 @@
 				<i class="icon-edit"></i> Edit
 			</li>
 			<li>
-				<b>Keys:</b>
+				<i class="icon-envelope"></i> Email
+			</li>
+			<li>
+				<b>Key:</b>
 			</li>
 		</ul>
 	</div>

@@ -6,7 +6,7 @@ class UsersController < ApplicationController
     
     def show
       @user = User.find(params[:id])
-      @versions = PaperTrail::Version.where(whodunnit: current_user.id.to_s).order('id desc').paginate(page: params[:page], :per_page => 30)
+      @versions = PaperTrail::Version.where(whodunnit: @user.id).order('id desc').paginate(page: params[:page], :per_page => 30)
     end
     
     def index
@@ -69,7 +69,7 @@ class UsersController < ApplicationController
   private
 
     def user_params
-      params.require(:user).permit(:name, :email, :password, :password_confirmation, :role, :admin)
+      params.require(:user).permit(:name, :email, :password, :password_confirmation, :role, :admin, :disabled)
     end
 
 end

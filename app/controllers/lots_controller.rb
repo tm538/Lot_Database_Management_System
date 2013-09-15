@@ -16,6 +16,10 @@ autocomplete :species, :name
   
   def index
     @lots = Lot.paginate(page: params[:page], :per_page => 10)
+    respond_to do |format|
+      format.html
+      format.csv { send_data @lots.to_csv, filename: "LDMS-all-lots-" + Date.today.to_s + ".csv"}
+     end 
   end
   
   def create
@@ -35,6 +39,24 @@ autocomplete :species, :name
       @lot = Lot.find(params[:id])
       @user = User.find(@lot.data_entered_by)
       @client = Client.find(@lot.client_id)
+  end
+  
+  def edit_multiple
+    @lots = Lot.find(params[:lot_ids])
+  end
+  
+  def update_multiple
+    @lots = Lot.find(params[:lot_ids])
+    @lots.reject! do |lot|
+      lot.update_attributes(lot_params.reject { |k,v| v.blank? })
+    end
+    if @lots.empty?
+      flash[:success] = "Lots updated."
+      redirect_to dashboard_path
+    else
+      @lot = Lot.new(params[:lot])
+      render "edit_multiple"
+    end
   end
   
   def update

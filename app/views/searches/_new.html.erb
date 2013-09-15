@@ -1,8 +1,8 @@
 <div class="data-entry-header">
-	<h2><i class="icon-search icon-white"></i> Search Paramaters <a href="#search_info" data-toggle="collapse" class="pull-right  icon-resize-vertical icon-white"></a>
+	<h2><i class="icon-search icon-white"></i> Search Parameters <a href="#search_info" data-toggle="collapse" class="pull-right  icon-resize-vertical icon-white"></a>
 	</h2>
 </div>
-<p>Search paramaters are AND'd together to narrow search results and are all optional. Please note text fields are case sensitive.</p>
+<p>Search Parameters are AND'd together to narrow search results and are all optional. Please note text fields are case sensitive.</p>
 
 <div id="search_info" class="collapse in">
 	<%= form_for(@search, :url => searches_path, :method => "post", :html => { :class => "form-horizontal", :id => "new_search" }) do |f| %>
@@ -30,6 +30,14 @@
 			<div class="controls">
 	    		<%= f.collection_select(:client, Client.all, :id, :org, {include_blank: 'All'}) %>
 	    		<%= render :partial => "layouts/hint", :locals => {:hint => "Search for lot numbers for a single client only."} %>
+	    	</div>
+		</div>
+		
+		<div class="control-group">
+			<%= f.label :samp_id, "Client Sample ID", :class => "control-label" %>
+			<div class="controls">	
+	    		<%= f.text_field :samp_id %>
+	    		<%= render :partial => "layouts/hint", :locals => {:hint => "Search for a sample by the client sample id."} %>
 	    	</div>
 		</div>
 		

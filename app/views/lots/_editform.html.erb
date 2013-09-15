@@ -3,14 +3,15 @@
 	   <div class="data-entry-header">
 		  	<h2>Client Info <a href="#client_info" data-toggle="collapse" class="pull-right  icon-resize-vertical icon-white"></a>
 		  	</h2>
-		  </div>
-		  <p>Infomation about the client for commercial samples (Staff only).</p>
+	   </div>
+	   <p>Infomation about the client for commercial samples (Staff only).</p>
 		  
 		  <div id="client_info" class="collapse in">
 			  <div class="control-group">
 			  	<%= f.label :client_id, "Client", :class => "control-label" %>	  	
 			  	<div class="controls">
 			  		<%= f.collection_select(:client_id, Client.all, :id, :org) %>
+			  		<%= render :partial => "layouts/hint", :locals => {:hint => "Which Organisation sent the sample, for student samples the client is 'University of York'."} %>
 			  	</div>
 			  </div>
 			  
@@ -18,6 +19,7 @@
 			  	<%= f.label :commercial, :class => "control-label" %>
 			  	<div class="controls">
 		  			<%= f.select :commercial, options_for_select([["Non-Commercial", false], ["Commercial", true]], @lot.commercial) %>
+		  			<%= render :partial => "layouts/hint", :locals => {:hint => "Is this a commercial peice of work?"} %>
 			  	</div>
 			  </div> 
 			  	  
@@ -25,6 +27,7 @@
 			  	<%= f.label :samp_id, "Client Sample ID", :class => "control-label" %>
 			  	<div class="controls">
 		      		<%= f.text_field :samp_id, :placeholder => "eg. Durham - ABC123" %>
+		      		<%= render :partial => "layouts/hint", :locals => {:hint => "The supplying organisations individual sample identifier."} %>
 		      	</div>
 			  </div>
 		  </div>
@@ -40,6 +43,7 @@
 			  	<%= f.label :sampletype_id, "Sample type", :class => "control-label" %>
 			  	<div class="controls">
 			  		<%= f.collection_select(:sampletype_id, Sampletype.all, :id, :name, prompt: true) %>
+			  		<%= render :partial => "layouts/hint", :locals => {:hint => "A high level discription of the sample."} %>
 			    </div>
 			  </div>
 			  
@@ -47,6 +51,7 @@
 			  	<%= f.label :commonname_id, "Common Name", :class => "control-label" %>
 			  	<div class="controls">
 			  		<%= f.collection_select(:commonname_id, Commonname.all, :id, :name, prompt: true) %>
+			  		<%= render :partial => "layouts/hint", :locals => {:hint => "The commonly used name for this sample."} %>
 			    </div>
 			  </div>
 			  
@@ -54,6 +59,7 @@
 			  	<%= f.label :phylum, :class => "control-label" %>
 			  	<div class="controls">
 		      		<%= f.text_field :phylum, :placeholder => "eg. Chordata" %>
+		      		<%= render :partial => "layouts/hint", :locals => {:hint => "Start Typing the first few letters for suggested values."} %>
 			    </div>
 			  </div>
 			  
@@ -61,6 +67,7 @@
 			  	<%= f.label :l_class, "Class", :class => "control-label" %>
 			  	<div class="controls">
 		      		<%= f.text_field :l_class, :placeholder => "eg. Mammalia" %>
+		      		<%= render :partial => "layouts/hint", :locals => {:hint => "Start Typing the first few letters for suggested values."} %>
 			    </div>
 			  </div>
 			  
@@ -68,6 +75,7 @@
 			  	<%= f.label :genus, :class => "control-label" %>
 			  	<div class="controls">
 		     		 <%= f.text_field :genus, :placeholder => "eg. Homo" %>
+		     		 <%= render :partial => "layouts/hint", :locals => {:hint => "Start Typing the first few letters for suggested values."} %>
 			    </div>
 			  </div>
 			  
@@ -75,6 +83,7 @@
 			  	<%= f.label :species, :class => "control-label" %>
 			  	<div class="controls">
 		      		<%= f.text_field :species, :placeholder => "eg. Sapiens" %>
+		      		<%= render :partial => "layouts/hint", :locals => {:hint => "Start Typing the first few letters for suggested values."} %>
 			    </div>
 			  </div>
 		  </div>
@@ -89,7 +98,8 @@
 			  <div class="control-group">
 			  	<%= f.label :sample_form, "Sample Form", :class => "control-label" %>
 			  	<div class="controls">
-			  		<%= f.text_field :sample_form, :placeholder => "eg. 'Foil pack' or 'test tube'" %>	
+			  		<%= f.text_field :sample_form, :placeholder => "eg. 'Foil pack' or 'test tube'" %>
+			  		<%= render :partial => "layouts/hint", :locals => {:hint => "Discription of how the sample is packed, to aid in identifying the sample."} %>		
 			    </div>
 			  </div>
 			    	  
@@ -97,6 +107,7 @@
 			  	<%= f.label :to_return, "Return sample when finished?", :class => "control-label" %>
 			  	<div class="controls">
 			  		<%= f.select :to_return, options_for_select([["Yes", "YES"], ["No (destroy)", "NO"], ["Archive", "ARCHIVE"]],@lot.to_return) %>
+			  		<%= render :partial => "layouts/hint", :locals => {:hint => "What should happen to the sample once analysis is complete."} %>
 			    </div>
 			  </div>
 		   
@@ -106,6 +117,7 @@
 			  	<%= f.label :returned, "Sample Returned?", :class => "control-label" %>
 			  	<div class="controls">
 			  		<%= f.select :returned, options_for_select([["Yes", "YES"], ["No", "NO"]], @lot.returned) %>
+			  		<%= render :partial => "layouts/hint", :locals => {:hint => "Has the sample been returned to the client."} %>
 			    </div>
 			  </div>
 		   <% else %>  
@@ -114,6 +126,7 @@
 			  		<%= f.label :archive_box, "Archive Box", :class => "control-label" %>
 			  		<div class="controls">
 			  			<%= f.text_field :archive_box, :placeholder => "eg. Archive Room 1 Box 2" %>
+			  			<%= render :partial => "layouts/hint", :locals => {:hint => "What is the archive location of this item."} %>
 			    	</div>
 			  	</div>
 			  <% end %>
@@ -124,6 +137,7 @@
 		  	  	<%= f.label :return_date, "Date Returned", :class => "control-label" %>
 		  	  		<div class="controls">
 		      		<%= f.date_field :return_date %>
+		      		<%= render :partial => "layouts/hint", :locals => {:hint => "When was the sample returned (this field is autofilled when the sample is marked as returned)."} %>
 		 	    </div>
 			  </div>		   
 		   <% end %>  
@@ -140,6 +154,7 @@
 			  	<%= f.label :region, "Geographic region", :class => "control-label" %>
 			  	<div class="controls">
 		      		<%= f.text_field :region, :placeholder => "eg. North Yorks" %>
+		      		<%= render :partial => "layouts/hint", :locals => {:hint => "The area the sample came from."} %>
 			    </div>
 			  </div>
 		  
@@ -148,6 +163,7 @@
 			  	<%= f.label :site, "Archeological site", :class => "control-label" %>
 			  	<div class="controls">
 		      		<%= f.text_field :site, :placeholder => "eg. York - Heslington East" %>
+		      		<%= render :partial => "layouts/hint", :locals => {:hint => "The specific site the sample came from."} %>
 			    </div>
 			  </div>
 		  </div>
@@ -163,6 +179,7 @@
 		  	  	<%= f.label :analysis_by, "Analysis to be carried out by", :class => "control-label" %>
 		  	  	<div class="controls">
 			  		<%= f.collection_select(:analysis_by, User.all, :id, :name, prompt: true) %>
+			  		<%= render :partial => "layouts/hint", :locals => {:hint => "The student or member of staff who will be carrying out the analysis work."} %>
 			    </div>
 			  </div>
 			  
@@ -171,6 +188,7 @@
 		  		<%= f.label :isotopes, :class => "control-label" %>
 		  		<div class="controls">
 		  			<%= f.check_box :isotopes %>
+		  			<%= render :partial => "layouts/hint", :locals => {:hint => "Will Isotope analysis be conducted on this sample."} %>
 		  		</div>
 			</div>
 		  
@@ -178,6 +196,7 @@
 		  		<%= f.label :zooms, "ZooMS", :class => "control-label" %>
 		  		<div class="controls">
 		  			<%= f.check_box :zooms %>
+		  			<%= render :partial => "layouts/hint", :locals => {:hint => "Will ZooMS analysis be conducted on this sample."} %>
 		  		</div>
 			</div>
 				  	
@@ -185,6 +204,7 @@
 		  		<%= f.label :aar, "AAR", :class => "control-label" %>
 		  		<div class="controls">
 		  			<%= f.check_box :aar %>
+		  			<%= render :partial => "layouts/hint", :locals => {:hint => "Will AAR analysis be conducted on this sample."} %>
 		  		</div>
 			</div>
 				  	
@@ -192,6 +212,7 @@
 		  		<%= f.label :lipid, :class => "control-label" %>
 		  		<div class="controls">
 		  			<%= f.check_box :lipid %>
+		  			<%= render :partial => "layouts/hint", :locals => {:hint => "Will Lipid analysis be conducted on this sample."} %>
 		  		</div>
 			</div>
 				  	
@@ -199,6 +220,7 @@
 		  		<%= f.label :dna, "DNA", :class => "control-label" %>
 		  		<div class="controls">
 		  			<%= f.check_box :dna %>
+		  			<%= render :partial => "layouts/hint", :locals => {:hint => "Will DNA analysis be conducted on this sample."} %>
 		  		</div>
 			</div>
 				  
@@ -206,6 +228,7 @@
 			  	<%= f.label :analysis_other, "Other Methods:", :class => "control-label" %>
 			  	<div class="controls">
 		      		<%= f.text_field :analysis_other, :placeholder => "" %>
+		      		<%= render :partial => "layouts/hint", :locals => {:hint => "Any other analysis to be conducted on this sample."} %>
 			    </div>
 			  </div>
 		  </div>
@@ -221,6 +244,7 @@
 			  	<%= f.label :extra_info, "Additional infomation", :class => "control-label" %>
 			  	<div class="controls">
 		      		<%= f.text_area :extra_info, :placeholder => "Any additional infomation regarding the sample..." %>
+		      		<%= render :partial => "layouts/hint", :locals => {:hint => "Any additional infomation on this sample not recorded elsewhere."} %>
 			    </div>
 			  </div>
 		  </div>
@@ -236,6 +260,7 @@
 		  	  	<label class="control-label" for="lot_created_at_dummy">Last Updated</label>
 		  	  	<div class="controls">
 		      		<input id="lot_created_at_dummy" name="lot[created_at]" readonly="readonly" type="datetime" value="<%= @lot.updated_at.to_s %>">
+		      		<%= render :partial => "layouts/hint", :locals => {:hint => "Timestamped when the sample selected for update."} %>
 		 	    </div>
 			  </div>
 		         
@@ -243,6 +268,7 @@
 		      	<label for="lot_data_entered_by_dummy" class="control-label">Last updated by</label>
 		      	<div class="controls">
 			  		<input id="lot_data_entered_by_dummy" readonly="readonly" type="text" value="<%= @user.name.to_s %>">
+			  		<%= render :partial => "layouts/hint", :locals => {:hint => "User details recorded against this edit."} %>
 			    </div>
 			  </div>
 		  </div>

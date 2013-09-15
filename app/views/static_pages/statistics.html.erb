@@ -1,0 +1,39 @@
+<% provide(:title, 'Statistics') %>
+<h1>LDMS Statistics</h1>
+
+<%= render 'static_pages/stats' %>
+
+<div class="row">
+	<div class="span3 offset0">	
+		<div class="data-entry-header">
+		  <h2><i class="icon-signal icon-white"></i> Core Stats 1<a href="#stats" data-toggle="collapse" class="pull-right  icon-resize-vertical icon-white"></a>
+		  </h2>
+		</div>
+		<p>Key LDMS stats at a glace.</p>
+		<div id="stats" class="collapse in">
+		
+		  Placeholder
+		</div>
+	</div>
+	
+	<div class="span9 offset0">	
+		<div class="data-entry-header">
+		  <h2> Monthly Sample Totals<a href="#stats1" data-toggle="collapse" class="pull-right  icon-resize-vertical icon-white"></a>
+		  </h2>
+		</div>
+		<p>Monthly commercial and non-commercial sample totals.</p>
+		<div id="stats1" class="collapse">
+		  <div id="com_chart" style="width:auto; height:400px;"></div>
+		</div>
+	
+		<div class="data-entry-header">
+		  <h2> Comercial Sample Breakdown <a href="#stats2" data-toggle="collapse" class="pull-right  icon-resize-vertical icon-white"></a>
+		  </h2>
+		</div>
+		<p>Monthly commercial client breakdown by client.</p>
+		<div id="stats2" class="collapse">
+		  <div id="client_chart" style="width:auto; height:400px;"></div>
+		</div>
+	</div>
+	
+</div>	
