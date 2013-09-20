@@ -43,6 +43,9 @@ textarea {
   ul {
     list-style: none;
     margin-left: 0px;
+    li {
+      margin-bottom: 10px;
+    }
   }
 }
 
@@ -178,7 +181,7 @@ aside {
 }
 
 .hint {
-  display: inline;
+  display: inline-block;
   margin-left: 10px;
 }
 
@@ -191,6 +194,11 @@ aside {
       margin-left: 10px;
     } 
   }
+}
+
+.popover {
+  max-width: 500px;
+  width: auto;
 }
 /* miscellaneous */
 
@@ -213,6 +221,22 @@ aside {
 .field_with_errors {
   @extend .control-group;
   @extend .error;
+  width: auto;
+}
+
+.controls {
+  width: auto;
+}
+
+.form-horizontal .field_with_errors
+{
+  margin: 0;
+}
+
+.form-horizontal .field_with_errors:before, .form-horizontal .field_with_errors::after 
+{
+  display: block;
+  clear: none;
 }
 
 div.hidden { 

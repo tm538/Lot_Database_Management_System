@@ -11,7 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130915135742) do
+ActiveRecord::Schema.define(version: 20130918114651) do
+
+  create_table "batches", force: true do |t|
+    t.string   "name"
+    t.integer  "client_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "extra"
+    t.string   "restriction"
+    t.boolean  "commercial"
+  end
 
   create_table "clients", force: true do |t|
     t.string   "org"
@@ -70,6 +81,8 @@ ActiveRecord::Schema.define(version: 20130915135742) do
     t.string   "returned"
     t.datetime "return_date"
     t.string   "archive_box"
+    t.integer  "batch_id"
+    t.string   "restriction"
   end
 
   add_index "lots", ["id"], name: "index_lots_on_id"

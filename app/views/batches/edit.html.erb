@@ -1,0 +1,40 @@
+<% provide(:title, @batch.name.to_s) %>
+<h1><%= Client.find(@batch.client_id).org.to_s.humanize %> - Batch: <%= @batch.name.to_s %></h1>
+<div class="row">
+  <div class="span4 offset0">
+  
+  <%= render :partial => 'batches/details' %>  
+  <%= render :partial => 'batches/actions', :locals => { :lots => @lots }  %>  
+  <%= render :partial => 'batches/lots', :locals => { :lots => @lots } %>
+  
+  </div>  
+  <div class="span8 offse0">
+  
+	<div class="data-entry-header">    
+		<h2>Add Sample to Batch <a href="#newlot" data-toggle="collapse" class="pull-right  icon-resize-vertical icon-white"></a>
+		</h2>
+	</div>
+	<p>Add a new sample to this batch and generate a new lot number.</p>
+	  
+	<div id="newlot" class="collapse in">
+		
+		<% if @lots.empty? %>
+			<p>After entering data for the first sample in the batch all other sample templates will auto-populate.</p>
+		<% else %>
+			<p>Sample template has auto-populated with data from the last sample added (Sample ID will not auto-populate).</p>
+		<% end %>
+		
+		<div class="span6 offset1">
+		  
+		<%= form_for(@lot, :url => lots_path, :method => :post, :html => { :class => "form-horizontal", :id => "new_lot" }) do |f| %>
+	  		<%= render 'shared/error_messages', object: f.object %>
+			
+			<%= f.hidden_field :batch_id, :value => @batch.id %>
+			
+	  		<%= render :partial => 'lots/newform', :locals => { :f => f, :extra_btn => !@lots.empty? } %>
+				  
+    	<% end %>		  
+		</div>
+	</div>
+  </div>    	
+</div>

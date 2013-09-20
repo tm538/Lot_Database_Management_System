@@ -6,7 +6,7 @@ $(function() {
 			renderTo: "com_chart"
 		},
 		title: {
-			text: "Monthly Samples Totals"
+			text: null
 		},
         legend: {
         	enabled: false
@@ -17,7 +17,8 @@ $(function() {
 		yAxis: {
 			title: {
 				text: "Samples"
-			}
+			},
+			min: 0
 		},
 		series: [			
 		<% { "Commercial" => Lot.commercial, "Non-commercial" => Lot.non_commercial, "Total" => Lot }.each do |name, lots| %>			
@@ -40,7 +41,7 @@ $(function() {
             renderTo: "client_chart"
         },
         title: {
-            text: 'Commercial Client Share'
+            text: null
         },
         legend: {
         	enabled: false
@@ -51,7 +52,8 @@ $(function() {
         yAxis: {
 			title: {
 				text: "Samples"
-			}
+			},
+			min: 0
         },
         plotOptions: {
             area: {
@@ -78,5 +80,52 @@ $(function() {
 			enabled: false
 		}
    });
-});	
+   
+    new Highcharts.Chart({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            renderTo: "analysis_chart"
+        },
+        title: {
+            text: null
+        },
+        tooltip: {
+    	    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    color: '#000000',
+                    connectorColor: '#000000',
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                }
+            }
+        },
+        series: [{
+            type: 'pie',
+            name: 'Analysis share',
+            data: [
+                ['Isotopes',   <%= Lot.where(isotopes: true).count %>],
+                ['ZooMS', 	   <%= Lot.where(zooms: true).count %>],
+                {
+                    name: 'ARR',
+                    y: <%= Lot.where(aar: true).count %>,
+                    sliced: true,
+                    selected: true
+                },
+                ['Lipid',    <%= Lot.where(lipid: true).count %>],
+                ['DNA',     <%= Lot.where(dna: true).count %>],
+                ['Others',   <%= Lot.where("analysis_other <> ''").count %>]
+            ]
+        }],
+        credits: {
+			enabled: false
+		}
+    });
+});
 </script>	

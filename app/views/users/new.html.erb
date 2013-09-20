@@ -56,8 +56,11 @@
 
   	<div class="control-group">
 		<div class="controls">	
-			<%= button_tag( :class => "btn btn-primary") do %>
+			<%= button_tag( :class => "btn btn-success") do %>
 				Create account <i class="icon-plus icon-white"></i> 
+			<% end %>
+			<%= link_to dashboard_path, class: "btn btn-danger" do %>
+				Cancel <i class=" icon-remove icon-white"></i>
 			<% end %>
     	</div>
 	</div>

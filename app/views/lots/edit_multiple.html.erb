@@ -49,7 +49,7 @@
 		  	<%= f.label :sampletype_id, "Sample type", :class => "control-label" %>
 		  	<div class="controls">
 		  		<%= f.collection_select(:sampletype_id, Sampletype.all, :id, :name, include_blank: true) %>
-		  		<%= render :partial => "layouts/hint", :locals => {:hint => "A high level discription of the sample."} %>
+		  		<%= render :partial => "layouts/hint", :locals => {:hint => "A high level description of the sample."} %>
 		    </div>
 		  </div>
 		  
@@ -107,7 +107,7 @@
 		  	<%= f.label :sample_form, "Sample Form", :class => "control-label" %>
 		  	<div class="controls">
 		  		<%= f.text_field :sample_form, :placeholder => "eg. 'Foil pack' or 'test tube'" %>
-		  		<%= render :partial => "layouts/hint", :locals => {:hint => "Discription of how the sample is packed, to aid in identifying the sample."} %>	
+		  		<%= render :partial => "layouts/hint", :locals => {:hint => "Description of how the sample is packed, to aid in identifying the sample."} %>	
 		    </div>
 		  </div>
 		    	  
@@ -267,14 +267,16 @@
 		  <table class="table table-condensed">
 		  	<tr>
 		  		<th>Lot #</th>
-		  		<th>Placeholder</th>
+		  		<th>Sample ID</th>
 		  	</tr>
 			<% @lots.each do |lot| %>
 				<tr>
 			  		<td><%= lot.id.to_s %>
 			  			<%= hidden_field_tag "lot_ids[]", lot.id %>
 			  		</td>
-			  		<td></td>
+			  		<td>
+			  			<%= lot.samp_id.to_s %>
+			  		</td>
 			  	</tr>
 			<% end %>
 		  </table>

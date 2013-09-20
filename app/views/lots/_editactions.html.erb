@@ -14,9 +14,17 @@
 		</li>
 		<li>
 			<%= link_to @lot do %>
-				View History
+				View history
 				<%= render :partial => "layouts/hint", :locals => {:hint => "View details of all changes made to this lot numbers details."} %>
 			<% end %>
 		</li>
+		<% if !@lot.batch_id.nil? %>
+			<li>
+				<%= link_to edit_batch_path(@lot.batch_id) do %>
+					View batch details
+					<%= render :partial => "layouts/hint", :locals => {:hint => "View the batch associated with this sample."} %>
+				<% end %>
+			</li>
+		<% end %>
 	</ul>
 </div>

@@ -2,7 +2,7 @@
   <h2><i class="icon-exclamation-sign icon-white"></i> Actions <a href="#Actions" data-toggle="collapse" class="pull-right  icon-resize-vertical icon-white"></a>
   </h2>
 </div>
-<p>Commonly used actions.</p>
+<p>Commonly used action shortcuts.</p>
 
 <div id="Actions" class="collapse in display-none">
 	<ul>
@@ -13,35 +13,46 @@
 		     	<%= render :partial => "layouts/hint", :locals => {:hint => "Enter a new sample's details and generate a new lot number."} %>
 		     <% end %>
 	     </li>
-	     <li>
-		     <%= link_to "#" do %>
-		     	<i class="icon-plus"></i>
-		     	<i class="icon-plus"></i>
-		     	 Generate Batch Lot Numbers
-		     	<%= render :partial => "layouts/hint", :locals => {:hint => "Enter a batch of new sample's details and generate a new lot numbers."} %>
-		     <% end %>
-		 </li>
+	     <% if staff_user? %>
+		     <li>
+			     <%= link_to new_batch_path do %>
+			     	<i class="icon-plus"></i>
+			     	<i class="icon-plus"></i>
+			     	 Generate Batch Lot Numbers
+			     	<%= render :partial => "layouts/hint", :locals => {:hint => "Enter a batch of new sample's details and generate a new lot numbers."} %>
+			     <% end %>
+			 </li>
+		 <% end %>	 
 		 <li>
 		     <%= link_to lots_path do %>
 		     	<i class="icon-list"></i>
-		     	 Browse all Lots Numbers
-		     	<%= render :partial => "layouts/hint", :locals => {:hint => "List all lot numbers details stored in the LDMS."} %>
+		     	 Browse all Samples
+		     	<%= render :partial => "layouts/hint", :locals => {:hint => "List all sample lot numbers details stored in the LDMS."} %>
 		     <% end %>
 	     </li>
-	     <li>
-	     	<%= link_to clients_path do %>
-	     		<i class="icon-list"></i>
-	     		 Browse all Clients
-	     		<%= render :partial => "layouts/hint", :locals => {:hint => "List all clients stored in the LDMS."} %>
-	     	<% end %>
-	     </li>
-	     <li>
-		     <%= link_to users_path do %>
-		     	<i class="icon-list"></i>
-		     	 Browse all Users
-		     	<%= render :partial => "layouts/hint", :locals => {:hint => "List all user accounts stored in the LDMS."} %> 
+	     <% if staff_user? %>
+		     <li>
+			     <%= link_to batches_path do %>
+			     	<i class="icon-list"></i>
+			     	 Browse all Batches
+			     	<%= render :partial => "layouts/hint", :locals => {:hint => "List all sample batches stored in the LDMS."} %>
+			     <% end %>
+		     </li>
+		     <li>
+		     	<%= link_to clients_path do %>
+		     		<i class="icon-list"></i>
+		     		 Browse all Clients
+		     		<%= render :partial => "layouts/hint", :locals => {:hint => "List all clients stored in the LDMS."} %>
+		     	<% end %>
+		     </li>
+		     <li>
+			     <%= link_to users_path do %>
+			     	<i class="icon-list"></i>
+			     	 Browse all Users
+			     	<%= render :partial => "layouts/hint", :locals => {:hint => "List all user accounts stored in the LDMS."} %> 
+			     <% end %>
+		     </li>
 		     <% end %>
-	     </li>
 	     <li>
 		     <%= link_to edit_lot_path(Lot.last(1)) do %>
 		     	<i class="icon-eye-open "></i>
@@ -56,12 +67,14 @@
 		     	<%= render :partial => "layouts/hint", :locals => {:hint => "Download all lot number details for all lots stored in the LDMS."} %>
 		     <% end %>
 	     </li>
-	     <li>
-	     	<%= link_to statistics_path do %>
-	     	<i class="icon-signal"></i>
-	     	 Usage Statistics
-	     	<%= render :partial => "layouts/hint", :locals => {:hint => "View usage statistics for the LDMS."} %>
-	     	<% end %>
-	     </li>
+	     <% if staff_user? %>
+		     <li>
+		     	<%= link_to statistics_path do %>
+		     	<i class="icon-signal"></i>
+		     	 Usage Statistics
+		     	<%= render :partial => "layouts/hint", :locals => {:hint => "View usage statistics for the LDMS."} %>
+		     	<% end %>
+		     </li>
+		 <% end %>
      </ul>
 </div>

@@ -10,7 +10,10 @@
 
   <div class="span7 offset0">	
 	<%= render 'dashboard/mylots' %>	
-	<%= render 'searches/new' %>	
+	<%= render 'searches/new' %>
+	<% if staff_user? %>
+		<%= render 'dashboard/batches' %>	
+	<% end %>
  </div>
 </div>
 

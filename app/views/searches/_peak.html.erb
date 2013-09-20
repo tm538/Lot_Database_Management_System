@@ -1,0 +1,106 @@
+<a href="#" rel="popover" data-html="true" data-original-title="<b> Lot Number <%= peak.id.to_s %> </b>" 
+	data-content="	
+	<table>
+			<tr>
+				<th>Client</th>
+				<td><%= Client.find(peak.client_id).org.humanize %></td>
+			</tr>
+			<tr>
+				<th>Commercial</th>
+				<td><%= peak.commercial.to_s.humanize %></td>
+			</tr>
+			<tr>
+				<th>Accessable to</th>
+				<td><%= peak.restriction.to_s.humanize %></td>
+			</tr>
+			<tr>
+				<th>Sample ID</th>
+				<td><%= peak.samp_id %></td>
+			</tr>
+			<tr>
+				<th>Sample type</th>
+				<td><%= Sampletype.find(peak.sampletype_id).name %></td>
+			</tr>
+			<tr>
+				<th>Common Name</th>
+				<td><%= Commonname.find(peak.commonname_id).name %></td>
+			</tr>
+			<tr>
+				<th>Phylum</th>
+				<td><%= peak.phylum %></td>
+			</tr>
+			<tr>
+				<th>Class</th>
+				<td><%= peak.l_class %></td>
+			</tr>
+			<tr>
+				<th>Genus</th>
+				<td><%= peak.genus %></td>
+			</tr>
+			<tr>
+				<th>Species</th>
+				<td><%= peak.species %></td>
+			</tr>
+			<tr>
+				<th>Sample Form</th>
+				<td><%= peak.sample_form %></td>
+			</tr>
+			<tr>
+				<th>Return Sample?</th>
+				<td><%= peak.to_return.to_s.humanize %></td>
+			</tr>
+			<tr>
+				<th>Sample Returned?</th>
+				<td><%= peak.returned.to_s.humanize %></td>
+			</tr>
+			<tr>
+				<th>Return Date</th>
+				<td><%= (!peak.return_date.nil? ? ( l peak.return_date, format: :long) : "") %></td>
+			</tr>
+			<tr>
+				<th>Archive Box</th>
+				<td><%= peak.archive_box %></td>
+			</tr>
+			<tr>
+				<th>Geographic region</th>
+				<td><%= peak.region %></td>
+			</tr>
+			<tr>
+				<th>Archeological site</th>
+				<td><%= peak.site %></td>
+			</tr>
+			<tr>
+				<th>Analysis by</th>
+				<td><%= User.find(peak.analysis_by).name %></td>
+			</tr>
+			<tr>
+				<th>Isotopes</th>
+				<td><%= peak.isotopes.to_s.humanize %></td>
+			</tr>
+			<tr>
+				<th>ZooMS</th>
+				<td><%= peak.zooms.to_s.humanize %></td>
+			</tr>
+			<tr>
+				<th>AAR</th>
+				<td><%= peak.aar.to_s.humanize %></td>
+			</tr>
+			<tr>
+				<th>Lipid</th>
+				<td><%= peak.lipid.to_s.humanize %></td>
+			</tr>
+			<tr>
+				<th>DNA</th>
+				<td><%= peak.dna.to_s.humanize %></td>
+			</tr>
+			<tr>
+				<th>Other Methods</th>
+				<td><%= peak.analysis_other.to_s.humanize %></td>
+			</tr>
+			<tr>
+				<th>Additional infomation</th>
+				<td><%= peak.extra_info.to_s.humanize %></td>
+			</tr>											
+		</table>	
+		">	
+	<i class="icon-eye-open"></i></a>

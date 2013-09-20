@@ -1,5 +1,8 @@
 class StaticPagesController < ApplicationController
+before_action :signed_in_user, only: [:dashboard]
+
   def home
+    redirect_to dashboard_path unless !signed_in?
   end
 
   def help

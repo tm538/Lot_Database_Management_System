@@ -4,45 +4,82 @@
 </h1>
 
 <div class="row">
-  <div class="span6 offset3">
-    <%= form_for(@client, :html => { :class => "form-horizontal"}) do |f| %>
-	  <%= render 'shared/error_messages', object: f.object %>
+  <div class="span6 offset0">
+  	
+  	<div class="data-entry-header">
+		<h2><i class="icon-th icon-white"></i> Client Profile <a href="#profile" data-toggle="collapse" class="pull-right icon-resize-vertical icon-white"></a>
+		</h2>
+	</div>
+	<p>Client profile details.</p>
+	<div id="profile" class="collapse in">
+	    <%= form_for(@client, :html => { :class => "form-horizontal"}) do |f| %>
+		  <%= render 'shared/error_messages', object: f.object %>
+		
+		 <div class="control-group required">
+	      	<%= f.label :org, "Organisation", :class => "control-label" %>
+	      	<div class="controls">
+	      		<%= f.text_field :org, :readonly => true  %>
+	      	</div>
+	      </div>
+	      
+		  <div class="control-group required">
+		  	<%= f.label :contact_name, "Contact Name", :class => "control-label" %>
+	      	<div class="controls">
+	      		<%= f.text_field :contact_name, :readonly => true  %>
+	      	</div>
+	      </div>
+	      
+	      <div class="control-group required">
+	      	<%= f.label :email, "Contact Email", :class => "control-label" %>
+	      	<div class="controls">
+	      		<%= f.text_field :email, :readonly => true  %>
+	      	</div>
+	      </div>
+	      
+		  <div class="control-group required">
+		  	<%= f.label :address, :class => "control-label" %>
+		  	<div class="controls">
+		  		<%= f.text_area :address, :readonly => true  %>
+	      	</div>
+	      </div>
 	
-	 <div class="control-group required">
-      	<%= f.label :org, "Organisation", :class => "control-label" %>
-      	<div class="controls">
-      		<%= f.text_field :org, :readonly => true  %>
-      	</div>
-      </div>
-      
-	  <div class="control-group required">
-	  	<%= f.label :contact_name, "Contact Name", :class => "control-label" %>
-      	<div class="controls">
-      		<%= f.text_field :contact_name, :readonly => true  %>
-      	</div>
-      </div>
-      
-      <div class="control-group required">
-      	<%= f.label :email, "Contact Email", :class => "control-label" %>
-      	<div class="controls">
-      		<%= f.text_field :email, :readonly => true  %>
-      	</div>
-      </div>
-      
-	  <div class="control-group required">
-	  	<%= f.label :address, :class => "control-label" %>
-	  	<div class="controls">
-	  		<%= f.text_area :address, :readonly => true  %>
-      	</div>
-      </div>
-
-	  <div class="control-group">
-	  	<%= f.label :extra, "Extra Info", :class => "control-label"  %>
-	  	<div class="controls">
-	  		<%= f.text_area :extra, :readonly => true %>
-      	</div>
-      </div>
-	  
-    <% end %>
+		  <div class="control-group">
+		  	<%= f.label :extra, "Extra Info", :class => "control-label"  %>
+		  	<div class="controls">
+		  		<%= f.text_area :extra, :readonly => true %>
+	      	</div>
+	      </div>
+		  
+	    <% end %>
+	   </div>
   </div>
+  
+    <div class="span6 offset0">
+	  	<div class="data-entry-header">
+			<h2><i class="icon-list-alt icon-white"></i> Sample Batches <a href="#history" data-toggle="collapse" class="pull-right icon-resize-vertical icon-white"></a>
+			</h2>
+		</div>
+		<p>All sample batches assigned to <%= @client.org.humanize %>.</p>
+		<div id="history" class="collapse in">
+			<% if Batch.where(client_id: @client.id).empty? %>
+				No Batches are currently assigned to this client.
+			<% else %>
+				<table class="table table-condensed">
+					<tr>
+						<th>Batch Name</th>
+						<th>Samples</th>
+						<th>Created</th>
+					</tr>
+					<% Batch.where(client_id: @client.id).each do |batch| %>
+						<tr>
+							<td><%= link_to batch.name, edit_batch_path(batch) %></td>
+							<td><%= Lot.where(batch_id: batch.id).count %></td>
+							<td><%= l batch.created_at, format: :short %></td>
+						</tr>
+					<% end %>
+				</table>
+			<% end %>
+		</div>
+	</div>
+  
 </div>

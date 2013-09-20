@@ -1,4 +1,7 @@
 class LotsController < ApplicationController
+before_action :signed_in_user, only: [:edit, :update, :show, :index, :create, :destroy]
+before_action :lot_restriction, only: [:edit, :update, :destroy, :show]
+
 autocomplete :phylum, :name
 autocomplete :l_class, :name
 autocomplete :genus, :name
@@ -11,14 +14,16 @@ autocomplete :species, :name
   end
   
   def new
-    @lot = Lot.new(:commercial => false, :client_id => 1, :created_at => Time.now)
+    @lot = Lot.new(:commercial => false, :restriction => "All", :client_id => 1, :created_at => Time.now)
+    flash.now[:notice] = "Please complete all mandatory and relevent fields for this sample."
   end
   
   def index
-    @lots = Lot.paginate(page: params[:page], :per_page => 10)
+    @lots = Lot.paginate(page: params[:page], :per_page => 100)
+    @lots_all = Lot.all
     respond_to do |format|
       format.html
-      format.csv { send_data @lots.to_csv, filename: "LDMS-all-lots-" + Date.today.to_s + ".csv"}
+      format.csv { send_data @lots_all.to_csv, filename: "LDMS-all-lots-" + Date.today.to_s + ".csv"}
      end 
   end
   
@@ -27,11 +32,23 @@ autocomplete :species, :name
     @lot.data_entered_by = current_user.id
     @lot.user_id = current_user.id
     @lot.returned = "NO"
+    @lot.created_at = Time.now
     if @lot.save
-      flash[:success] = "Lot number:" + @lot.id.to_s + ", sucessfully created."
-      redirect_to dashboard_path
+      if @lot.batch_id.nil?
+        flash[:success] = "Lot number:" + @lot.id.to_s + ", sucessfully created."
+        redirect_to dashboard_path
+      else
+        flash[:success] = "Lot number:" + @lot.id.to_s + ", sucessfully added to batch." 
+        redirect_to edit_batch_path(@lot.batch_id)
+      end 
     else
-      render 'new'
+      if @lot.batch_id.nil?
+        render 'new'
+      else
+        @lots = Lot.where(batch_id: @lot.batch_id)
+        @batch = Batch.find(@lot.batch_id) 
+        render 'batches/edit'
+      end 
     end
   end
   
@@ -69,19 +86,19 @@ autocomplete :species, :name
     end
     
     if @lot.update_attributes(attributes)
-      flash[:success] = "Lot number:" + @lot.id.to_s + ", updated"
+      flash.now[:success] = "Lot number:" + @lot.id.to_s + ", updated"
       redirect_to dashboard_path
     else
       @lot = Lot.find(params[:id])
       @user = User.find(@lot.data_entered_by)
-      flash[:error] = "Error Lot number:" + @lot.id.to_s + ", was not updated"
+      flash.now[:error] = "Error Lot number:" + @lot.id.to_s + ", was not updated"
       render 'edit'
     end
   end
   
   def import 
     Lot.import(params[:file])
-    flash[:success] = "Lot numbers, imported."
+    flash.now[:success] = "Lot numbers, imported."
     redirect_to dashboard_path
   end
   
@@ -115,7 +132,9 @@ autocomplete :species, :name
                                   :analysis_other,
                                   :returned,
                                   :archive_box,
-                                  :return_date
+                                  :return_date,
+                                  :restriction,
+                                  :batch_id
                                   )
     end
   

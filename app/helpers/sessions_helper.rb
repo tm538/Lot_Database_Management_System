@@ -52,20 +52,32 @@ module SessionsHelper
 
   def correct_user
     @user = User.find(params[:id])
-    redirect_to(root_url) unless current_user?(@user)
+    unless current_user?(@user)
+      flash[:error] = "You don't have permision to do that."
+      redirect_to(dashboard_path) 
+    end
   end
     
   def admin_user
-    redirect_to(root_url) unless current_user.admin?
+    unless current_user.admin?
+      flash[:error] = "You don't have permision to do that."
+      redirect_to(dashboard_path) 
+    end
   end
   
   def correct_user_or_admin
     @user = User.find(params[:id])
-    redirect_to(root_url) unless current_user.admin? or current_user?(@user)
+    unless current_user.admin? or current_user?(@user)
+      flash[:error] = "You don't have permision to do that."
+      redirect_to(dashboard_path) 
+    end
   end
     
   def staff_user
-    redirect_to(root_url) unless signed_in? && current_user.role == 'Staff'
+   unless signed_in? && current_user.role == 'Staff'
+      flash[:error] = "You need to be a staff user to do that."
+      redirect_to(dashboard_path) 
+   end
   end 
   
   def staff_user?
@@ -74,6 +86,22 @@ module SessionsHelper
   
   def not_signed_in
     redirect_to(root_url) unless !signed_in?
+  end
+  
+  def lot_restriction
+    @lot = Lot.find(params[:id])
+    unless @lot.restriction == 'All' or  current_user.role == 'Staff'
+      flash[:error] = "You do not have permision to access that sample."
+      redirect_to(dashboard_path) 
+    end
+  end
+  
+  def batch_restriction
+    @batch = Batch.find(params[:id])
+    unless @batch.restriction == 'All' or  current_user.role == 'Staff'
+      flash[:error] = "You do not have permision to access that batch."
+      redirect_to(dashboard_path) 
+    end
   end
   
 end

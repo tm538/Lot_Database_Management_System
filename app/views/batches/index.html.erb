@@ -1,0 +1,60 @@
+<% provide(:title, 'All Batches') %>
+<h1>All Batches</h1>
+<h2>There are currently <%= Batch.all.count %> batches stored in the LDMS.</h2>
+<%= will_paginate %>
+<div class="row">
+  <div class="span12 offset0">
+		
+	<div class="data-entry-header">
+	<h2>Sample Batches <a href="#batches" data-toggle="collapse" class="pull-right  icon-resize-vertical icon-white"></a>
+	</h2>
+	</div>
+	<p>All batches in groups of 30, most recent first.</p>
+	
+	<div id="batches" class="collapse in">
+		<table class="table">
+		  <tr>
+		    <th>Organisation</th>
+		    <th>Description</th>
+		    <th>Extra Info</th>
+		    <th>Samples</th>
+		    <th>Created</th>
+		    <th>Options</th>
+		  </tr>
+		  <% @batches.each do |batch| %>
+		 		<tr>
+					<td><%= link_to Client.find(batch.client_id).org.humanize , client_path(Client.find(batch.client_id))%></td>
+					<td><%= link_to batch.name, edit_batch_path(batch) %></td>
+					<td><%= batch.extra %></td>
+					<td><%= Lot.where(batch_id: batch.id).count %></td>
+					<td><%= l batch.created_at, format: :short %></td>
+					<td>
+						<% if !Lot.where(batch_id: batch.id).empty? %>
+							<%= link_to batch_path(batch.id, format: "csv") do %>
+								<i class="icon-download-alt"></i> 
+							<% end %>
+						<% end %>
+			    		<%= link_to edit_batch_path(batch.id) do %>
+			    			<i class="icon-share"></i> 
+			    		<% end %>
+					</td>
+				</tr>
+			<% end %>
+		</table>
+		<div class="keys">
+			<ul>
+				<li>
+					<i class="icon-share"></i> Go to
+				</li>
+				<li>
+					<i class="icon-download-alt"></i> Download
+				</li>
+				<li>
+					<b>Key:</b>
+				</li>
+			</ul>
+		</div>
+		<%= will_paginate %>
+	</div>
+  </div>
+</div>

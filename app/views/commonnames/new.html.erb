@@ -16,7 +16,12 @@
 	  
       <div class="control-group">
 		<div class="controls">	
-      		<%= f.submit "Add Common Name", class: "btn btn-primary" %>
+      		<%= button_tag( :class => "btn btn-success") do %>
+  				Add Common Name <i class="icon-plus icon-white"></i>
+			<% end %>
+      		<%= link_to dashboard_path, class: "btn btn-danger" do %>
+				Cancel <i class=" icon-remove icon-white"></i>
+			<% end %>
       	</div>
       </div>
       

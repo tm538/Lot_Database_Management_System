@@ -16,7 +16,7 @@ class ClientsController < ApplicationController
   def create
     @client = Client.new(client_params)
     if @client.save
-      flash[:success] = "User " + @client.org.to_s + " sucessfully created"
+      flash[:success] = "Client " + @client.org.to_s + " sucessfully created"
       redirect_to dashboard_path
     else
       render 'new'
@@ -45,5 +45,5 @@ class ClientsController < ApplicationController
   
   def client_params
       params.require(:client).permit(:org, :contact_name, :address, :email, :extra)
-    end
+  end
 end

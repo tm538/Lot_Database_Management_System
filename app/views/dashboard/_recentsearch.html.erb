@@ -4,62 +4,65 @@
 </div>
 <p>The last 5 searches you performed.</p>
 
-	<div id="my_searches" class="collapse in">
-	
-	<table class="table">
-	<tr>
-		<th>Lot Range</th>
-		<th>Client</th>
-		<th>Site</th>
-		<th>Biological classification</th>
-		<th>Results</th>
-	</tr>		
-	<% Search.where(user_id: current_user.id).order('id desc').limit(5).each do |s| %>
-	    <tr> 
-		    <td> <%= if s.lot.presence
-		    			s.lot.to_s
-		    		else
-		    	 		(!s.from.presence ? "0" : s.from.to_s) + " - " + (!s.to.presence ? "Max" : s.to.to_s)
-		    	 	end  
-		    	 %>
-		    </td>
-		    <td> 
-		    	<% if !s.client.blank? %>
-		    		<%= link_to Client.find(s.client).org.to_s.humanize, client_path(s.client) %>
-		    	<% else %>
-		    		All	
-		    	<% end %>
-		    </td>
-		    <td> 
-		    	<% if !s.site.blank? %>
-		    		<%= s.site.to_s %>
-		    	 <% else %>
-		    	 	All
-		    	 <% end %>
-		    </td>
-		    <td> <%= s.phylum.to_s + " " + s.l_class.to_s + " " + s.genus.to_s + " " + s.species.to_s %></td>
-		    <td>
-		    	<%= link_to search_path(s.id, format: "csv") do %>
-					<i class="icon-download-alt"></i> 
-				<% end %>
-		    	<%= link_to search_path(s.id) do %>
-		    		<i class="icon-share"></i> 
-		    	<% end %>
-		    </td>
-	    </tr>	    
-	<% end %>		
-	</table>
-	<div class="keys">
-		<ul>
-			<li>
-				<i class="icon-share"></i> Go to
-			</li>
-			<li>
-				<i class="icon-download-alt"></i> Download
-			</li>
-			<li>
-				<b>Key:</b>
-			</li>
-		</ul>
-	</div>
+<div id="my_searches" class="collapse in">
+	<% if Search.where(user_id: current_user.id).empty? %>
+		<p>You have not performed any searches</p>
+	<% else %>
+		<table class="table">
+		<tr>
+			<th>Lot Range</th>
+			<th>Client</th>
+			<th>Site</th>
+			<th>Biological classification</th>
+			<th>Results</th>
+		</tr>		
+		<% Search.where(user_id: current_user.id).order('id desc').limit(5).each do |s| %>
+		    <tr> 
+			    <td> <%= if s.lot.presence
+			    			s.lot.to_s
+			    		else
+			    	 		(!s.from.presence ? "0" : s.from.to_s) + " - " + (!s.to.presence ? "Max" : s.to.to_s)
+			    	 	end  
+			    	 %>
+			    </td>
+			    <td> 
+			    	<% if !s.client.blank? %>
+			    		<%= link_to Client.find(s.client).org.to_s.humanize, client_path(s.client) %>
+			    	<% else %>
+			    		All	
+			    	<% end %>
+			    </td>
+			    <td> 
+			    	<% if !s.site.blank? %>
+			    		<%= s.site.to_s %>
+			    	 <% else %>
+			    	 	All
+			    	 <% end %>
+			    </td>
+			    <td> <%= s.phylum.to_s + " " + s.l_class.to_s + " " + s.genus.to_s + " " + s.species.to_s %></td>
+			    <td>
+			    	<%= link_to search_path(s.id, format: "csv") do %>
+						<i class="icon-download-alt"></i> 
+					<% end %>
+			    	<%= link_to search_path(s.id) do %>
+			    		<i class="icon-share"></i> 
+			    	<% end %>
+			    </td>
+		    </tr>	    
+		<% end %>		
+		</table>
+		<div class="keys">
+			<ul>
+				<li>
+					<i class="icon-share"></i> Go to
+				</li>
+				<li>
+					<i class="icon-download-alt"></i> Download
+				</li>
+				<li>
+					<b>Key:</b>
+				</li>
+			</ul>
+		</div>
+	<% end %>
 </div>

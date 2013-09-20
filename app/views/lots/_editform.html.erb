@@ -22,6 +22,14 @@
 		  			<%= render :partial => "layouts/hint", :locals => {:hint => "Is this a commercial peice of work?"} %>
 			  	</div>
 			  </div> 
+			  
+			  <div class="control-group">
+		  		<%= f.label :restriction, "Allow access by:", :class => "control-label" %>
+		  		<div class="controls">
+	  				<%= f.select :restriction, options_for_select([["Student and Staff", "All"], ["Staff Only", "Staff"]], @lot.restriction) %>
+					<%= render :partial => "layouts/hint", :locals => {:hint => "should access to this sample be restricted?"} %>
+		  		</div>
+		 	 </div> 
 			  	  
 			  <div class="control-group">
 			  	<%= f.label :samp_id, "Client Sample ID", :class => "control-label" %>
@@ -43,7 +51,7 @@
 			  	<%= f.label :sampletype_id, "Sample type", :class => "control-label" %>
 			  	<div class="controls">
 			  		<%= f.collection_select(:sampletype_id, Sampletype.all, :id, :name, prompt: true) %>
-			  		<%= render :partial => "layouts/hint", :locals => {:hint => "A high level discription of the sample."} %>
+			  		<%= render :partial => "layouts/hint", :locals => {:hint => "A high level description of the sample."} %>
 			    </div>
 			  </div>
 			  
@@ -99,7 +107,7 @@
 			  	<%= f.label :sample_form, "Sample Form", :class => "control-label" %>
 			  	<div class="controls">
 			  		<%= f.text_field :sample_form, :placeholder => "eg. 'Foil pack' or 'test tube'" %>
-			  		<%= render :partial => "layouts/hint", :locals => {:hint => "Discription of how the sample is packed, to aid in identifying the sample."} %>		
+			  		<%= render :partial => "layouts/hint", :locals => {:hint => "Description of how the sample is packed, to aid in identifying the sample."} %>		
 			    </div>
 			  </div>
 			    	  

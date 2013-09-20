@@ -1,6 +1,6 @@
-<% provide(:title, 'Search') %>
-<h1>All Lot Numbers</h1>
-
+<% provide(:title, 'All Samples') %>
+<h1>All Sample Lot Numbers</h1>
+<h2>There are currently <%= Lot.all.count %> samples stored in the LDMS.</h2>
 <div class="row">
   <div class="span12 offset0">
 		
@@ -8,7 +8,7 @@
 	<h2>Lot Numbers <a href="#results_info" data-toggle="collapse" class="pull-right  icon-resize-vertical icon-white"></a>
 	</h2>
 </div>
-<p>All lot numbers in batches of 30, most recent first.</p>
+<p>All lot numbers in sets of 100, most recent first.</p>
 	
 <div id="results_info" class="collapse in">
 

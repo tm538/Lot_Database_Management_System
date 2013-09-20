@@ -4,12 +4,27 @@
 </div>
 <p>Commonly used actions.</p>
 
-<div id="options" class="collapse in">
-	<%= link_to @client do %>
-		View current client contact details
-	<% end %>
-	<br/>
-	<%= link_to edit_lot_path(@lot) do %>
-		Edit this Lot Number's details
-	<% end %>
+<div id="options" class="collapse in display-none">
+<ul>
+	<li>
+		<%= link_to @client do %>
+			Client contact details
+			<%= render :partial => "layouts/hint", :locals => {:hint => "View the client contact details currently associated with this sample."} %>
+		<% end %>
+	</li>
+	<li>
+		<%= link_to edit_lot_path(@lot) do %>
+			Edit Sample details
+			<%= render :partial => "layouts/hint", :locals => {:hint => "Update the sample details for this tot number."} %>
+		<% end %>
+	</li>
+		<% if !@lot.batch_id.nil? %>
+			<li>
+				<%= link_to edit_batch_path(@lot.batch_id) do %>
+					View batch details
+					<%= render :partial => "layouts/hint", :locals => {:hint => "View the batch associated with this sample."} %>
+				<% end %>
+			</li>
+		<% end %>
+	</ul>
 </div>

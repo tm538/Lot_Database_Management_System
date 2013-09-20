@@ -11,7 +11,7 @@ gem 'bootstrap-will_paginate', '0.0.9'
 gem 'paper_trail', '3.0.0.beta1'
 gem "highcharts-rails", "~> 3.0.0"
 gem 'rails3-jquery-autocomplete', git: 'https://github.com/francisd/rails3-jquery-autocomplete'
-
+gem "jquery-tablesorter", "~> 1.5.0"
 
 group :development, :test do
   gem 'sqlite3', '1.3.7'

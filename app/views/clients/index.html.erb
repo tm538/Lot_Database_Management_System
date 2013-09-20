@@ -1,5 +1,6 @@
 <% provide(:title, 'All Clients') %>
 <h1>All Clients</h1>
+<h2>There are currently <%= Client.all.count %> clients stored in the LDMS.</h2>
 <%= will_paginate %>
 <div class="row">
   <div class="span10 offset1">
@@ -13,7 +14,7 @@
 	    <th>Options</th>
 	  </tr>
 	  <% @clients.each do |client| %>
-	    <tr>o
+	    <tr>
 	      <td>
 	      	<%= link_to client.org, client %>
 	      </td>

@@ -11,8 +11,40 @@
 		</div>
 		<p>Key LDMS stats at a glace.</p>
 		<div id="stats" class="collapse in">
-		
-		  Placeholder
+			<table class="table table-condensed">
+				<tr>
+					<th>Total Clients:</th>
+					<td><%= Client.find(:all).count %> </td>
+				</tr>
+				<tr>
+					<th>Total Users:</th>
+					<td><%= User.find(:all).count %></td>
+				</tr>
+				<tr>
+					<th>Total Batches:</th>
+					<td><%= Batch.find(:all).count %></td>
+				</tr>
+				<tr>
+					<th>Total Samples:</th>
+					<td><%= Lot.find(:all).count %> </td>
+				</tr>
+				<tr>
+					<th>Commercial:</th>
+					<td><%= Lot.where(commercial: true).count %> </td>
+				</tr>
+				<tr>
+					<th>Non-commercial:</th>
+					<td><%= Lot.where(commercial: false).count %> </td>
+				</tr>
+				<tr>
+					<th>Samples this month:</th>
+					<td><%= Lot.total_on(Date.today.beginning_of_month) %></td>
+				</tr>
+				<tr>
+					<th>Samples last month</th>
+					<td><%= Lot.total_on(1.month.ago.beginning_of_month) %></td>
+				</tr>
+			</table>
 		</div>
 	</div>
 	
@@ -27,13 +59,23 @@
 		</div>
 	
 		<div class="data-entry-header">
-		  <h2> Comercial Sample Breakdown <a href="#stats2" data-toggle="collapse" class="pull-right  icon-resize-vertical icon-white"></a>
+		  <h2> Commercial Sample Breakdown <a href="#stats2" data-toggle="collapse" class="pull-right  icon-resize-vertical icon-white"></a>
 		  </h2>
 		</div>
 		<p>Monthly commercial client breakdown by client.</p>
 		<div id="stats2" class="collapse">
 		  <div id="client_chart" style="width:auto; height:400px;"></div>
 		</div>
+
+		<div class="data-entry-header">
+		  <h2> Analysis breakdown <a href="#stats3" data-toggle="collapse" class="pull-right  icon-resize-vertical icon-white"></a>
+		  </h2>
+		</div>
+		<p>Analysis breakdown by analysis type.</p>
+		<div id="stats3" class="collapse in">
+		  <div id="analysis_chart" style="width:auto; height:400px;"></div>
+		</div>
+		
 	</div>
 	
 </div>	

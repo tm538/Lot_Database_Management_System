@@ -1,0 +1,9 @@
+<div class="pagination-centered">
+	<%= button_tag( :class => "btn btn-success") do %>
+		Generate Lot Number <i class="icon-ok icon-white"></i>
+	<% end %>
+	<%= link_to dashboard_path, class: "btn btn-danger" do %>
+		Cancel <i class=" icon-remove icon-white"></i>
+	<% end %>
+	<%= render :partial => "layouts/hint", :locals => {:hint => "When samples prepopulate, additional submission buttons are displayed to speed up data entry."} %>
+</div>

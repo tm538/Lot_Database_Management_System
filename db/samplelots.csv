@@ -1,0 +1,9 @@
+Lot_Number,Client,Commercial,Client_Sample_ID,Sample_Type,Common_Name,Phylum,Class,Genus,Species,Sample_Form,Region,Site,Analysis_by,Isotopes,ZooMS,AAR,Lipid,DNA,Other_Analysis,Return_Sample,Returned,Return_Date,Archive_Box,Extra_Info,Created_by
+,4,FALSE,,1,1,p,c,g,s,sf,r,s,0,FALSE,FALSE,FALSE,FALSE,FALSE,LEGACY,ARCHIVE,NO,,,,0
+,4,TRUE,,1,1,p1,c1,g2,s2,sf2,r2,s2,0,FALSE,FALSE,FALSE,FALSE,FALSE,,ARCHIVE,NO,,,,0
+,4,TRUE,,2,3,p,c,g,s,sf,r,s,0,TRUE,FALSE,TRUE,TRUE,TRUE,,ARCHIVE,NO,,,,0
+,4,TRUE,,2,3,p1,c1,g2,s2,sf2,r2,s2,0,FALSE,FALSE,FALSE,FALSE,FALSE,,ARCHIVE,NO,,,,0
+,4,TRUE,,1,1,p,c,g,s,sf,r,s,0,FALSE,FALSE,FALSE,FALSE,FALSE,LEGACY,ARCHIVE,NO,,,,0
+,4,TRUE,,1,1,p1,c1,g2,s2,sf2,r2,s2,0,FALSE,FALSE,FALSE,FALSE,FALSE,,ARCHIVE,NO,,,,0
+,4,TRUE,,2,3,p,c,g,s,sf,r,s,0,TRUE,FALSE,TRUE,TRUE,TRUE,,ARCHIVE,NO,,,,0
+,4,TRUE,,2,3,p1,c1,g2,s2,sf2,r2,s2,0,FALSE,FALSE,FALSE,FALSE,FALSE,,ARCHIVE,NO,,,,0

@@ -1,0 +1,61 @@
+<% provide(:title, 'New Batch') %>
+<h1>New Batch</h1>
+
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_for(@batch, :html => { :class => "form-horizontal"}) do |f| %>
+	  <%= render 'shared/error_messages', object: f.object %>
+	  
+	  <div class="control-group required">
+      	<%= f.label :name, "Description", :class => "control-label" %>
+      	<div class="controls">
+      		<%= f.text_field :name %>
+      		<%= render :partial => "layouts/hint", :locals => {:hint => "A short identifer for this batch (used to quickly identify it)."} %>
+      	</div>
+      </div>
+      
+	  <div class="control-group required">
+	  	<%= f.label :client_id, "Client", :class => "control-label" %>	  	
+	  	<div class="controls">
+	  		<%= f.collection_select(:client_id, Client.all, :id, :org, prompt: true) %> 
+			<%= render :partial => "layouts/hint", :locals => {:hint => "Which Organisation sent the samples, for student samples the client is 'University of York'."} %>
+	  	</div>
+	  </div>
+	  
+	  <div class="control-group required">
+	  	<%= f.label :commercial, :class => "control-label" %>
+	  	<div class="controls">
+  			<%= f.select :commercial, options_for_select([["Non-Commercial", false], ["Commercial", true]], @batch.commercial), prompt: true %>
+			<%= render :partial => "layouts/hint", :locals => {:hint => "Is this a commercial peice of work?"} %>
+	  	</div>
+      </div> 
+	  
+  	  <div class="control-group required">
+	  	<%= f.label :restriction, "Allow access by:", :class => "control-label" %>
+	  	<div class="controls">
+  			<%= f.select :restriction, options_for_select([["Students and Staff", "All"], ["Staff Only", "Staff"]], @batch.restriction), prompt: true  %>
+			<%= render :partial => "layouts/hint", :locals => {:hint => "should access to this batch be restricted?"} %>
+	  	</div>
+	  </div> 
+	  	  
+	  <div class="control-group">
+	  	<%= f.label :extra, "Additional Infomation", :class => "control-label" %>
+	  	<div class="controls">
+      		<%= f.text_area :extra, :placeholder => "" %>
+      		<%= render :partial => "layouts/hint", :locals => {:hint => "Any additional infomation on this batch."} %>
+	    </div>
+	  </div>
+	  
+	  <div class="control-group">
+		<div class="controls">	
+      		<%= button_tag( :class => "btn btn-success") do %>
+  				Add batch <i class="icon-plus icon-white"></i>
+			<% end %>
+      		<%= link_to dashboard_path, class: "btn btn-danger" do %>
+				Cancel <i class=" icon-remove icon-white"></i>
+			<% end %>
+      	</div>
+      </div>
+	  <% end %>
+  </div>
+</div>

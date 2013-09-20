@@ -1,5 +1,6 @@
 class CommonnamesController < ApplicationController
-  before_action :staff_user, only: [:create, :new, :update, :show, :index, :destroy] 
+before_action :signed_in_user, only: [:edit, :index, :update, :show, :create, :destroy]
+before_action :staff_user, only: [:create, :new, :update, :show, :index, :destroy] 
     
   def show
       @commonname = Commonname.find(params[:id])

@@ -5,79 +5,69 @@
 <p>Search results are shown below click the column headers to sort by that column.</p>
 	
 <div id="results_info" class="collapse in">
-	<script  type="text/javascript" charset="UTF-8">
-     function drawTable() {
-       	var data = new google.visualization.DataTable();
-        data.addColumn('string', '');
-        data.addColumn('number', 'Lot #');
-        data.addColumn('string', 'Client');
-        data.addColumn('boolean', 'Commercial');
-        data.addColumn('string', 'Site');
-        data.addColumn('string', 'Biological Classification');
-		data.addColumn('string', 'Actions');
-		data.addRows([
-			<% @lots.each do |lot| %>
-				[
-				'<%= check_box_tag "lot_ids[]", lot.id %>', 
-				<%= lot.id.to_s %>, 
-				'<%= link_to Client.find(lot.client_id).org.to_s.humanize, client_path(lot.client_id) %>',
-				<%= lot.commercial %>,
-				'<%= lot.site %>',
-				'<%= lot.phylum.to_s + " " + lot.l_class.to_s + " " + lot.genus.to_s + " " + lot.species.to_s %>',
-				'<%= link_to edit_lot_path(lot) do %><i class="icon-edit"></i><% end %> <%= link_to lot_path(lot) do %><i class="icon-time"></i><% end %>'
-				],
-			<% end %>			
-      	]);
-      	
-      	function rm_google_classes() {
-      	var className = 'google-visualization-table-table';
-		$('.'+className).removeClass(className);
-		
-		var className = 'google-visualization-table-th';
-		$('.'+className).removeClass(className);
-		
-		var className = 'google-visualization-table-tr-head';
-		$('.'+className).removeClass(className);
-		
-		var className = 'google-visualization-table-tr-odd';
-		$('.'+className).removeClass(className);
-		
-		var className = 'google-visualization-table-tr-even';
-		$('.'+className).removeClass(className); 
-		
-		var className = 'google-visualization-table-td';
-		$('.'+className).removeClass(className);  
-		
-		var className = 'google-visualization-table-td-number';
-		$('.'+className).removeClass(className);  
-		
-		var className = 'google-visualization-table-td-bool';
-		$('.'+className).removeClass(className);  
-		
-		$("#gtable-results table").addClass("table table-condensed"); 
-      	}
-      	
-	    var table = new google.visualization.Table(document.getElementById('gtable-results'));
-	    table.draw(data, {allowHtml: true});
-	    rm_google_classes();
-		
-	    google.visualization.events.addListener(table , 'sort',
-	    function(event) {
-	      rm_google_classes();
-	    });		
-	}
-      
-	function init () {
-    	$(document).on('page:load', drawTable);
-    	drawTable();
-	} 
+	<script>
 	
-	google.load('visualization', '1', {packages:['table'], callback: init});
+	$(function(){
+  		$("#tablesorted").tablesorter({
+  			sortList: [[1,0]],
+  			headers: {              
+            	0: { 
+                	sorter: false //select
+            	},
+            	6: {
+            		sorter: false //ations
+            	}
+           }
+        }
+  		);
+  		$('[rel=popover]').popover({ placement : 'right',
+  							   container: 'body',
+  							   trigger: 'hover'});
+  		$('[rel=popover]').on('click', function(e) {e.preventDefault(); return true;});
+		});
 	</script>
 	<%= form_tag edit_multiple_lots_path, method: :post do %>
-		<div id="gtable-results"></div>
+		
+		<table id="tablesorted" class="tablesorter table table-condensed">
+			 <thead>
+			 	<tr>
+			      <th></th>
+			      <th>Lot #</th>
+			      <th>Client</th>
+			      <th>Commercial</th>
+			      <th>Site</th>
+			      <th>Biological Classification</th>
+			      <th>Actions</th>
+			    </tr>
+			 </thead>
+			 <tbody> 
+				 <% @lots.each do |lot| %>
+				 	<tr>
+				 		<td><%= check_box_tag "lot_ids[]", lot.id %></td>
+				 		<td><%= lot.id.to_s %></td>
+				 		<td><%= link_to Client.find(lot.client_id).org.to_s.humanize, client_path(lot.client_id) %></td>
+				 		<td><%= lot.commercial ? "Yes" : "No" %></td>
+				 		<td><%= lot.site %></td>
+				 		<td><%= lot.phylum.to_s + " " + lot.l_class.to_s + " " + lot.genus.to_s + " " + lot.species.to_s %></td>
+				 		<td><%= link_to edit_lot_path(lot) do %>
+				 				<i class="icon-edit"></i> 
+				 			<% end %>
+				 			<%= link_to lot_path(lot) do %>
+				 				<i class="icon-time"></i> 
+				 			<% end %>
+				 			<%= render :partial => "searches/peak", :locals => {:peak => lot} %>
+				 		</td>
+				 	</tr>
+				 <% end %>
+			 </tbody>
+		</table>
+		
+		
 		<div class="keys">
 			<ul>
+				<li>
+					<i class="icon-eye-open"></i> Details
+				</li>
 				<li>
 					<i class="icon-time"></i> History
 				</li>
@@ -95,4 +85,5 @@
 		<% end %>
 		<%= render :partial => "layouts/hint", :locals => {:hint => "Make updates to multiple samples simultaneously, by selecting them above."} %>
 	<% end %>
+	
 </div>

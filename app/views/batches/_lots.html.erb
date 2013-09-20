@@ -1,0 +1,33 @@
+<div class="data-entry-header">    
+	<h2>Samples <a href="#lots" data-toggle="collapse" class="pull-right  icon-resize-vertical icon-white"></a>
+	</h2>
+</div>
+<p>All Samples added to this batch.</p>
+  
+<div id="lots" class="collapse in">
+	<% if lots.empty?%>
+		No samples are currently assigned to this batch.
+	<% else %>
+		<%= form_tag edit_multiple_lots_path, method: :post do %>
+			<table class="table table-condensed">
+				<tr>
+					<th></th>
+					<th>Lot #</th>
+					<th>Sample ID</th>
+				</tr>
+				<% lots.each do |lot| %>
+					<tr>
+						<td><%= check_box_tag "lot_ids[]", lot.id %></td>
+						<td><%= link_to lot.id, edit_lot_path(lot.id) %></td>
+						<td><%= lot.samp_id %></td>
+					</tr>
+				<% end %>
+			</table>
+			<%= content_tag( :button, :type => :submit, :class => "btn btn-warning") do %>
+   				Edit Selected 
+   				<i class="icon-edit icon-white"></i>
+			<% end %>
+			<%= render :partial => "layouts/hint", :locals => {:hint => "Make updates to multiple samples simultaneously, by selecting them above."} %>
+		<% end %>
+	<% end %>
+</div>

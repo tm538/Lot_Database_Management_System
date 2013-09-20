@@ -27,6 +27,10 @@ SampleApp::Application.routes.draw do
     
   resources :lot
   
+  resources :batches do
+    post 'savelot'
+  end
+  
   resources :commonnames
   
   resources :sampletypes
