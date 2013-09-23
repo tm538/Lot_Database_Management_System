@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130918114651) do
+ActiveRecord::Schema.define(version: 20130923133612) do
 
   create_table "batches", force: true do |t|
     t.string   "name"
@@ -38,6 +38,11 @@ ActiveRecord::Schema.define(version: 20130918114651) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "phylum"
+    t.string   "l_class"
+    t.string   "genus"
+    t.string   "species"
+    t.boolean  "hint"
   end
 
   create_table "genus", force: true do |t|

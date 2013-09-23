@@ -2,17 +2,27 @@
 <h1>All Common Names</h1>
 <h2>There are currently <%= Commonname.all.count %> common names stored in the LDMS.</h2>
 <div class="row">
-	<div class="span4 offset4">
+	<div class="span12 offset0">
 		<%= will_paginate %>
-		
+		<p>Taxonomic Classifications are displayed on the data entry screens when hint is enabled only.</p>
 		<table class="table">
 			<tr>
 				<th>Name</th>
+				<th>Phylum</th>
+				<th>Class</th>
+				<th>Genus</th>
+				<th>Species</th>
+				<th>Hint</th>
 				<th>Actions</th>
 			</tr>
 		  <% @commonnames.each do |commonname| %>
 			<tr>
 		      <td><%= link_to commonname.name, commonname %></td>
+		      <td><%= commonname.phylum %></td>
+		      <td><%= commonname.l_class %></td>
+		      <td><%= commonname.genus %></td>
+		      <td><%= commonname.species %></td>
+		      <td><i class="icon-<%= commonname.hint ? 'ok' : 'remove' %>"></i></td>
 		      <td>
 		      	<%= link_to  edit_commonname_path(commonname) do %>
 		      		<i class="icon-edit"></i>
@@ -36,7 +46,7 @@
 					</li>
 					<li>
 						<b>Key:</b>
-					</li>
+					</li> 
 				</ul>
 			</div>
 		<%= will_paginate %>

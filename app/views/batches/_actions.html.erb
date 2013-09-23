@@ -5,22 +5,29 @@
 <p>Actions related to this Batch.</p>
   
 <div id="actions" class="collapse in display-none">
-	<ul>
-		<% if !Lot.where(batch_id: @batch.id).empty? %>
+	<% if !Lot.where(batch_id: @batch.id).empty? %>
+		<ul>
 			<li>
-				<%= link_to edit_multiple_lots_path(:lot_ids => lots.map(&:id)), :method => :post do %>
-					<i class="icon-edit"></i>
-					Update batch samples
+				<%= form_tag edit_multiple_lots_path, method: :post do %>
+					<% lots.each do |lot| %>
+				    	<%= hidden_field_tag "lot_ids[]", lot.id %>
+				    <% end %>
+					<%= content_tag( :button, :type => :submit, :class => "link") do %>
+   						<i class="icon-edit"></i>
+   						Update batch samples 
+					<% end %>
 					<%= render :partial => "layouts/hint", :locals => {:hint => "Update all samples currently associated with this batch at the same time."} %>
 				<% end %>
 			</li>
-		<% end %>
-		<li>
-			<%= link_to batch_path(@batch, format: "csv") do %>
-				<i class="icon-download-alt"></i>
-				Download batch samples
-				<%= render :partial => "layouts/hint", :locals => {:hint => "Download details as a CSV for all samples currently associated with this batch."} %>
-			<% end %>
-		</li>
-	</ul>
+			<li>
+				<%= link_to batch_path(@batch, format: "csv") do %>
+					<i class="icon-download-alt"></i>
+					Download batch samples
+					<%= render :partial => "layouts/hint", :locals => {:hint => "Download details as a CSV for all samples currently associated with this batch."} %>
+				<% end %>
+			</li>
+		</ul>
+	<% else %>
+		<p>No actions are currently currently avalible for this batch.</p>	
+	<% end %>
 </div>

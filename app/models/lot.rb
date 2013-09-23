@@ -52,6 +52,7 @@ class Lot < ActiveRecord::Base
   validates :sample_form, presence: true
   validates :sampletype_id, presence: true
   validates :to_return, presence: true
+  validates :samp_id, presence: true
   
   has_paper_trail
 end

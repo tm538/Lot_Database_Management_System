@@ -24,9 +24,13 @@
 //= require_tree .
 
 var ready = function () {
-  $('[rel=tooltip]').tooltip({ placement : 'right',
-  							   container: 'body' });
+  $('[rel=tooltip]').tooltip({ container: 'body' });
   $('[rel=tooltip]').on('click', function(e) {e.preventDefault(); return true;});
+  
+  $('[rel=popover]').popover({ placement : 'right',
+  							   container: 'body'
+  							  });
+  $('[rel=popover]').on('click', function(e) {e.preventDefault(); return true;}); 
 };
 
 $(document).ready(ready);

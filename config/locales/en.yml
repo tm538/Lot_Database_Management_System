@@ -27,6 +27,7 @@ en:
         sampletype_id: "Sample type"
         commonname_id: "Common name"
         to_return: "Return sample?"
+        samp_id: "Sample / Artifact ID"
       batch: 
         name: "Batch description"
         restriction: "Allow access by?"

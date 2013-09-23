@@ -1,0 +1,47 @@
+  <div class="control-group required">
+  	<%= f.label :name, :class => "control-label" %>
+	<div class="controls">
+		<%= f.text_field :name %>
+		<%= render :partial => "layouts/hint", :locals => {:hint => "This field will be displayed as an 'Common Name' option when creating or updating samples."} %>
+	</div>
+  </div>
+  
+  <div class="control-group">
+  	<%= f.label :phylum, :class => "control-label" %>
+  	<div class="controls">	      		
+  		<%= f.autocomplete_field :phylum, autocomplete_phylum_name_lots_path, :placeholder => "Type for suggestions" %>
+  		<%= render :partial => "layouts/hint", :locals => {:hint => "Start Typing the first few letters for suggested values."} %>
+    </div>
+  </div>
+  
+  <div class="control-group">
+  	<%= f.label :l_class, "Class", :class => "control-label" %>
+  	<div class="controls">
+  		<%= f.autocomplete_field :l_class, autocomplete_l_class_name_lots_path, :placeholder => "Type for suggestions" %>
+    	<%= render :partial => "layouts/hint", :locals => {:hint => "Start Typing the first few letters for suggested values."} %>
+    </div>
+  </div>
+  
+  <div class="control-group">
+  	<%= f.label :genus, :class => "control-label" %>
+  	<div class="controls">
+ 		 <%= f.autocomplete_field :genus, autocomplete_genus_name_lots_path, :placeholder => "Type for suggestions" %>
+    	 <%= render :partial => "layouts/hint", :locals => {:hint => "Start Typing the first few letters for suggested values."} %>
+    </div>
+  </div>
+  
+  <div class="control-group">
+  	<%= f.label :species, :class => "control-label" %>
+  	<div class="controls">
+  		<%= f.autocomplete_field :species, autocomplete_species_name_lots_path, :placeholder => "Type for suggestions" %>
+    	<%= render :partial => "layouts/hint", :locals => {:hint => "Start Typing the first few letters for suggested values."} %>
+    </div>
+  </div>  
+  
+	  <div class="control-group">
+  	<%= f.label :hint, "Display hint", :class => "control-label" %>
+ 	<div class="controls">	
+  		<%= f.check_box :hint, {checked: @commonname.hint} %>
+  		<%= render :partial => "layouts/hint", :locals => {:hint => "Enabling hint will display the hint on the lot data entry screens."} %>
+    </div>
+  </div>

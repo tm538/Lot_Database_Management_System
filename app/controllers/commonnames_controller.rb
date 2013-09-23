@@ -1,4 +1,9 @@
 class CommonnamesController < ApplicationController
+autocomplete :phylum, :name
+autocomplete :l_class, :name
+autocomplete :genus, :name
+autocomplete :species, :name
+
 before_action :signed_in_user, only: [:edit, :index, :update, :show, :create, :destroy]
 before_action :staff_user, only: [:create, :new, :update, :show, :index, :destroy] 
     
@@ -7,7 +12,7 @@ before_action :staff_user, only: [:create, :new, :update, :show, :index, :destro
   end
   
   def index
-      @commonnames = Commonname.paginate(page: params[:page], :per_page => 30)
+      @commonnames = Commonname.paginate(page: params[:page], :per_page => 50)
   end
   
   def new
@@ -45,6 +50,6 @@ before_action :staff_user, only: [:create, :new, :update, :show, :index, :destro
   end
   
   def commonname_params
-      params.require(:commonname).permit(:name)
+      params.require(:commonname).permit(:name, :phylum, :l_class, :genus, :species, :hint)
     end
 end

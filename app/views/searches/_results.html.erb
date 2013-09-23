@@ -20,11 +20,7 @@
            }
         }
   		);
-  		$('[rel=popover]').popover({ placement : 'right',
-  							   container: 'body',
-  							   trigger: 'hover'});
-  		$('[rel=popover]').on('click', function(e) {e.preventDefault(); return true;});
-		});
+	});
 	</script>
 	<%= form_tag edit_multiple_lots_path, method: :post do %>
 		

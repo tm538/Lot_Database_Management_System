@@ -14,12 +14,12 @@
 	<div id="batches" class="collapse in">
 		<table class="table">
 		  <tr>
-		    <th>Organisation</th>
-		    <th>Description</th>
-		    <th>Extra Info</th>
-		    <th>Samples</th>
-		    <th>Created</th>
-		    <th>Options</th>
+		    <th><%= render :partial => "layouts/wordhint", :locals => {:word_hint => "Organisation", :hint => "The Organisation associated with this batch."} %></th>
+		    <th><%= render :partial => "layouts/wordhint", :locals => {:word_hint => "Description", :hint => "Batch Description."} %></th>
+		    <th><%= render :partial => "layouts/wordhint", :locals => {:word_hint => "Extra Info", :hint => "Any addtional infomation stored as part of this batch."} %></th>
+		    <th><%= render :partial => "layouts/wordhint", :locals => {:word_hint => "Samples", :hint => "The number of samples currently associated with this batch."} %></th>
+		    <th><%= render :partial => "layouts/wordhint", :locals => {:word_hint => "Created", :hint => "When was this batch created."} %></th>
+		    <th><%= render :partial => "layouts/wordhint", :locals => {:word_hint => "Options", :hint => "Options asscoiated with this batch, such as edit or download details."} %></th>
 		  </tr>
 		  <% @batches.each do |batch| %>
 		 		<tr>

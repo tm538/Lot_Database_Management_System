@@ -1,0 +1,21 @@
+<a href="#" rel="popover" data-html="true" data-original-title="<b>Common Taxonomic Classifications</b>" 
+	data-content="
+	<table class='table table-condensed'>
+		<tr>
+			<th></th>
+			<th>Phylum</th>
+			<th>Class</th>
+			<th>Genus</th>
+			<th>Species</th>
+		</tr>
+		<% Commonname.where(hint: true).each do |cn| %>
+			<tr>
+				<td><%= cn.name.humanize %></td>
+				<td><%= cn.phylum %></td>
+				<td><%= cn.l_class %></td>
+				<td><%= cn.genus %></td>
+				<td><%= cn.species %></td>
+			</tr>
+		<% end %>
+	</table>
+	">common taxonomic classifications</a>

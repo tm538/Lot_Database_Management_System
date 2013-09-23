@@ -2,11 +2,13 @@
 <h1>Generate a New Lot Number</h1>
 
 <div class="row">
-  <div class="span8 offset2">
+  <div class="span6 offset3">
     <%= form_for(@lot, :html => { :class => "form-horizontal" }) do |f| %>
 	  <%= render 'shared/error_messages', object: f.object %>
 
-	  <%= render :partial => 'lots/newform', :locals => { :f => f, :extra_btn => false } %>
+	  <%= render :partial => 'lots/form', :locals => { :f => f, :extra_btn => false, :collapse_in => true } %>
+	  
+  	  <%= render :partial => 'lots/batchsubmitbtns' %>
 	  
     <% end %>
   </div>

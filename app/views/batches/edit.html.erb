@@ -31,8 +31,10 @@
 			
 			<%= f.hidden_field :batch_id, :value => @batch.id %>
 			
-	  		<%= render :partial => 'lots/newform', :locals => { :f => f, :extra_btn => !@lots.empty? } %>
-				  
+	  		<%= render :partial => 'lots/form', :locals => { :f => f, :extra_btn => !@lots.empty?, :collapse_in => @lots.empty? } %>
+
+			<%= render :partial => 'lots/batchsubmitbtns' %>
+									  
     	<% end %>		  
 		</div>
 	</div>

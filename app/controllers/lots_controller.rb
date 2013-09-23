@@ -35,10 +35,10 @@ autocomplete :species, :name
     @lot.created_at = Time.now
     if @lot.save
       if @lot.batch_id.nil?
-        flash[:success] = "Lot number:" + @lot.id.to_s + ", sucessfully created."
+        flash[:success] = "Lot number: " + @lot.id.to_s + ", generated."
         redirect_to dashboard_path
       else
-        flash[:success] = "Lot number:" + @lot.id.to_s + ", sucessfully added to batch." 
+        flash[:success] = "Lot number: " + @lot.id.to_s + ", generated and added to batch." 
         redirect_to edit_batch_path(@lot.batch_id)
       end 
     else
@@ -86,12 +86,12 @@ autocomplete :species, :name
     end
     
     if @lot.update_attributes(attributes)
-      flash.now[:success] = "Lot number:" + @lot.id.to_s + ", updated"
+      flash[:success] = "Lot number:" + @lot.id.to_s + ", updated"
       redirect_to dashboard_path
     else
       @lot = Lot.find(params[:id])
       @user = User.find(@lot.data_entered_by)
-      flash.now[:error] = "Error Lot number:" + @lot.id.to_s + ", was not updated"
+      flash[:error] = "Error Lot number:" + @lot.id.to_s + ", was not updated"
       render 'edit'
     end
   end
