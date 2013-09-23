@@ -7,39 +7,15 @@
 	<table class="table">
 		<tr>
 			<th>Description</th>
-			<th>Client</th>
+			<th>User</th>
 			<th>Samples</th>
-			<th>Actions</th>
 		</tr>
 		<% Batch.where(:restriction => ['All', current_user.role]).order('id desc').limit(5).each do |batch| %>
 			<tr>
-				<td><%= link_to batch.name, edit_batch_path(batch) %></td>
-				<td><%= link_to Client.find(batch.client_id).org.humanize , client_path(Client.find(batch.client_id))%></td>
+				<td><%= link_to truncate(batch.name, :length => 20) + '..', edit_batch_path(batch) %></td>
+				<td><%= link_to User.find(batch.user_id).name.humanize , user_path(User.find(batch.user_id))%></td>
 				<td><%= Lot.where(batch_id: batch.id).count %></td>
-				<td>
-					<% if !Lot.where(batch_id: batch.id).empty? %>
-						<%= link_to batch_path(batch.id, format: "csv") do %>
-							<i class="icon-download-alt"></i> 
-						<% end %>
-					<% end %>
-		    		<%= link_to edit_batch_path(batch.id) do %>
-		    			<i class="icon-share"></i> 
-		    		<% end %>
-				</td>
 			</tr>
 		<% end %>
 	</table>
-	<div class="keys">
-		<ul>
-			<li>
-				<i class="icon-share"></i> Go to
-			</li>
-			<li>
-				<i class="icon-download-alt"></i> Download
-			</li>
-			<li>
-				<b>Key:</b>
-			</li>
-		</ul>
-	</div>
 </div>

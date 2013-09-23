@@ -1,6 +1,5 @@
 class BatchesController < ApplicationController
 before_action :signed_in_user, only: [:edit, :index, :update, :show, :create, :destroy]
-before_action :staff_user, only: [:create, :new, :update] 
 before_action :batch_restriction, only: [:edit, :update, :show]
     
   def show
@@ -17,7 +16,7 @@ before_action :batch_restriction, only: [:edit, :update, :show]
   end
   
   def new
-    @batch = Batch.new
+    @batch = Batch.new(:client_id => 1, :commercial => staff_user?, :restriction => 'All')
   end
   
   def create

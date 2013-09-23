@@ -1,0 +1,37 @@
+<div class="data-entry-header">
+	  <h2><i class="icon-star-empty icon-white"></i> My Recent Batches <a href="#my_batches" data-toggle="collapse" class="pull-right  icon-resize-vertical icon-white"></a>
+	  </h2>
+</div>
+<p>The last 5 batches you created.</p>
+
+<div id="my_batches" class="collapse in">
+	<% if !Batch.where(user_id: current_user.id).empty? %>
+		<table class="table table-hover">
+		<tr>
+			<th>Description</th>
+			<th>Client</th>
+			<th>Samples</th>
+			<th>Actions</th>
+		</tr>		
+		<% Batch.where(user_id: current_user.id).order('id desc').limit(5).each do |batch| %>
+		    <tr>
+				<td><%= link_to batch.name, edit_batch_path(batch) %></td>
+				<td><%= link_to Client.find(batch.client_id).org.humanize , client_path(Client.find(batch.client_id))%></td>
+				<td><%= Lot.where(batch_id: batch.id).count %></td>
+				<td>
+					<% if !Lot.where(batch_id: batch.id).empty? %>
+						<%= link_to batch_path(batch.id, format: "csv") do %>
+							<i class="icon-download-alt"></i> 
+						<% end %>
+					<% end %>
+		    		<%= link_to edit_batch_path(batch.id) do %>
+		    			<i class="icon-share"></i> 
+		    		<% end %>
+				</td>
+			</tr>
+		<% end %>		
+		</table>
+	<% else %>
+		<p>You have not created any batches yet.</p>
+	<% end %>
+</div>

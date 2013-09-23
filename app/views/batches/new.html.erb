@@ -14,29 +14,35 @@
       	</div>
       </div>
       
-	  <div class="control-group required">
-	  	<%= f.label :client_id, "Client", :class => "control-label" %>	  	
-	  	<div class="controls">
-	  		<%= f.collection_select(:client_id, Client.all, :id, :org, prompt: true) %> 
-			<%= render :partial => "layouts/hint", :locals => {:hint => "Which Organisation sent the samples, for student samples the client is 'University of York'."} %>
-	  	</div>
-	  </div>
-	  
-	  <div class="control-group required">
-	  	<%= f.label :commercial, :class => "control-label" %>
-	  	<div class="controls">
-  			<%= f.select :commercial, options_for_select([["Non-Commercial", false], ["Commercial", true]], @batch.commercial), prompt: true %>
-			<%= render :partial => "layouts/hint", :locals => {:hint => "Is this a commercial peice of work?"} %>
-	  	</div>
-      </div> 
-	  
-  	  <div class="control-group required">
-	  	<%= f.label :restriction, "Allow access by:", :class => "control-label" %>
-	  	<div class="controls">
-  			<%= f.select :restriction, options_for_select([["Students and Staff", "All"], ["Staff Only", "Staff"]], @batch.restriction), prompt: true  %>
-			<%= render :partial => "layouts/hint", :locals => {:hint => "should access to this batch be restricted?"} %>
-	  	</div>
-	  </div> 
+      <% if staff_user? %>
+		  <div class="control-group required">
+		  	<%= f.label :client_id, "Client", :class => "control-label" %>	  	
+		  	<div class="controls">
+		  		<%= f.collection_select(:client_id, Client.all, :id, :org, prompt: true) %> 
+				<%= render :partial => "layouts/hint", :locals => {:hint => "Which Organisation sent the samples, for student samples the client is 'University of York'."} %>
+		  	</div>
+		  </div>
+		  
+		  <div class="control-group required">
+		  	<%= f.label :commercial, :class => "control-label" %>
+		  	<div class="controls">
+	  			<%= f.select :commercial, options_for_select([["Non-Commercial", false], ["Commercial", true]], @batch.commercial), prompt: true %>
+				<%= render :partial => "layouts/hint", :locals => {:hint => "Is this a commercial peice of work?"} %>
+		  	</div>
+	      </div> 
+		  
+	  	  <div class="control-group required">
+		  	<%= f.label :restriction, "Allow access by:", :class => "control-label" %>
+		  	<div class="controls">
+	  			<%= f.select :restriction, options_for_select([["Students and Staff", "All"], ["Staff Only", "Staff"]], @batch.restriction), prompt: true  %>
+				<%= render :partial => "layouts/hint", :locals => {:hint => "should access to this batch be restricted?"} %>
+		  	</div>
+		  </div> 
+	  <% else %>
+	  	  <%= f.hidden_field :client_id %>
+		  <%= f.hidden_field :commercial %>
+		  <%= f.hidden_field :restriction %>
+	  <% end %>
 	  	  
 	  <div class="control-group">
 	  	<%= f.label :extra, "Additional Infomation", :class => "control-label" %>

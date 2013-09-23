@@ -70,8 +70,8 @@ namespace :import_csv do
           :client_id => row[1],
           :commercial => row[2],
           :samp_id => row[3],
-          :sampletype_id => row[4],
-          :commonname_id => row[5],
+          :sampletype_id => Sampletype.where(name: row[4]).id,
+          :commonname_id => commonname.where(name: row[5]).id,
           :phylum => row[6],          
           :l_class => row[7],
           :genus => row[8],
@@ -91,7 +91,7 @@ namespace :import_csv do
           :return_date => row[22],
           :archive_box => row[23],
           :extra_info => row[24],
-          :data_entered_by => row[25]
+          :data_entered_by => 0
         })
       end    
     end

@@ -6,14 +6,15 @@
 	<%= render 'dashboard/user' %>  	
 	<%= render 'dashboard/actions' %> 	
   	<%= render 'dashboard/recentsamples' %> 	
+  	<% if staff_user? %>
+		<%= render 'dashboard/batches' %>	
+	<% end %>	
   </div>
 
   <div class="span7 offset0">	
+  	<%= render 'searches/new' %>
 	<%= render 'dashboard/mylots' %>	
-	<%= render 'searches/new' %>
-	<% if staff_user? %>
-		<%= render 'dashboard/batches' %>	
-	<% end %>
+	<%= render 'dashboard/mybatches' %>
  </div>
 </div>
 
