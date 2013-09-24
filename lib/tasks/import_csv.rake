@@ -1,6 +1,20 @@
 require 'csv'
 
 namespace :import_csv do
+  
+    desc "import all"
+    task :import_all => [:environment] do
+      
+      Rake::Task['import_csv:import_users'].execute
+      Rake::Task['import_csv:import_clients'].execute
+      Rake::Task['import_csv:import_sampletypes'].execute
+      Rake::Task['import_csv:import_commonnames'].execute
+      Rake::Task['import_csv:import_phylum'].execute
+      Rake::Task['import_csv:import_genus'].execute
+      Rake::Task['import_csv:import_class'].execute
+      Rake::Task['import_csv:import_species'].execute
+    end
+      
     desc "Import Users from csv file"
     task :import_users => [:environment] do
     
@@ -54,7 +68,8 @@ namespace :import_csv do
           :contact_name => row[1],
           :email => row[2],
           :address => row[3],
-          :extra => row[4]
+          :extra => row[4],
+          :id => row[5]
         })
       end    
     end
@@ -64,34 +79,51 @@ namespace :import_csv do
     
       file = "db/lots.csv"
     
-      CSV.foreach(file, :headers => true) do |row|
+      Batch.create!({
+          :id => 0,
+          :name => 'Data Migration', 
+          :client_id => 0, 
+          :user_id => 0,
+          :restriction => 'All', 
+          :commercial => false, 
+          :extra => 'Data Migration from Legacy lot databse.'          
+        })
+    
+      CSV.foreach(file, :headers => true) do |row|        
+        @commonnames = Commonname.where(name: row[4])
+        @sampletypes = Sampletype.where(name: row[5])
+        
         Lot.create!({
           :id => row[0],          
-          :client_id => row[1],
+          :client_id => 0,
           :commercial => row[2],
           :samp_id => row[3],
-          :sampletype_id => Sampletype.where(name: row[4]).id,
-          :commonname_id => commonname.where(name: row[5]).id,
+          :sampletype_id => @sampletypes.first.id,
+          :commonname_id => @commonnames.first.id,
           :phylum => row[6],          
           :l_class => row[7],
           :genus => row[8],
           :species => row[9],
           :sample_form => row[10],
           :region => row[11],
-          :site => row[12],
-          :analysis_by => row[13],
-          :isotopes => row[14],
-          :zooms => row[15],
-          :aar => row[16],
-          :lipid => row[17],
-          :dna => row[18],
-          :analysis_other => row[19],
-          :to_return => row[20],
-          :returned => row[21],
-          :return_date => row[22],
-          :archive_box => row[23],
-          :extra_info => row[24],
-          :data_entered_by => 0
+          :town => row[12],
+          :site => row[13],
+          :analysis_by => 0,
+          :isotopes => row[15],
+          :zooms => row[16],
+          :aar => row[17],
+          :lipid => row[18],
+          :dna => row[19],
+          :analysis_other => row[20],
+          :to_return => row[21],
+          :returned => row[22],
+          :return_date => row[23],
+          :archive_box => row[24],
+          :extra_info => row[25],
+          :created_at => row[26],
+          :data_entered_by => 0,
+          :batch_id => 0,
+          :restriction => 'All'
         })
       end    
     end

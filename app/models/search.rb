@@ -1,66 +1,19 @@
 class Search < ActiveRecord::Base
-   
-   
+      
   def find_lots
-    Lot.where(conditions)
-  end
- 
-  private
- 
-  def site_conditions
-    ["lots.site LIKE ?", "%#{site}%"] unless site.blank?
-  end
-  
-  def phylum_conditions
-    ["lots.phylum LIKE ?", "%#{phylum}%"] unless phylum.blank?
-  end
-  
-  def class_conditions
-    ["lots.l_class LIKE ?", "%#{l_class}%"] unless l_class.blank?
-  end
-  
-  def genus_conditions
-    ["lots.genus LIKE ?", "%#{genus}%"] unless genus.blank?
-  end
-  
-  def species_conditions
-    ["lots.species LIKE ?", "%#{species}%"] unless species.blank?
-  end
-  
-  def from_conditions
-    ["lots.id >= ?", from] unless from.blank?
-  end
-  
-  def to_conditions
-    ["lots.id <= ?", to] unless to.blank?
-  end
-  
-  def id_conditions
-    ["lots.id = ?", lot] unless lot.blank?
-  end
-  
-  def client_conditions
-    ["lots.client_id = ?", client] unless client.blank?
-  end
-  
-  def client_conditions
-    ["lots.commercial = ?", com] unless com.blank?
-  end
-  
-  def conditions
-    [conditions_clauses.join(' AND '), *conditions_options]
-  end
-  
-  def conditions_clauses
-    conditions_parts.map { |condition| condition.first }
-  end
-  
-  def conditions_options
-    conditions_parts.map { |condition| condition[1..-1] }.flatten
-  end
-  
-  def conditions_parts
-    private_methods(false).grep(/_conditions$/).map { |m| send(m) }.compact
+    lots = Lot.order(:id)
+    lots = lots.where("id >= ?", from ) if from.present?
+    lots = lots.where("id <= ?", to ) if to.present?
+    lots = lots.where(id: lot) if lot.present?
+    lots = lots.where(client_id: client) if client.present?
+    lots = lots.where("samp_id like ?", "%#{samp_id}%") if samp_id.present?
+    lots = lots.where(commercial: com) if com.present?
+    lots = lots.where("site like ?", "%#{site}%") if site.present?
+    lots = lots.where("phylum like ?", "%#{phylum}%") if phylum.present?
+    lots = lots.where("genus like ?", "%#{genus}%") if genus.present?
+    lots = lots.where("l_class like ?", "%#{l_class}%") if l_class.present?
+    lots = lots.where("species like ?", "%#{species}%") if species.present?
+    lots
   end
   
 end

@@ -52,7 +52,7 @@ before_action :batch_restriction, only: [:edit, :update, :show]
   
   private
   def batch_params
-      params.require(:batch).permit(:name, :client_id, :restriction, :commercial, :extra)
+      params.require(:batch).permit(:id, :name, :client_id, :restriction, :commercial, :extra)
   end
   
   def lot_params

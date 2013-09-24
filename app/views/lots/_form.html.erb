@@ -133,7 +133,7 @@
 		  <div class="control-group required">
 		  	<%= f.label :to_return, "Return sample when finished?", :class => "control-label" %>
 		  	<div class="controls">
-		  		<%= f.select :to_return, options_for_select([["Yes", "YES"], ["No (destroy)", "NO"], ["Archive", "ARCHIVE"]]), prompt: true %>
+		  		<%= f.select :to_return, options_for_select([["Yes", "YES"], ["No (destroy)", "NO"], ["Archive", "ARCHIVE"]], @lot.to_return), prompt: true %>
 		  		<%= render :partial => "layouts/hint", :locals => {:hint => "What should happen to the sample once analysis is complete."} %>
 		    </div>
 		  </div>
@@ -180,20 +180,80 @@
 	  <p>Geographic Infomation about where the sample was taken from.</p>
 	  
 	  <div id="geo_info" class="collapse <%= collapse_in ? 'in' : '' %>">
+	  	  <p><strong>General Details:</strong></p>
 		  <div class="control-group">
 		  	<%= f.label :region, "Geographic region", :class => "control-label" %>
 		  	<div class="controls">
-	      		<%= f.text_field :region, :placeholder => "eg. North Yorks" %>
+	      		<%= f.text_field :region, :placeholder => "eg. North Yorkshire" %>
 	      		<%= render :partial => "layouts/hint", :locals => {:hint => "The area the sample came from."} %>
 		    </div>
 		  </div>
 	  
+	  	 <div class="control-group">
+		  	<%= f.label :town, "Nearest town", :class => "control-label" %>
+		  	<div class="controls">
+	      		<%= f.text_field :town, :placeholder => "eg. York" %>
+	      		<%= render :partial => "layouts/hint", :locals => {:hint => "The nearest town to which the sample came from."} %>
+		    </div>
+		  </div>
 	    	  
 		  <div class="control-group">
 		  	<%= f.label :site, "Archeological site", :class => "control-label" %>
 		  	<div class="controls">
-	      		<%= f.text_field :site, :placeholder => "eg. York - Heslington East" %>
+	      		<%= f.text_field :site, :placeholder => "eg. Heslington East" %>
 	      		<%= render :partial => "layouts/hint", :locals => {:hint => "The specific site the sample came from."} %>
+		    </div>
+		  </div>
+		  
+		  <p><strong>Specific Details:</strong></p>
+		  
+		  <div class="control-group">
+		  	<%= f.label :Latitude, :class => "control-label" %>
+		  	<div class="controls">
+	      		<%= f.text_field :Latitude %>
+	      		<%= render :partial => "layouts/hint", :locals => {:hint => "The latitude at the point the sample taken from."} %>
+		    </div>
+		  </div>
+		  
+		  <div class="control-group">
+		  	<%= f.label :Longitude, :class => "control-label" %>
+		  	<div class="controls">
+	      		<%= f.text_field :Longitude %>
+	      		<%= render :partial => "layouts/hint", :locals => {:hint => "The longitude at the point the sample taken from."} %>
+		    </div>
+		  </div>
+		  
+		  <p><strong>Parchment use only:</strong></p>
+		  
+		  <div class="control-group">
+		  	<%= f.label :county, :class => "control-label" %>
+		  	<div class="controls">
+	      		<%= f.text_field :county, :placeholder => "eg. Suffolk" %>
+	      		<%= render :partial => "layouts/hint", :locals => {:hint => "The county the parchment came from."} %>
+		    </div>
+		  </div>
+		  
+		  <div class="control-group">
+		  	<%= f.label :district, :class => "control-label" %>
+		  	<div class="controls">
+	      		<%= f.text_field :district, :placeholder => "eg. Forest Heath" %>
+	      		<%= render :partial => "layouts/hint", :locals => {:hint => "The district the parchment came from."} %>
+		    </div>
+		  </div>
+		  
+		  <div class="control-group">
+		  	<%= f.label :parish, :class => "control-label" %>
+		  	<div class="controls">
+	      		<%= f.text_field :parish, :placeholder => "eg. Cavenham" %>
+	      		<%= render :partial => "layouts/hint", :locals => {:hint => "The parish the parchment came from."} %>
+		    </div>
+		  </div>
+		  
+		  <div class="control-group">
+		  	<%= f.label :gisdataset, "GIS Dataset", :class => "control-label" %>
+		  	<div class="controls">
+	      		<%= f.text_field :gisdataset, :placeholder => "eg. Cavenham" %>
+	      		<%= render :partial => "layouts/hint", :locals => {:hint => "The dataset the County, District and Parish data was taken from."} %>
 		    </div>
 		  </div>
 		  
@@ -216,9 +276,10 @@
 		  			<%= f.collection_select(:analysis_by, User.all, :id, :name, prompt: true) %>
 		  		<% else %>
 		  			<% if !@lot.analysis_by %>
-		  				<%= f.select :analysis_by, options_for_select([[current_user.name.humanize, current_user.id]]) %>
+		  				<%= f.select :analysis_by, options_for_select([[current_user.name.humanize, current_user.id]], @lot.analysis_by) %>
 		  			<% else %>
 		  			    <%= f.collection_select(:analysis_by, User.all, :id, :name, {} ,{:disabled => "disabled"}) %>
+		  			    <%= f.hidden_field :analysis_by, :value => @lot.analysis_by %>
 		  			<% end %>
 		  		<% end %>
 		  		<%= render :partial => "layouts/hint", :locals => {:hint => "The student or member of staff who will be carrying out the analysis work."} %>

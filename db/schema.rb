@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130923133612) do
+ActiveRecord::Schema.define(version: 20130924112857) do
 
   create_table "batches", force: true do |t|
     t.string   "name"
@@ -88,6 +88,13 @@ ActiveRecord::Schema.define(version: 20130923133612) do
     t.string   "archive_box"
     t.integer  "batch_id"
     t.string   "restriction"
+    t.string   "town"
+    t.string   "Latitude"
+    t.string   "Longitude"
+    t.string   "county"
+    t.string   "district"
+    t.string   "parish"
+    t.string   "gisdataset"
   end
 
   add_index "lots", ["id"], name: "index_lots_on_id"

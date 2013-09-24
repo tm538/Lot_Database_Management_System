@@ -22,6 +22,7 @@ SampleApp::Application.routes.draw do
       post :edit_multiple
       put :update_multiple
       post :import
+      post :quick
     end
   end
     

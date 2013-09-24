@@ -102,6 +102,16 @@ autocomplete :species, :name
     redirect_to dashboard_path
   end
   
+  
+  def quick
+    if @lot = Lot.find_by_id(params[:id])
+      redirect_to edit_lot_path(@lot)
+    else
+      flash[:error] = "Lot number:" + params[:id].to_s + ", not found."
+      redirect_to dashboard_path
+    end 
+  end
+  
   private
 
     def lot_params
@@ -134,7 +144,14 @@ autocomplete :species, :name
                                   :archive_box,
                                   :return_date,
                                   :restriction,
-                                  :batch_id
+                                  :batch_id,
+                                  :town,
+                                  :Latitude,
+                                  :Longitude,
+                                  :county,
+                                  :district,
+                                  :parish,
+                                  :gisdataset
                                   )
     end
   

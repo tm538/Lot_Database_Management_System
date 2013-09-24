@@ -10,11 +10,6 @@
           	<% end %>
           </li>
         <% end %>
-          <li>
-          	<%= link_to help_path do %>
-          	<i class="icon-question-sign icon-white"></i> Help
-          	<% end %>
-          </li>
           <%if staff_user? %>
 			<li id="fat-menu" class="dropdown">
 			  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -96,6 +91,18 @@
                 </li>
               </ul>
             </li>
+            <li>
+	          	<div id="header-search">
+		        	<%= form_tag quick_lots_path, :class => "form-search", method: :post do %>
+		        	 <div class="input-append">
+		        		<%= text_field_tag :id, nil, :placeholder => "Lot #", :class => "input-mini search-query" %>
+		        		<%= button_tag(type: "submit", class: "btn") do %>
+		        			<i class="icon-search"></i>
+		        		<% end %>
+		        	 </div>
+		        	<% end %>
+	        	</div>
+        	</li>
           <% else %>
             <li><%= link_to "Sign in", signin_path %></li>
           <% end %>
