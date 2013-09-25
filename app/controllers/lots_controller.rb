@@ -14,7 +14,7 @@ autocomplete :species, :name
   end
   
   def new
-    @lot = Lot.new(:commercial => false, :restriction => "All", :client_id => 1, :created_at => Time.now)
+    @lot = Lot.new(:commercial => false, :restriction => "All", :client_id => 2, :created_at => Time.now)
     flash.now[:notice] = "Please complete all mandatory and relevent fields for this sample."
   end
   

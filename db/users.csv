@@ -1,4 +1,4 @@
-name,email,password,password_confirmation,admin,role,id
-Data Migration,data.migration@york.ac.uk,Password,Password,FALSE,Robot,0
+name,email,password,password_confirmation,admin,role
+Data Migration,data.migration@york.ac.uk,Password,Password,FALSE,Robot
 Admin,admin@york.ac.uk,Password,Password,TRUE,Staff
 Tim Munn,tm538@york.ac.uk,Password,Password,TRUE,Staff

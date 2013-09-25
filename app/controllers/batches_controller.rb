@@ -16,7 +16,7 @@ before_action :batch_restriction, only: [:edit, :update, :show]
   end
   
   def new
-    @batch = Batch.new(:client_id => 1, :commercial => staff_user?, :restriction => 'All')
+    @batch = Batch.new(:client_id => 2, :commercial => staff_user?, :restriction => 'All')
   end
   
   def create

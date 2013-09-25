@@ -27,8 +27,7 @@ namespace :import_csv do
           :password => row[2],
           :password_confirmation => row[3],
           :admin => row[4],
-          :role => row[5],
-          :id => row[6]
+          :role => row[5]
         })
       end    
     end
@@ -80,10 +79,9 @@ namespace :import_csv do
       file = "db/lots.csv"
     
       Batch.create!({
-          :id => 0,
           :name => 'Data Migration', 
-          :client_id => 0, 
-          :user_id => 0,
+          :client_id => 1, 
+          :user_id => 1,
           :restriction => 'All', 
           :commercial => false, 
           :extra => 'Data Migration from Legacy lot databse.'          
@@ -95,7 +93,7 @@ namespace :import_csv do
         
         Lot.create!({
           :id => row[0],          
-          :client_id => 0,
+          :client_id => 1,
           :commercial => row[2],
           :samp_id => row[3],
           :sampletype_id => @sampletypes.first.id,
@@ -121,8 +119,8 @@ namespace :import_csv do
           :archive_box => row[24],
           :extra_info => row[25],
           :created_at => row[26],
-          :data_entered_by => 0,
-          :batch_id => 0,
+          :data_entered_by => 1,
+          :batch_id => 1,
           :restriction => 'All'
         })
       end    
