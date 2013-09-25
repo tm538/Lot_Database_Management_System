@@ -13,9 +13,9 @@
 	</tr>		
 	<% PaperTrail::Version.order('id desc').limit(10).each do |v| %>
 	    <tr> 
-		    <td> <%= link_to v.item_id, edit_lot_path(v.item) %> </td>
+		    <td> <%= link_to v.item_id.to_s, edit_lot_path(v.item_id) %> </td>
 		    <td> <%= v.event.to_s.humanize %>d</td>
-		    <td> <%= link_to User.find(v.whodunnit.to_i).name.humanize, user_path(v.whodunnit) %></td>
+		    <td> <%= link_to User.find(v.whodunnit.to_i).name.humanize, user_path(v.whodunnit.to_i) %></td>
 		    <td> <%= time_ago_in_words(v.created_at) %> ago</td>
 	    </tr>	    
 	<% end %>		
