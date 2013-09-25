@@ -106,7 +106,7 @@ namespace :import_csv do
           :region => row[11],
           :town => row[12],
           :site => row[13],
-          :analysis_by => 0,
+          :analysis_by => 1,
           :isotopes => row[15],
           :zooms => row[16],
           :aar => row[17],
