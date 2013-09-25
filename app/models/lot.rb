@@ -8,7 +8,7 @@ class Lot < ActiveRecord::Base
   end
   
   def self.total_client_on(month, id)
-    where("date(created_at) >= ? AND date(created_at) < ? AND client_id == ? AND commercial == ?", month.beginning_of_month, month.end_of_month, id, true).count
+    where("date(created_at) >= ? AND date(created_at) < ? AND client_id = ? AND commercial = ?", month.beginning_of_month, month.end_of_month, id, true).count
   end
 
   def self.to_csv
