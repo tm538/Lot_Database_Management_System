@@ -104,11 +104,19 @@ autocomplete :species, :name
   
   
   def quick
-    if @lot = Lot.find_by_id(params[:id])
+    @lots = Lot.where(samp_id: params[:id])
+    if params[:id].empty?
+      flash[:error] = "Search Parameters empty please try again."
+    elsif @lot = Lot.find_by_id(params[:id])
       redirect_to edit_lot_path(@lot)
+    elsif @lots.count == 1
+      redirect_to edit_lot_path(@lots.first)    
+    elsif @lots.count > 1
+      flash[:error] = "Too many results found for search parameters " + params[:id].to_s + ". Please use full search feature."
+      redirect_back_or dashboard_path
     else
-      flash[:error] = "Lot number:" + params[:id].to_s + ", not found."
-      redirect_to dashboard_path
+      flash[:error] = "No lot number or sample ID found for search parameters " + params[:id].to_s + "."
+      redirect_back_or dashboard_path
     end 
   end
   
