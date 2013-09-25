@@ -77,7 +77,7 @@ namespace :import_csv do
     task :import_lots => [:environment] do
     
       file = "db/lots.csv"
-    
+      
       Batch.create!({
           :name => 'Data Migration', 
           :client_id => 1, 
@@ -122,7 +122,16 @@ namespace :import_csv do
           :data_entered_by => 1,
           :batch_id => 1,
           :restriction => 'All'
-        })
+        })        
+      end    
+    end
+
+    desc "Set Paper_trail whodunnit"
+    task :set_whodunnit => [:environment] do
+    
+      PaperTrail::Version.order('id desc').each do |v|
+        v.whodunnit=('1')
+        v.save
       end    
     end
     
