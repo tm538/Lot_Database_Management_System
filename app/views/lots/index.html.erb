@@ -36,10 +36,10 @@
 	      	<%= lot.samp_id.to_s %>
 	      </td>	
 	      <td>
-	      	<%= link_to User.find(lot.analysis_by.to_f).name.humanize, user_path(lot.analysis_by) %>
+	      	<%= link_to User.find(lot.analysis_by).name.humanize, user_path(lot.analysis_by) %>
 	      </td>
 	      <td>
-	      	<%= link_to User.find(lot.data_entered_by.to_f).name.humanize, user_path(lot.data_entered_by) %>
+	      	<%= link_to User.find(lot.data_entered_by).name.humanize, user_path(lot.data_entered_by) %>
 	      </td>	
 	      <td>
 	      	<%= link_to edit_lot_path(lot) do %><i class="icon-edit"></i><% end %> <%= link_to lot_path(lot) do %><i class="icon-time"></i><% end %>
